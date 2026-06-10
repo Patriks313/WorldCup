@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ===================  index.html  ·  PAGE VERSION v7  ·  10 Jun 2026  ·  World Cup Statistics  =================== -->
+<!-- ===================  index.html  ·  PAGE VERSION v8  ·  10 Jun 2026  ·  World Cup Statistics  =================== -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -80,6 +80,8 @@
   .ov tr.tot td .sub{color:var(--draw);opacity:.75}
   .ov td.yr{font-family:var(--mono);font-weight:500}
   .ov tr.tot td{color:var(--draw);font-weight:700;background:var(--surface2)}
+  .ov.favtbl{table-layout:auto}
+  .ov.favtbl td.win{color:var(--draw);font-weight:700;background:rgba(244,185,66,.12)}
 
   /* half-time -> full-time matrix */
   .mtx{width:100%;border-collapse:collapse}
@@ -218,6 +220,12 @@
           <tbody></tbody>
         </table>
       </div>
+    </div>
+
+    <div class="panel col12">
+      <h3>Letter-group game <span class="tag">Alla mina favoritlag · 90′ scoring</span></h3>
+      <p class="cap">Side game from the worksheet. A win adds 3 match-points to every letter in a team's FIFA code, a draw adds 1 (90′ only — extra time and penalties don't count). A group's score is the sum of its letters, so repeated letters double up (Uruguay's U into FIGU; Algeria's A and L both into ZALX). Highest score wins that World Cup. The 2026 column fills in automatically as results arrive.</p>
+      <div id="favWrap"></div>
     </div>
   </div>
 
@@ -473,7 +481,7 @@ function render(){
   applyLedger();
 
   document.getElementById('foot').textContent =
-    `Page v7  ·  Source: openfootball (public domain). ${DB.notes.verification} Data v${DB.data_version} · schema v${DB.schema_version}.`;
+    `Page v8  ·  Source: openfootball (public domain). ${DB.notes.verification} Data v${DB.data_version} · schema v${DB.schema_version}.`;
 }
 
 function applyLedger(){
@@ -505,6 +513,58 @@ function applyLedger(){
       <td class="num" style="color:var(--faint)">${after}</td>
     </tr>`;
   }).join('');
+}
+// ---- letter-group side game ("Alla mina favoritlag") ----
+const FIFA = {
+  'Algeria':'ALG','Argentina':'ARG','Australia':'AUS','Belgium':'BEL','Bosnia-Herzegovina':'BIH',
+  'Brazil':'BRA','Cameroon':'CMR','Chile':'CHI','Colombia':'COL','Costa Rica':'CRC',"Cote d'Ivoire":'CIV',
+  'Croatia':'CRO','Ecuador':'ECU','England':'ENG','France':'FRA','Germany':'GER','Ghana':'GHA','Greece':'GRE',
+  'Honduras':'HON','Iran':'IRN','Italy':'ITA','Japan':'JPN','Mexico':'MEX','Netherlands':'NED','Nigeria':'NGA',
+  'Portugal':'POR','Russia':'RUS','South Korea':'KOR','Spain':'ESP','Switzerland':'SUI','USA':'USA','Uruguay':'URU',
+  'Denmark':'DEN','Egypt':'EGY','Iceland':'ISL','Morocco':'MAR','Panama':'PAN','Peru':'PER','Poland':'POL',
+  'Saudi Arabia':'KSA','Senegal':'SEN','Serbia':'SRB','Sweden':'SWE','Tunisia':'TUN','Canada':'CAN','Qatar':'QAT','Wales':'WAL',
+  // likely 2026 debutants / others (best-guess names; extend when 2026 data lands)
+  'Austria':'AUT','Cape Verde':'CPV','Curacao':'CUW','Curaçao':'CUW','Czechia':'CZE','Czech Republic':'CZE',
+  'DR Congo':'COD','Haiti':'HAI','Iraq':'IRQ','Jordan':'JOR','New Zealand':'NZL','Norway':'NOR','Paraguay':'PAR',
+  'Scotland':'SCO','South Africa':'RSA','Turkey':'TUR','Türkiye':'TUR','Uzbekistan':'UZB'
+};
+const FAVGROUPS=[
+  {code:'ZALX', nick:'The hosts',    teams:'CAN · MEX · USA'},
+  {code:'DRYVH',nick:'Atlantica',    teams:'ARG · CIV · FRA'},
+  {code:'CMPTW',nick:'Go Iberia',    teams:'ESP · POR · SWE'},
+  {code:'FIGU', nick:'Uruguay!',     teams:'URU · ARG · URU'},
+  {code:'SEJK', nick:'Armad-a-illa', teams:'ENG · ESP · SWE'},
+  {code:'BONQ', nick:'WEST/BST',     teams:'POR · ENG · SCO'}
+];
+function buildFavTable(){
+  const years=[...new Set(DB.games.map(g=>g.world_cup))].sort((a,b)=>a-b);
+  if(!years.includes(2026)) years.push(2026);
+  const occ=(c,L)=> c? [...c].reduce((s,ch)=>s+(L.has(ch)?1:0),0) : 0;
+  const pts={}, unmapped=new Set();
+  years.forEach(y=>{ pts[y]={}; FAVGROUPS.forEach(fg=>pts[y][fg.code]=0); });
+  DB.games.forEach(g=>{
+    const y=g.world_cup; if(!(y in pts)) return;
+    const hc=FIFA[g.home], ac=FIFA[g.away];
+    if(!hc) unmapped.add(g.home); if(!ac) unmapped.add(g.away);
+    FAVGROUPS.forEach(fg=>{
+      const L=new Set(fg.code);
+      if(g.draw_after_90) pts[y][fg.code]+= occ(hc,L)+occ(ac,L);
+      else { const win=g.ft[0]>g.ft[1]?hc:ac; pts[y][fg.code]+= 3*occ(win,L); }
+    });
+  });
+  const hasGames={}, winner={};
+  years.forEach(y=>{ hasGames[y]=DB.games.some(g=>g.world_cup===y);
+    if(hasGames[y]){ let best=-1,bc=null; FAVGROUPS.forEach(fg=>{ if(pts[y][fg.code]>best){best=pts[y][fg.code];bc=fg.code;} }); winner[y]=bc; } });
+  const head=`<th>Contains</th><th>Code</th><th>Nickname</th>`+years.map(y=>`<th class="num">${y}</th>`).join('');
+  const rows=FAVGROUPS.map(fg=>{
+    const tds=years.map(y=> hasGames[y]
+      ? `<td class="num${winner[y]===fg.code?' win':''}">${pts[y][fg.code]}</td>`
+      : `<td class="num" style="color:var(--faint)">–</td>`).join('');
+    return `<tr><td>${fg.teams}</td><td class="yr">${fg.code}</td><td>${fg.nick}</td>${tds}</tr>`;
+  }).join('');
+  document.getElementById('favWrap').innerHTML =
+    `<table class="ov favtbl"><thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table>`+
+    (unmapped.size? `<p class="cap" style="margin-top:10px;color:var(--draw)">No FIFA code mapped for: ${[...unmapped].join(', ')} — add these to the code map.</p>`:'');
 }
 function buildOverview(){
   // Stage filter changes the numbers; World Cup filter does NOT touch this table.
@@ -548,6 +608,7 @@ async function boot(){
   }
   YEARS = DB.world_cups.map(w=>w.year).sort();
   computeRounds();
+  buildFavTable();
   const wcBtns = [['all','All']].concat(YEARS.map(y=>[String(y),String(y)]));
   document.getElementById('wcSeg').innerHTML =
     wcBtns.map(([v,l],i)=>`<button data-v="${v}" class="${i===0?'on':''}">${l}</button>`).join('');
