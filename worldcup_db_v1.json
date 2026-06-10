@@ -1,0 +1,3040 @@
+{
+  "schema_version": 1,
+  "notes": {
+    "betting_rule": "Results settled at 90 min + injury time. All draw stats use draw_after_90 only, never the 1/X/2 result.",
+    "game_no_continuous": "Provisional: ordered within 2022 only. Will be re-based once earlier World Cups are added (they precede 2022).",
+    "verification": "Every game's score was recomputed from its goals and matched the recorded score. 64/64 reconciled, 0 contradictions."
+  },
+  "world_cups": [
+    {
+      "year": 2022,
+      "host": "Qatar",
+      "games": 64
+    }
+  ],
+  "games": [
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 1,
+      "game_no_continuous": 1,
+      "stage": "group",
+      "round": "Matchday 1",
+      "date": "2022-11-20",
+      "home": "Qatar",
+      "away": "Ecuador",
+      "ft": [
+        0,
+        2
+      ],
+      "draw_after_90": false,
+      "result": "2",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "away",
+          "scorer": "Enner Valencia",
+          "minute": 16,
+          "offset": 0,
+          "display": "16",
+          "phase": "normal",
+          "penalty": true,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Enner Valencia",
+          "minute": 31,
+          "offset": 0,
+          "display": "31",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 2,
+      "game_no_continuous": 2,
+      "stage": "group",
+      "round": "Matchday 2",
+      "date": "2022-11-21",
+      "home": "Senegal",
+      "away": "Netherlands",
+      "ft": [
+        0,
+        2
+      ],
+      "draw_after_90": false,
+      "result": "2",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "away",
+          "scorer": "Cody Gakpo",
+          "minute": 84,
+          "offset": 0,
+          "display": "84",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Davy Klaassen",
+          "minute": 90,
+          "offset": 9,
+          "display": "90+9",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 3,
+      "game_no_continuous": 3,
+      "stage": "group",
+      "round": "Matchday 2",
+      "date": "2022-11-21",
+      "home": "England",
+      "away": "Iran",
+      "ft": [
+        6,
+        2
+      ],
+      "draw_after_90": false,
+      "result": "1",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Jude Bellingham",
+          "minute": 35,
+          "offset": 0,
+          "display": "35",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Bukayo Saka",
+          "minute": 43,
+          "offset": 0,
+          "display": "43",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Raheem Sterling",
+          "minute": 45,
+          "offset": 1,
+          "display": "45+1",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Bukayo Saka",
+          "minute": 62,
+          "offset": 0,
+          "display": "62",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Mehdi Taremi",
+          "minute": 65,
+          "offset": 0,
+          "display": "65",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Marcus Rashford",
+          "minute": 71,
+          "offset": 0,
+          "display": "71",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Jack Grealish",
+          "minute": 90,
+          "offset": 0,
+          "display": "90",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Mehdi Taremi",
+          "minute": 90,
+          "offset": 13,
+          "display": "90+13",
+          "phase": "normal",
+          "penalty": true,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 4,
+      "game_no_continuous": 4,
+      "stage": "group",
+      "round": "Matchday 2",
+      "date": "2022-11-21",
+      "home": "USA",
+      "away": "Wales",
+      "ft": [
+        1,
+        1
+      ],
+      "draw_after_90": true,
+      "result": "X",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Timothy Weah",
+          "minute": 36,
+          "offset": 0,
+          "display": "36",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Gareth Bale",
+          "minute": 82,
+          "offset": 0,
+          "display": "82",
+          "phase": "normal",
+          "penalty": true,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 5,
+      "game_no_continuous": 5,
+      "stage": "group",
+      "round": "Matchday 3",
+      "date": "2022-11-22",
+      "home": "Argentina",
+      "away": "Saudi Arabia",
+      "ft": [
+        1,
+        2
+      ],
+      "draw_after_90": false,
+      "result": "2",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Lionel Messi",
+          "minute": 10,
+          "offset": 0,
+          "display": "10",
+          "phase": "normal",
+          "penalty": true,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Saleh Al Shehri",
+          "minute": 48,
+          "offset": 0,
+          "display": "48",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Salem Al Dawsari",
+          "minute": 53,
+          "offset": 0,
+          "display": "53",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 6,
+      "game_no_continuous": 6,
+      "stage": "group",
+      "round": "Matchday 3",
+      "date": "2022-11-22",
+      "home": "Mexico",
+      "away": "Poland",
+      "ft": [
+        0,
+        0
+      ],
+      "draw_after_90": true,
+      "result": "X",
+      "et": null,
+      "pens": null,
+      "goals": []
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 7,
+      "game_no_continuous": 7,
+      "stage": "group",
+      "round": "Matchday 3",
+      "date": "2022-11-22",
+      "home": "Denmark",
+      "away": "Tunisia",
+      "ft": [
+        0,
+        0
+      ],
+      "draw_after_90": true,
+      "result": "X",
+      "et": null,
+      "pens": null,
+      "goals": []
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 8,
+      "game_no_continuous": 8,
+      "stage": "group",
+      "round": "Matchday 3",
+      "date": "2022-11-22",
+      "home": "France",
+      "away": "Australia",
+      "ft": [
+        4,
+        1
+      ],
+      "draw_after_90": false,
+      "result": "1",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "away",
+          "scorer": "Craig Goodwin",
+          "minute": 9,
+          "offset": 0,
+          "display": "9",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Adrien Rabiot",
+          "minute": 27,
+          "offset": 0,
+          "display": "27",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Olivier Giroud",
+          "minute": 32,
+          "offset": 0,
+          "display": "32",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Kylian Mbappe",
+          "minute": 68,
+          "offset": 0,
+          "display": "68",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Olivier Giroud",
+          "minute": 71,
+          "offset": 0,
+          "display": "71",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 9,
+      "game_no_continuous": 9,
+      "stage": "group",
+      "round": "Matchday 4",
+      "date": "2022-11-23",
+      "home": "Germany",
+      "away": "Japan",
+      "ft": [
+        1,
+        2
+      ],
+      "draw_after_90": false,
+      "result": "2",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Ilkay Gundogan",
+          "minute": 33,
+          "offset": 0,
+          "display": "33",
+          "phase": "normal",
+          "penalty": true,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Ritsu Doan",
+          "minute": 75,
+          "offset": 0,
+          "display": "75",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Takuma Asano",
+          "minute": 83,
+          "offset": 0,
+          "display": "83",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 10,
+      "game_no_continuous": 10,
+      "stage": "group",
+      "round": "Matchday 4",
+      "date": "2022-11-23",
+      "home": "Spain",
+      "away": "Costa Rica",
+      "ft": [
+        7,
+        0
+      ],
+      "draw_after_90": false,
+      "result": "1",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Dani Olmo",
+          "minute": 11,
+          "offset": 0,
+          "display": "11",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Marco Asensio",
+          "minute": 21,
+          "offset": 0,
+          "display": "21",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Ferran Torres",
+          "minute": 31,
+          "offset": 0,
+          "display": "31",
+          "phase": "normal",
+          "penalty": true,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Ferran Torres",
+          "minute": 54,
+          "offset": 0,
+          "display": "54",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Gavi",
+          "minute": 74,
+          "offset": 0,
+          "display": "74",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Carlos Soler",
+          "minute": 90,
+          "offset": 0,
+          "display": "90",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Alvaro Morata",
+          "minute": 90,
+          "offset": 2,
+          "display": "90+2",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 11,
+      "game_no_continuous": 11,
+      "stage": "group",
+      "round": "Matchday 4",
+      "date": "2022-11-23",
+      "home": "Morocco",
+      "away": "Croatia",
+      "ft": [
+        0,
+        0
+      ],
+      "draw_after_90": true,
+      "result": "X",
+      "et": null,
+      "pens": null,
+      "goals": []
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 12,
+      "game_no_continuous": 12,
+      "stage": "group",
+      "round": "Matchday 4",
+      "date": "2022-11-23",
+      "home": "Belgium",
+      "away": "Canada",
+      "ft": [
+        1,
+        0
+      ],
+      "draw_after_90": false,
+      "result": "1",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Michy Batshuayi",
+          "minute": 44,
+          "offset": 0,
+          "display": "44",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 13,
+      "game_no_continuous": 13,
+      "stage": "group",
+      "round": "Matchday 5",
+      "date": "2022-11-24",
+      "home": "Switzerland",
+      "away": "Cameroon",
+      "ft": [
+        1,
+        0
+      ],
+      "draw_after_90": false,
+      "result": "1",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Breel Embolo",
+          "minute": 48,
+          "offset": 0,
+          "display": "48",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 14,
+      "game_no_continuous": 14,
+      "stage": "group",
+      "round": "Matchday 5",
+      "date": "2022-11-24",
+      "home": "Brazil",
+      "away": "Serbia",
+      "ft": [
+        2,
+        0
+      ],
+      "draw_after_90": false,
+      "result": "1",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Richarlison",
+          "minute": 62,
+          "offset": 0,
+          "display": "62",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Richarlison",
+          "minute": 73,
+          "offset": 0,
+          "display": "73",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 15,
+      "game_no_continuous": 15,
+      "stage": "group",
+      "round": "Matchday 5",
+      "date": "2022-11-24",
+      "home": "Uruguay",
+      "away": "South Korea",
+      "ft": [
+        0,
+        0
+      ],
+      "draw_after_90": true,
+      "result": "X",
+      "et": null,
+      "pens": null,
+      "goals": []
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 16,
+      "game_no_continuous": 16,
+      "stage": "group",
+      "round": "Matchday 5",
+      "date": "2022-11-24",
+      "home": "Portugal",
+      "away": "Ghana",
+      "ft": [
+        3,
+        2
+      ],
+      "draw_after_90": false,
+      "result": "1",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Cristiano Ronaldo",
+          "minute": 65,
+          "offset": 0,
+          "display": "65",
+          "phase": "normal",
+          "penalty": true,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Andre Ayew",
+          "minute": 73,
+          "offset": 0,
+          "display": "73",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Joao Felix",
+          "minute": 78,
+          "offset": 0,
+          "display": "78",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Rafael Leao",
+          "minute": 80,
+          "offset": 0,
+          "display": "80",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Osman Bukari",
+          "minute": 89,
+          "offset": 0,
+          "display": "89",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 17,
+      "game_no_continuous": 17,
+      "stage": "group",
+      "round": "Matchday 6",
+      "date": "2022-11-25",
+      "home": "Qatar",
+      "away": "Senegal",
+      "ft": [
+        1,
+        3
+      ],
+      "draw_after_90": false,
+      "result": "2",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "away",
+          "scorer": "Boulaye Dia",
+          "minute": 41,
+          "offset": 0,
+          "display": "41",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Famara Diedhiou",
+          "minute": 48,
+          "offset": 0,
+          "display": "48",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Mohammed Muntari",
+          "minute": 78,
+          "offset": 0,
+          "display": "78",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Bamba Dieng",
+          "minute": 84,
+          "offset": 0,
+          "display": "84",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 18,
+      "game_no_continuous": 18,
+      "stage": "group",
+      "round": "Matchday 6",
+      "date": "2022-11-25",
+      "home": "Netherlands",
+      "away": "Ecuador",
+      "ft": [
+        1,
+        1
+      ],
+      "draw_after_90": true,
+      "result": "X",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Cody Gakpo",
+          "minute": 6,
+          "offset": 0,
+          "display": "6",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Enner Valencia",
+          "minute": 49,
+          "offset": 0,
+          "display": "49",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 19,
+      "game_no_continuous": 19,
+      "stage": "group",
+      "round": "Matchday 6",
+      "date": "2022-11-25",
+      "home": "Wales",
+      "away": "Iran",
+      "ft": [
+        0,
+        2
+      ],
+      "draw_after_90": false,
+      "result": "2",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "away",
+          "scorer": "Roozbeh Cheshmi",
+          "minute": 90,
+          "offset": 8,
+          "display": "90+8",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Ramin Rezaeian",
+          "minute": 90,
+          "offset": 11,
+          "display": "90+11",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 20,
+      "game_no_continuous": 20,
+      "stage": "group",
+      "round": "Matchday 6",
+      "date": "2022-11-25",
+      "home": "England",
+      "away": "USA",
+      "ft": [
+        0,
+        0
+      ],
+      "draw_after_90": true,
+      "result": "X",
+      "et": null,
+      "pens": null,
+      "goals": []
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 21,
+      "game_no_continuous": 21,
+      "stage": "group",
+      "round": "Matchday 7",
+      "date": "2022-11-26",
+      "home": "Poland",
+      "away": "Saudi Arabia",
+      "ft": [
+        2,
+        0
+      ],
+      "draw_after_90": false,
+      "result": "1",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Piotr Zielinski",
+          "minute": 39,
+          "offset": 0,
+          "display": "39",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Robert Lewandowski",
+          "minute": 82,
+          "offset": 0,
+          "display": "82",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 22,
+      "game_no_continuous": 22,
+      "stage": "group",
+      "round": "Matchday 7",
+      "date": "2022-11-26",
+      "home": "Argentina",
+      "away": "Mexico",
+      "ft": [
+        2,
+        0
+      ],
+      "draw_after_90": false,
+      "result": "1",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Lionel Messi",
+          "minute": 64,
+          "offset": 0,
+          "display": "64",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Enzo Fernandez",
+          "minute": 87,
+          "offset": 0,
+          "display": "87",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 23,
+      "game_no_continuous": 23,
+      "stage": "group",
+      "round": "Matchday 7",
+      "date": "2022-11-26",
+      "home": "Tunisia",
+      "away": "Australia",
+      "ft": [
+        0,
+        1
+      ],
+      "draw_after_90": false,
+      "result": "2",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "away",
+          "scorer": "Mitchell Duke",
+          "minute": 23,
+          "offset": 0,
+          "display": "23",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 24,
+      "game_no_continuous": 24,
+      "stage": "group",
+      "round": "Matchday 7",
+      "date": "2022-11-26",
+      "home": "France",
+      "away": "Denmark",
+      "ft": [
+        2,
+        1
+      ],
+      "draw_after_90": false,
+      "result": "1",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Kylian Mbappe",
+          "minute": 61,
+          "offset": 0,
+          "display": "61",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Andreas Christensen",
+          "minute": 68,
+          "offset": 0,
+          "display": "68",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Kylian Mbappe",
+          "minute": 86,
+          "offset": 0,
+          "display": "86",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 25,
+      "game_no_continuous": 25,
+      "stage": "group",
+      "round": "Matchday 8",
+      "date": "2022-11-27",
+      "home": "Japan",
+      "away": "Costa Rica",
+      "ft": [
+        0,
+        1
+      ],
+      "draw_after_90": false,
+      "result": "2",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "away",
+          "scorer": "Keysher Fuller",
+          "minute": 81,
+          "offset": 0,
+          "display": "81",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 26,
+      "game_no_continuous": 26,
+      "stage": "group",
+      "round": "Matchday 8",
+      "date": "2022-11-27",
+      "home": "Spain",
+      "away": "Germany",
+      "ft": [
+        1,
+        1
+      ],
+      "draw_after_90": true,
+      "result": "X",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Alvaro Morata",
+          "minute": 62,
+          "offset": 0,
+          "display": "62",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Niclas Fullkrug",
+          "minute": 83,
+          "offset": 0,
+          "display": "83",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 27,
+      "game_no_continuous": 27,
+      "stage": "group",
+      "round": "Matchday 8",
+      "date": "2022-11-27",
+      "home": "Belgium",
+      "away": "Morocco",
+      "ft": [
+        0,
+        2
+      ],
+      "draw_after_90": false,
+      "result": "2",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "away",
+          "scorer": "Romain Saiss",
+          "minute": 73,
+          "offset": 0,
+          "display": "73",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Zakaria Aboukhlal",
+          "minute": 90,
+          "offset": 2,
+          "display": "90+2",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 28,
+      "game_no_continuous": 28,
+      "stage": "group",
+      "round": "Matchday 8",
+      "date": "2022-11-27",
+      "home": "Croatia",
+      "away": "Canada",
+      "ft": [
+        4,
+        1
+      ],
+      "draw_after_90": false,
+      "result": "1",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "away",
+          "scorer": "Alphonso Davies",
+          "minute": 2,
+          "offset": 0,
+          "display": "2",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Andrej Kramaric",
+          "minute": 36,
+          "offset": 0,
+          "display": "36",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Marko Livaja",
+          "minute": 44,
+          "offset": 0,
+          "display": "44",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Andrej Kramaric",
+          "minute": 70,
+          "offset": 0,
+          "display": "70",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Lovro Majer",
+          "minute": 90,
+          "offset": 4,
+          "display": "90+4",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 29,
+      "game_no_continuous": 29,
+      "stage": "group",
+      "round": "Matchday 9",
+      "date": "2022-11-28",
+      "home": "Cameroon",
+      "away": "Serbia",
+      "ft": [
+        3,
+        3
+      ],
+      "draw_after_90": true,
+      "result": "X",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Jean-Charles Castelletto",
+          "minute": 29,
+          "offset": 0,
+          "display": "29",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Strahinja Pavlovic",
+          "minute": 45,
+          "offset": 1,
+          "display": "45+1",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Sergej Milinkovic-Savic",
+          "minute": 45,
+          "offset": 3,
+          "display": "45+3",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Aleksandar Mitrovic",
+          "minute": 53,
+          "offset": 0,
+          "display": "53",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Vincent Aboubakar",
+          "minute": 63,
+          "offset": 0,
+          "display": "63",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Jean-Eric Choupo-Moting",
+          "minute": 66,
+          "offset": 0,
+          "display": "66",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 30,
+      "game_no_continuous": 30,
+      "stage": "group",
+      "round": "Matchday 9",
+      "date": "2022-11-28",
+      "home": "Brazil",
+      "away": "Switzerland",
+      "ft": [
+        1,
+        0
+      ],
+      "draw_after_90": false,
+      "result": "1",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Casemiro",
+          "minute": 83,
+          "offset": 0,
+          "display": "83",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 31,
+      "game_no_continuous": 31,
+      "stage": "group",
+      "round": "Matchday 9",
+      "date": "2022-11-28",
+      "home": "South Korea",
+      "away": "Ghana",
+      "ft": [
+        2,
+        3
+      ],
+      "draw_after_90": false,
+      "result": "2",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "away",
+          "scorer": "Mohammed Salisu",
+          "minute": 24,
+          "offset": 0,
+          "display": "24",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Mohammed Kudus",
+          "minute": 34,
+          "offset": 0,
+          "display": "34",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Cho Gue-sung",
+          "minute": 58,
+          "offset": 0,
+          "display": "58",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Cho Gue-sung",
+          "minute": 61,
+          "offset": 0,
+          "display": "61",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Mohammed Kudus",
+          "minute": 68,
+          "offset": 0,
+          "display": "68",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 32,
+      "game_no_continuous": 32,
+      "stage": "group",
+      "round": "Matchday 9",
+      "date": "2022-11-28",
+      "home": "Portugal",
+      "away": "Uruguay",
+      "ft": [
+        2,
+        0
+      ],
+      "draw_after_90": false,
+      "result": "1",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Bruno Fernandes",
+          "minute": 54,
+          "offset": 0,
+          "display": "54",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Bruno Fernandes",
+          "minute": 90,
+          "offset": 3,
+          "display": "90+3",
+          "phase": "normal",
+          "penalty": true,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 33,
+      "game_no_continuous": 33,
+      "stage": "group",
+      "round": "Matchday 10",
+      "date": "2022-11-29",
+      "home": "Ecuador",
+      "away": "Senegal",
+      "ft": [
+        1,
+        2
+      ],
+      "draw_after_90": false,
+      "result": "2",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "away",
+          "scorer": "Ismaila Sarr",
+          "minute": 44,
+          "offset": 0,
+          "display": "44",
+          "phase": "normal",
+          "penalty": true,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Moises Caicedo",
+          "minute": 67,
+          "offset": 0,
+          "display": "67",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Koulibaly",
+          "minute": 70,
+          "offset": 0,
+          "display": "70",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 34,
+      "game_no_continuous": 34,
+      "stage": "group",
+      "round": "Matchday 10",
+      "date": "2022-11-29",
+      "home": "Netherlands",
+      "away": "Qatar",
+      "ft": [
+        2,
+        0
+      ],
+      "draw_after_90": false,
+      "result": "1",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Cody Gakpo",
+          "minute": 26,
+          "offset": 0,
+          "display": "26",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Frenkie de Jong",
+          "minute": 49,
+          "offset": 0,
+          "display": "49",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 35,
+      "game_no_continuous": 35,
+      "stage": "group",
+      "round": "Matchday 10",
+      "date": "2022-11-29",
+      "home": "Wales",
+      "away": "England",
+      "ft": [
+        0,
+        3
+      ],
+      "draw_after_90": false,
+      "result": "2",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "away",
+          "scorer": "Rashford",
+          "minute": 50,
+          "offset": 0,
+          "display": "50",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Foden",
+          "minute": 51,
+          "offset": 0,
+          "display": "51",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Rashford",
+          "minute": 68,
+          "offset": 0,
+          "display": "68",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 36,
+      "game_no_continuous": 36,
+      "stage": "group",
+      "round": "Matchday 10",
+      "date": "2022-11-29",
+      "home": "Iran",
+      "away": "USA",
+      "ft": [
+        0,
+        1
+      ],
+      "draw_after_90": false,
+      "result": "2",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "away",
+          "scorer": "Pulisic",
+          "minute": 38,
+          "offset": 0,
+          "display": "38",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 37,
+      "game_no_continuous": 37,
+      "stage": "group",
+      "round": "Matchday 11",
+      "date": "2022-11-30",
+      "home": "Poland",
+      "away": "Argentina",
+      "ft": [
+        0,
+        2
+      ],
+      "draw_after_90": false,
+      "result": "2",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "away",
+          "scorer": "Mac Allister",
+          "minute": 46,
+          "offset": 0,
+          "display": "46",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Julian Alvarez",
+          "minute": 67,
+          "offset": 0,
+          "display": "67",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 38,
+      "game_no_continuous": 38,
+      "stage": "group",
+      "round": "Matchday 11",
+      "date": "2022-11-30",
+      "home": "Saudi Arabia",
+      "away": "Mexico",
+      "ft": [
+        1,
+        2
+      ],
+      "draw_after_90": false,
+      "result": "2",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "away",
+          "scorer": "Henry Martin",
+          "minute": 47,
+          "offset": 0,
+          "display": "47",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Luis Chavez",
+          "minute": 52,
+          "offset": 0,
+          "display": "52",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Salem Al Dawasari",
+          "minute": 90,
+          "offset": 5,
+          "display": "90+5",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 39,
+      "game_no_continuous": 39,
+      "stage": "group",
+      "round": "Matchday 11",
+      "date": "2022-11-30",
+      "home": "Australia",
+      "away": "Denmark",
+      "ft": [
+        1,
+        0
+      ],
+      "draw_after_90": false,
+      "result": "1",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Mathew Leckie",
+          "minute": 60,
+          "offset": 0,
+          "display": "60",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 40,
+      "game_no_continuous": 40,
+      "stage": "group",
+      "round": "Matchday 11",
+      "date": "2022-11-30",
+      "home": "Tunisia",
+      "away": "France",
+      "ft": [
+        1,
+        0
+      ],
+      "draw_after_90": false,
+      "result": "1",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Wahbi Khazri",
+          "minute": 58,
+          "offset": 0,
+          "display": "58",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 41,
+      "game_no_continuous": 41,
+      "stage": "group",
+      "round": "Matchday 12",
+      "date": "2022-12-01",
+      "home": "Japan",
+      "away": "Spain",
+      "ft": [
+        2,
+        1
+      ],
+      "draw_after_90": false,
+      "result": "1",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "away",
+          "scorer": "Alvaro Morata",
+          "minute": 11,
+          "offset": 0,
+          "display": "11",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Ritsu Doan",
+          "minute": 48,
+          "offset": 0,
+          "display": "48",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Ao Tanaka",
+          "minute": 51,
+          "offset": 0,
+          "display": "51",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 42,
+      "game_no_continuous": 42,
+      "stage": "group",
+      "round": "Matchday 12",
+      "date": "2022-12-01",
+      "home": "Costa Rica",
+      "away": "Germany",
+      "ft": [
+        2,
+        4
+      ],
+      "draw_after_90": false,
+      "result": "2",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "away",
+          "scorer": "Serge Gnabry",
+          "minute": 10,
+          "offset": 0,
+          "display": "10",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Yeltsin Tejeda",
+          "minute": 58,
+          "offset": 0,
+          "display": "58",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Juan Vargas",
+          "minute": 70,
+          "offset": 0,
+          "display": "70",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Kai Lukas Havertz",
+          "minute": 73,
+          "offset": 0,
+          "display": "73",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Kai Lukas Havertz",
+          "minute": 85,
+          "offset": 0,
+          "display": "85",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Niclas Fullkrug",
+          "minute": 89,
+          "offset": 0,
+          "display": "89",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 43,
+      "game_no_continuous": 43,
+      "stage": "group",
+      "round": "Matchday 12",
+      "date": "2022-12-01",
+      "home": "Croatia",
+      "away": "Belgium",
+      "ft": [
+        0,
+        0
+      ],
+      "draw_after_90": true,
+      "result": "X",
+      "et": null,
+      "pens": null,
+      "goals": []
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 44,
+      "game_no_continuous": 44,
+      "stage": "group",
+      "round": "Matchday 12",
+      "date": "2022-12-01",
+      "home": "Canada",
+      "away": "Morocco",
+      "ft": [
+        1,
+        2
+      ],
+      "draw_after_90": false,
+      "result": "2",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "away",
+          "scorer": "Hakim Ziyech",
+          "minute": 4,
+          "offset": 0,
+          "display": "4",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Youssef En-Nesyri",
+          "minute": 23,
+          "offset": 0,
+          "display": "23",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Nayef Aguerd",
+          "minute": 40,
+          "offset": 0,
+          "display": "40",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": true
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 45,
+      "game_no_continuous": 45,
+      "stage": "group",
+      "round": "Matchday 13",
+      "date": "2022-12-02",
+      "home": "Serbia",
+      "away": "Switzerland",
+      "ft": [
+        2,
+        3
+      ],
+      "draw_after_90": false,
+      "result": "2",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "away",
+          "scorer": "Xherdan Shaqiri",
+          "minute": 20,
+          "offset": 0,
+          "display": "20",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Aleksandar Mitrovic",
+          "minute": 26,
+          "offset": 0,
+          "display": "26",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Dusan Vlahovic",
+          "minute": 35,
+          "offset": 0,
+          "display": "35",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Breel Embolo",
+          "minute": 44,
+          "offset": 0,
+          "display": "44",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Freuler",
+          "minute": 48,
+          "offset": 0,
+          "display": "48",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 46,
+      "game_no_continuous": 46,
+      "stage": "group",
+      "round": "Matchday 13",
+      "date": "2022-12-02",
+      "home": "Cameroon",
+      "away": "Brazil",
+      "ft": [
+        1,
+        0
+      ],
+      "draw_after_90": false,
+      "result": "1",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Vincent Aboubakar",
+          "minute": 90,
+          "offset": 2,
+          "display": "90+2",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 47,
+      "game_no_continuous": 47,
+      "stage": "group",
+      "round": "Matchday 13",
+      "date": "2022-12-02",
+      "home": "Ghana",
+      "away": "Uruguay",
+      "ft": [
+        0,
+        2
+      ],
+      "draw_after_90": false,
+      "result": "2",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "away",
+          "scorer": "Giorgian De Arrascaeta",
+          "minute": 26,
+          "offset": 0,
+          "display": "26",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Giorgian De Arrascaeta",
+          "minute": 32,
+          "offset": 0,
+          "display": "32",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 48,
+      "game_no_continuous": 48,
+      "stage": "group",
+      "round": "Matchday 13",
+      "date": "2022-12-02",
+      "home": "South Korea",
+      "away": "Portugal",
+      "ft": [
+        2,
+        1
+      ],
+      "draw_after_90": false,
+      "result": "1",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "away",
+          "scorer": "Ricardo Horta",
+          "minute": 5,
+          "offset": 0,
+          "display": "5",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Kim Young-gwon",
+          "minute": 27,
+          "offset": 0,
+          "display": "27",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Hwang Hee-chan",
+          "minute": 90,
+          "offset": 1,
+          "display": "90+1",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 49,
+      "game_no_continuous": 49,
+      "stage": "knockout",
+      "round": "Round of 16",
+      "date": "2022-12-03",
+      "home": "Netherlands",
+      "away": "USA",
+      "ft": [
+        3,
+        1
+      ],
+      "draw_after_90": false,
+      "result": "1",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Memphis Depay",
+          "minute": 10,
+          "offset": 0,
+          "display": "10",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Daley Blind",
+          "minute": 45,
+          "offset": 1,
+          "display": "45+1",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Haji Wright",
+          "minute": 76,
+          "offset": 0,
+          "display": "76",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Denzel Dumfries",
+          "minute": 81,
+          "offset": 0,
+          "display": "81",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 50,
+      "game_no_continuous": 50,
+      "stage": "knockout",
+      "round": "Round of 16",
+      "date": "2022-12-03",
+      "home": "Argentina",
+      "away": "Australia",
+      "ft": [
+        2,
+        1
+      ],
+      "draw_after_90": false,
+      "result": "1",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Lionel Messi",
+          "minute": 35,
+          "offset": 0,
+          "display": "35",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Julian Alvarez",
+          "minute": 57,
+          "offset": 0,
+          "display": "57",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Enzo Fernandez",
+          "minute": 77,
+          "offset": 0,
+          "display": "77",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": true
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 51,
+      "game_no_continuous": 51,
+      "stage": "knockout",
+      "round": "Round of 16",
+      "date": "2022-12-04",
+      "home": "France",
+      "away": "Poland",
+      "ft": [
+        3,
+        1
+      ],
+      "draw_after_90": false,
+      "result": "1",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Olivier Giroud",
+          "minute": 44,
+          "offset": 0,
+          "display": "44",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Mbappe",
+          "minute": 74,
+          "offset": 0,
+          "display": "74",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Mbappe",
+          "minute": 90,
+          "offset": 1,
+          "display": "90+1",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Robert Lewandowski",
+          "minute": 90,
+          "offset": 9,
+          "display": "90+9",
+          "phase": "normal",
+          "penalty": true,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 52,
+      "game_no_continuous": 52,
+      "stage": "knockout",
+      "round": "Round of 16",
+      "date": "2022-12-04",
+      "home": "England",
+      "away": "Senegal",
+      "ft": [
+        3,
+        0
+      ],
+      "draw_after_90": false,
+      "result": "1",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Jordan Henderson",
+          "minute": 38,
+          "offset": 0,
+          "display": "38",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Harry Kane",
+          "minute": 45,
+          "offset": 3,
+          "display": "45+3",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Bukayo Saka",
+          "minute": 57,
+          "offset": 0,
+          "display": "57",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 53,
+      "game_no_continuous": 53,
+      "stage": "knockout",
+      "round": "Round of 16",
+      "date": "2022-12-05",
+      "home": "Japan",
+      "away": "Croatia",
+      "ft": [
+        1,
+        1
+      ],
+      "draw_after_90": true,
+      "result": "2",
+      "et": [
+        1,
+        1
+      ],
+      "pens": [
+        1,
+        3
+      ],
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Daizen Maeda",
+          "minute": 43,
+          "offset": 0,
+          "display": "43",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Ivan Perisic",
+          "minute": 55,
+          "offset": 0,
+          "display": "55",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 54,
+      "game_no_continuous": 54,
+      "stage": "knockout",
+      "round": "Round of 16",
+      "date": "2022-12-05",
+      "home": "Brazil",
+      "away": "South Korea",
+      "ft": [
+        4,
+        1
+      ],
+      "draw_after_90": false,
+      "result": "1",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Vinicius Jr.",
+          "minute": 7,
+          "offset": 0,
+          "display": "7",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Neymar",
+          "minute": 13,
+          "offset": 0,
+          "display": "13",
+          "phase": "normal",
+          "penalty": true,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Richarlison",
+          "minute": 29,
+          "offset": 0,
+          "display": "29",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Lucas Paqueta",
+          "minute": 36,
+          "offset": 0,
+          "display": "36",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Paik Seung-ho",
+          "minute": 76,
+          "offset": 0,
+          "display": "76",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 55,
+      "game_no_continuous": 55,
+      "stage": "knockout",
+      "round": "Round of 16",
+      "date": "2022-12-06",
+      "home": "Morocco",
+      "away": "Spain",
+      "ft": [
+        0,
+        0
+      ],
+      "draw_after_90": true,
+      "result": "1",
+      "et": [
+        0,
+        0
+      ],
+      "pens": [
+        3,
+        0
+      ],
+      "goals": []
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 56,
+      "game_no_continuous": 56,
+      "stage": "knockout",
+      "round": "Round of 16",
+      "date": "2022-12-06",
+      "home": "Portugal",
+      "away": "Switzerland",
+      "ft": [
+        6,
+        1
+      ],
+      "draw_after_90": false,
+      "result": "1",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Goncalo Ramos",
+          "minute": 17,
+          "offset": 0,
+          "display": "17",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Pepe",
+          "minute": 33,
+          "offset": 0,
+          "display": "33",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Goncalo Ramos",
+          "minute": 51,
+          "offset": 0,
+          "display": "51",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Raphael Guerreiro",
+          "minute": 55,
+          "offset": 0,
+          "display": "55",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Manuel Akanji",
+          "minute": 58,
+          "offset": 0,
+          "display": "58",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Goncalo Ramos",
+          "minute": 67,
+          "offset": 0,
+          "display": "67",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Rafael Leao",
+          "minute": 90,
+          "offset": 2,
+          "display": "90+2",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 57,
+      "game_no_continuous": 57,
+      "stage": "knockout",
+      "round": "Quarter-finals",
+      "date": "2022-12-09",
+      "home": "Croatia",
+      "away": "Brazil",
+      "ft": [
+        0,
+        0
+      ],
+      "draw_after_90": true,
+      "result": "1",
+      "et": [
+        1,
+        1
+      ],
+      "pens": [
+        4,
+        2
+      ],
+      "goals": [
+        {
+          "team": "away",
+          "scorer": "Neymar",
+          "minute": 105,
+          "offset": 1,
+          "display": "105+1",
+          "phase": "extra_time",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Bruno Petkovic",
+          "minute": 117,
+          "offset": 0,
+          "display": "117",
+          "phase": "extra_time",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 58,
+      "game_no_continuous": 58,
+      "stage": "knockout",
+      "round": "Quarter-finals",
+      "date": "2022-12-09",
+      "home": "Netherlands",
+      "away": "Argentina",
+      "ft": [
+        2,
+        2
+      ],
+      "draw_after_90": true,
+      "result": "2",
+      "et": [
+        2,
+        2
+      ],
+      "pens": [
+        3,
+        4
+      ],
+      "goals": [
+        {
+          "team": "away",
+          "scorer": "Nahuel Molina",
+          "minute": 35,
+          "offset": 0,
+          "display": "35",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Lionel Messi",
+          "minute": 73,
+          "offset": 0,
+          "display": "73",
+          "phase": "normal",
+          "penalty": true,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Wout Weghorst",
+          "minute": 83,
+          "offset": 0,
+          "display": "83",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Wout Weghorst",
+          "minute": 90,
+          "offset": 11,
+          "display": "90+11",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 59,
+      "game_no_continuous": 59,
+      "stage": "knockout",
+      "round": "Quarter-finals",
+      "date": "2022-12-10",
+      "home": "Morocco",
+      "away": "Portugal",
+      "ft": [
+        1,
+        0
+      ],
+      "draw_after_90": false,
+      "result": "1",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Youssef En-Nesyri",
+          "minute": 42,
+          "offset": 0,
+          "display": "42",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 60,
+      "game_no_continuous": 60,
+      "stage": "knockout",
+      "round": "Quarter-finals",
+      "date": "2022-12-10",
+      "home": "England",
+      "away": "France",
+      "ft": [
+        1,
+        2
+      ],
+      "draw_after_90": false,
+      "result": "2",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "away",
+          "scorer": "Aurelien Tchouameni",
+          "minute": 17,
+          "offset": 0,
+          "display": "17",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Harry Kane",
+          "minute": 54,
+          "offset": 0,
+          "display": "54",
+          "phase": "normal",
+          "penalty": true,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Olivier Giroud",
+          "minute": 78,
+          "offset": 0,
+          "display": "78",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 61,
+      "game_no_continuous": 61,
+      "stage": "knockout",
+      "round": "Semi-finals",
+      "date": "2022-12-13",
+      "home": "Argentina",
+      "away": "Croatia",
+      "ft": [
+        3,
+        0
+      ],
+      "draw_after_90": false,
+      "result": "1",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Lionel Messi",
+          "minute": 34,
+          "offset": 0,
+          "display": "34",
+          "phase": "normal",
+          "penalty": true,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Julian Alvarez",
+          "minute": 39,
+          "offset": 0,
+          "display": "39",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Julian Alvarez",
+          "minute": 69,
+          "offset": 0,
+          "display": "69",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 62,
+      "game_no_continuous": 62,
+      "stage": "knockout",
+      "round": "Semi-finals",
+      "date": "2022-12-14",
+      "home": "France",
+      "away": "Morocco",
+      "ft": [
+        2,
+        0
+      ],
+      "draw_after_90": false,
+      "result": "1",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Theo Hernandez",
+          "minute": 5,
+          "offset": 0,
+          "display": "5",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Kolo Muani",
+          "minute": 79,
+          "offset": 0,
+          "display": "79",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 63,
+      "game_no_continuous": 63,
+      "stage": "knockout",
+      "round": "Match for third place",
+      "date": "2022-12-17",
+      "home": "Croatia",
+      "away": "Morocco",
+      "ft": [
+        2,
+        1
+      ],
+      "draw_after_90": false,
+      "result": "1",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Josko Gvardiol",
+          "minute": 7,
+          "offset": 0,
+          "display": "7",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Achraf Dari",
+          "minute": 9,
+          "offset": 0,
+          "display": "9",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Mislav Orsic",
+          "minute": 42,
+          "offset": 0,
+          "display": "42",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2022,
+      "game_no_in_wc": 64,
+      "game_no_continuous": 64,
+      "stage": "knockout",
+      "round": "Final",
+      "date": "2022-12-18",
+      "home": "Argentina",
+      "away": "France",
+      "ft": [
+        2,
+        2
+      ],
+      "draw_after_90": true,
+      "result": "1",
+      "et": [
+        3,
+        3
+      ],
+      "pens": [
+        4,
+        2
+      ],
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Lionel Messi",
+          "minute": 23,
+          "offset": 0,
+          "display": "23",
+          "phase": "normal",
+          "penalty": true,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Angel Di Maria",
+          "minute": 36,
+          "offset": 0,
+          "display": "36",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Kylian Mbappe",
+          "minute": 80,
+          "offset": 0,
+          "display": "80",
+          "phase": "normal",
+          "penalty": true,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Kylian Mbappe",
+          "minute": 81,
+          "offset": 0,
+          "display": "81",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Lionel Messi",
+          "minute": 108,
+          "offset": 0,
+          "display": "108",
+          "phase": "extra_time",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "away",
+          "scorer": "Kylian Mbappe",
+          "minute": 118,
+          "offset": 0,
+          "display": "118",
+          "phase": "extra_time",
+          "penalty": true,
+          "owngoal": false
+        }
+      ]
+    }
+  ]
+}
