@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ===================  index.html  ·  PAGE VERSION v1  ·  10 Jun 2026  ·  World Cup Draw Ledger  =================== -->
+<!-- ===================  index.html  ·  PAGE VERSION v2  ·  10 Jun 2026  ·  World Cup Draw Ledger  =================== -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -301,7 +301,7 @@ function render(){
   }).join('');
 
   document.getElementById('foot').textContent =
-    `Page v1  ·  Source: openfootball (public domain). ${DB.notes.verification} Data schema v${DB.schema_version}.`;
+    `Page v2  ·  Source: openfootball (public domain). ${DB.notes.verification} Data v${DB.data_version} · schema v${DB.schema_version}.`;
 }
 async function boot(){
   try{
