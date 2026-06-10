@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ===================  index.html  ·  PAGE VERSION v2  ·  10 Jun 2026  ·  World Cup Draw Ledger  =================== -->
+<!-- ===================  index.html  ·  PAGE VERSION v3  ·  10 Jun 2026  ·  World Cup Statistics  =================== -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -76,6 +76,35 @@
   .tag{font-family:var(--mono);font-size:10px;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
   .star{color:var(--draw)}
 
+  /* tournament overview table */
+  .ovwrap{max-width:1180px;margin:26px auto 0;padding:0 24px}
+  .ovwrap h2{font-size:15px;font-weight:600;margin:0 0 10px;letter-spacing:-.01em}
+  .ov{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .ov thead th{text-align:right;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);padding:13px 16px;border-bottom:1px solid var(--line);position:static;background:transparent}
+  .ov thead th:first-child{text-align:left}
+  .ov tbody td{padding:13px 16px;border-bottom:1px solid var(--line);white-space:nowrap}
+  .ov tbody tr:last-child td{border-bottom:0}
+  .ov tbody tr:hover{background:var(--surface2)}
+  .ov td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right}
+  .ov td .big{display:block;font-family:var(--mono);font-weight:700;font-size:17px;line-height:1.05}
+  .ov td .sub{display:block;font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:4px}
+  .ov tr.tot td .big{color:var(--draw)}
+  .ov tr.tot td .sub{color:var(--draw);opacity:.75}
+  .ov td.yr{font-family:var(--mono);font-weight:500}
+  .ov tr.tot td{color:var(--draw);font-weight:700;background:var(--surface2)}
+
+  /* half-time -> full-time matrix */
+  .mtx{width:100%;border-collapse:collapse}
+  .mtx th,.mtx td{padding:12px 12px;border:1px solid var(--line);text-align:center}
+  .mtx thead th{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);font-weight:500;position:static;background:transparent}
+  .mtx th.rowhdr{text-align:left;font-family:var(--disp);font-size:13px;color:var(--text);text-transform:none;letter-spacing:0;font-weight:500;white-space:nowrap}
+  .mtx td .big{display:block;font-family:var(--mono);font-weight:700;font-size:16px;line-height:1.05}
+  .mtx td .sub{display:block;font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:3px}
+  .mtx td.diag{background:rgba(244,185,66,.10)}
+  .mtx td.diag .big{color:var(--draw)}
+  .mtx td.tot{font-family:var(--mono);color:var(--faint);font-variant-numeric:tabular-nums}
+  .mtx .corner{background:transparent;border-color:transparent}
+
   .foot{max-width:1180px;margin:30px auto 0;padding:0 24px;color:var(--faint);font-size:12px;font-family:var(--mono);line-height:1.6}
   @media(max-width:860px){
     .board{grid-template-columns:repeat(2,1fr)}
@@ -85,9 +114,9 @@
 </head>
 <body>
 <header>
-  <p class="eyebrow">Draw Ledger · settled at 90′+ stoppage</p>
+  <p class="eyebrow">World Cup Statistics · settled at 90′+ stoppage</p>
   <h1>World Cup Betting Stats</h1>
-  <p class="sub">Every game and every goal, checked line by line. A draw means level at full time (90 minutes plus stoppage) — extra time and penalties don't change it.</p>
+  <p class="sub">Every game and every goal across the World Cups in the database, checked line by line. Results are settled at full time — 90 minutes plus stoppage; extra time and penalties don't change a draw.</p>
   <div class="controls">
     <div class="ctl">
       <label>World Cup</label>
@@ -103,6 +132,8 @@
     </div>
   </div>
 </header>
+
+<section class="ovwrap"><h2>All World Cups in the database</h2><div id="ovwrap"></div></section>
 
 <section class="board" id="board"></section>
 
@@ -145,6 +176,12 @@
       <h3>Stage comparison <span class="tag">group vs knockout · this World Cup</span></h3>
       <p class="cap">Draw rate by stage, always shown for both regardless of the stage filter above.</p>
       <div class="chartwrap"><canvas id="stageChart"></canvas></div>
+    </div>
+
+    <div class="panel col12">
+      <h3>Half-time result → full-time result</h3>
+      <p class="cap">Each row is the result at half-time (derived from goal minutes); the split shows how those games ended at full time — 90′, before extra time. Percentages are of that row. Follows the filters above. <span class="star">▦</span> = held the same result.</p>
+      <div id="htftWrap"></div>
     </div>
 
     <div class="panel col12">
@@ -283,6 +320,30 @@ function render(){
       scales:{x:{beginAtZero:true,grid:{color:C.line},border:{display:false},ticks:{callback:v=>v+'%'}},
               y:{grid:{display:false},border:{color:C.line}}}}});
 
+  // half-time -> full-time matrix (derived from goal minutes; follows filters)
+  const rcat=(h,a)=> h>a?'1':(h===a?'X':'2');
+  const mt={'1':{'1':0,'X':0,'2':0},'X':{'1':0,'X':0,'2':0},'2':{'1':0,'X':0,'2':0}};
+  G.forEach(g=>{
+    const fh=g.goals.filter(x=>x.team==='home' && x.minute<=45).length;
+    const fa=g.goals.filter(x=>x.team==='away' && x.minute<=45).length;
+    mt[rcat(fh,fa)][rcat(g.ft[0],g.ft[1])]++;
+  });
+  const rowLabel={'1':'Led at half-time (1)','X':'Level at half-time (X)','2':'Behind at half-time (2)'};
+  let mrows='';
+  ['1','X','2'].forEach(r=>{
+    const tot=mt[r]['1']+mt[r]['X']+mt[r]['2'];
+    let tds='';
+    ['1','X','2'].forEach(c=>{
+      const v=mt[r][c], p=tot?Math.round(100*v/tot):0;
+      tds+=`<td class="${r===c?'diag':''}"><span class="big">${v}</span><span class="sub">${tot?p+'%':'—'}</span></td>`;
+    });
+    mrows+=`<tr><th class="rowhdr">${rowLabel[r]}</th>${tds}<td class="tot">${tot}</td></tr>`;
+  });
+  document.getElementById('htftWrap').innerHTML =
+    `<table class="mtx"><thead><tr><th class="corner"></th>`+
+    `<th>Ended 1</th><th>Ended X</th><th>Ended 2</th><th>games</th></tr></thead>`+
+    `<tbody>${mrows}</tbody></table>`;
+
   // ledger table
   const tb=document.querySelector('#ledger tbody');
   tb.innerHTML = G.map(g=>{
@@ -301,7 +362,29 @@ function render(){
   }).join('');
 
   document.getElementById('foot').textContent =
-    `Page v2  ·  Source: openfootball (public domain). ${DB.notes.verification} Data v${DB.data_version} · schema v${DB.schema_version}.`;
+    `Page v3  ·  Source: openfootball (public domain). ${DB.notes.verification} Data v${DB.data_version} · schema v${DB.schema_version}.`;
+}
+function buildOverview(){
+  const years = DB.world_cups.map(w=>w.year).sort();
+  let body='', tN=0, tG=0, tD=0;
+  const cell=(big,sub)=>`<td class="num"><span class="big">${big}</span><span class="sub">${sub}</span></td>`;
+  years.forEach(y=>{
+    const gs = DB.games.filter(g=>g.world_cup===y);
+    const n = gs.length;
+    const goals = gs.reduce((s,g)=>s+g.goals.length,0);
+    const d = gs.filter(g=>g.draw_after_90).length;
+    tN+=n; tG+=goals; tD+=d;
+    body += `<tr><td class="yr">${y}</td><td class="num">${n}</td>`+
+            cell(goals, `${(goals/n).toFixed(2)} / game`)+
+            cell(d, `${(100*d/n).toFixed(1)}% of games`)+`</tr>`;
+  });
+  body += `<tr class="tot"><td>All</td><td class="num">${tN}</td>`+
+          cell(tG, `${(tG/tN).toFixed(2)} / game`)+
+          cell(tD, `${(100*tD/tN).toFixed(1)}% of games`)+`</tr>`;
+  document.getElementById('ovwrap').innerHTML =
+    `<table class="ov"><thead><tr>`+
+    `<th>World Cup</th><th>Games played</th><th>Goals scored</th><th>Draws</th>`+
+    `</tr></thead><tbody>${body}</tbody></table>`;
 }
 async function boot(){
   try{
@@ -320,6 +403,7 @@ async function boot(){
   const wcBtns = [['all','All']].concat(years.map(y=>[String(y),String(y)]));
   document.getElementById('wcSeg').innerHTML =
     wcBtns.map(([v,l],i)=>`<button data-v="${v}" class="${i===0?'on':''}">${l}</button>`).join('');
+  buildOverview();
   render();
 }
 boot();
