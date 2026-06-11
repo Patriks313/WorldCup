@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ===================  index.html  ·  PAGE VERSION v8  ·  10 Jun 2026  ·  World Cup Statistics  =================== -->
+<!-- ===================  index.html  ·  PAGE VERSION v9  ·  11 Jun 2026  ·  World Cup Statistics  =================== -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -96,6 +96,11 @@
   .mtx .corner{background:transparent;border-color:transparent}
   .mtx td,.mtx th.rowhdr,.mtx thead th[data-ft]{cursor:pointer}
   .mtx td:hover,.mtx th.rowhdr:hover,.mtx thead th[data-ft]:hover{background:rgba(244,185,66,.16)}
+  /* favourite-hold table: only band-total cells clickable; the grand total + All-row header are inert */
+  .mtx td.tot{cursor:default}
+  .mtx td.tot[data-gapband]{cursor:pointer}
+  .mtx th.rowhdr.inert{cursor:default}
+  .mtx th.rowhdr.inert:hover{background:transparent}
 
   /* drill-down banner */
   .drillbar{display:flex;align-items:center;gap:10px;margin:0 0 12px;padding:9px 12px;background:var(--surface2);border:1px solid var(--draw);border-radius:8px;font-family:var(--mono);font-size:12px;color:var(--text)}
@@ -203,6 +208,12 @@
     </div>
 
     <div class="panel col12">
+      <h3>Did the favourite hold? <span class="tag">by rank gap · settled at 90′</span></h3>
+      <p class="cap">Every game split by the gap in FIFA world ranking between the two sides (the favourite is the higher-ranked team). Each cell is the share of that band's games — favourite won, drawn, or upset — at full time (90′), with the game count beside it. Amber column = draws. Click any cell to filter the match ledger to those games. Needs rankings present, so 2026 is empty until games are played.</p>
+      <div id="favHoldWrap"></div>
+    </div>
+
+    <div class="panel col12">
       <h3>Half-time result → full-time result</h3>
       <p class="cap">Each row is the result at half-time (derived from goal minutes); the split shows how those games ended at full time — 90′, before extra time. Percentages are of that row. Follows the filters above. <span class="star">▦</span> = held the same result.</p>
       <div id="htftWrap"></div>
@@ -278,6 +289,24 @@ function htRes(g){
 }
 function ftRes(g){ return rcat(g.ft[0],g.ft[1]); }
 const HTNAME={'1':'Led at half-time (1)','X':'Level at half-time (X)','2':'Behind at half-time (2)'};
+
+// ---- favourite-hold engine (rank-gap analysis), settled at 90′ ----
+let RANK = {};                       // {year:{team:fifa_rank}} — built in boot()
+const FAVBANDS = ['1–15','16–28','29+'];
+const OCNAME = {fav:'Favourite won', draw:'Draw', upset:'Upset'};
+function teamRank(g,side){ const m=RANK[g.world_cup]; return m ? m[g[side]] : undefined; }
+function gapBand(g){                  // rank places between the two teams -> band
+  const rh=teamRank(g,'home'), ra=teamRank(g,'away');
+  if(rh==null||ra==null) return null;
+  const d=Math.abs(rh-ra);
+  return d<=15 ? '1–15' : (d<=28 ? '16–28' : '29+');
+}
+function favOutcome(g){               // fav win / draw / upset at 90′
+  const rh=teamRank(g,'home'), ra=teamRank(g,'away');
+  if(rh==null||ra==null) return null;
+  if(g.draw_after_90) return 'draw';
+  return (g.ft[0]>g.ft[1]) === (rh<ra) ? 'fav' : 'upset';   // home-won XNOR home-is-favourite
+}
 
 // ---- drill-down: a click anywhere clickable narrows the ledger to those games ----
 let drill = null;   // {label, test}
@@ -477,11 +506,14 @@ function render(){
     `<th data-ft="1">Ended 1</th><th data-ft="X">Ended X</th><th data-ft="2">Ended 2</th><th>games</th></tr></thead>`+
     `<tbody>${mrows}</tbody></table>`;
 
+  // ---- did the favourite hold? (rank-gap table; follows filters) ----
+  buildFavHold();
+
   // ---- ledger table (respects the active drill-down) ----
   applyLedger();
 
   document.getElementById('foot').textContent =
-    `Page v8  ·  Source: openfootball (public domain). ${DB.notes.verification} Data v${DB.data_version} · schema v${DB.schema_version}.`;
+    `Page v9  ·  Source: openfootball (public domain). ${DB.notes.verification} Data v${DB.data_version} · schema v${DB.schema_version}.`;
 }
 
 function applyLedger(){
@@ -566,6 +598,36 @@ function buildFavTable(){
     `<table class="ov favtbl"><thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table>`+
     (unmapped.size? `<p class="cap" style="margin-top:10px;color:var(--draw)">No FIFA code mapped for: ${[...unmapped].join(', ')} — add these to the code map.</p>`:'');
 }
+function buildFavHold(){
+  // Follows World Cup + Stage filters (via filtered()). Cells are clickable -> ledger drill-down.
+  const G = filtered();
+  const t={}; FAVBANDS.forEach(b=>t[b]={fav:0,draw:0,upset:0});
+  const all={fav:0,draw:0,upset:0};
+  G.forEach(g=>{ const b=gapBand(g); if(!b) return; const o=favOutcome(g); if(!o) return; t[b][o]++; all[o]++; });
+  const cell=(o,obj,gb)=>{
+    const n=obj.fav+obj.draw+obj.upset, v=obj[o];
+    const pct = n ? (100*v/n).toFixed(1)+'%' : '—';
+    const sub = n ? v+' game'+(v===1?'':'s') : '—';
+    return `<td data-outcome="${o}"${gb?` data-gapband="${gb}"`:''} class="${o==='draw'?'diag':''}">`+
+           `<span class="big">${pct}</span><span class="sub">${sub}</span></td>`;
+  };
+  let rows='';
+  FAVBANDS.forEach(b=>{
+    const obj=t[b], n=obj.fav+obj.draw+obj.upset;
+    rows+=`<tr><th class="rowhdr" data-gapband="${b}">${b}</th>`+
+          cell('fav',obj,b)+cell('draw',obj,b)+cell('upset',obj,b)+
+          `<td class="tot" data-gapband="${b}">${n}</td></tr>`;
+  });
+  const N=all.fav+all.draw+all.upset;
+  rows+=`<tr><th class="rowhdr inert">All gaps</th>`+
+        cell('fav',all,null)+cell('draw',all,null)+cell('upset',all,null)+
+        `<td class="tot">${N}</td></tr>`;
+  document.getElementById('favHoldWrap').innerHTML =
+    `<table class="mtx"><thead><tr>`+
+    `<th class="corner" style="text-align:left">Rank gap (places)</th>`+
+    `<th>Favourite won</th><th>Draw</th><th>Upset</th><th>Games</th>`+
+    `</tr></thead><tbody>${rows}</tbody></table>`;
+}
 function buildOverview(){
   // Stage filter changes the numbers; World Cup filter does NOT touch this table.
   const stageLabel = sel.stage==='all' ? '' : (sel.stage==='group' ? ' · Group stage only' : ' · Knockout only');
@@ -607,6 +669,8 @@ async function boot(){
     return;
   }
   YEARS = DB.world_cups.map(w=>w.year).sort();
+  RANK = {};
+  DB.world_cups.forEach(w=>{ RANK[w.year]={}; (w.teams||[]).forEach(tm=>{ RANK[w.year][tm.team]=tm.fifa_rank; }); });
   computeRounds();
   buildFavTable();
   const wcBtns = [['all','All']].concat(YEARS.map(y=>[String(y),String(y)]));
@@ -618,6 +682,15 @@ async function boot(){
     if(ht && ft)      setDrill(`HT ${ht} → FT ${ft}`, g=>htRes(g)===ht && ftRes(g)===ft);
     else if(ht)       setDrill(`Half-time: ${HTNAME[ht]}`, g=>htRes(g)===ht);
     else if(ft)       setDrill(`Full-time: ended ${ft}`, g=>ftRes(g)===ft);
+  });
+  document.getElementById('favHoldWrap').addEventListener('click', e=>{
+    const cell=e.target.closest('[data-gapband],[data-outcome]'); if(!cell) return;
+    const gb=cell.dataset.gapband||null, oc=cell.dataset.outcome||null;
+    if(!gb && !oc) return;
+    setDrill(`Rank gap ${gb||'any'} · ${oc?OCNAME[oc]:'all results'}`,
+      g=>{ const b=gapBand(g); if(!b) return false;
+           if(gb && b!==gb) return false;
+           if(oc && favOutcome(g)!==oc) return false; return true; });
   });
   render();
 }
