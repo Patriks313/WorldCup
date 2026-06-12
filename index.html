@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ===================  index.html  ·  PAGE VERSION v10  ·  12 Jun 2026  ·  World Cup Statistics  =================== -->
+<!-- ===================  index.html  ·  PAGE VERSION v11  ·  12 Jun 2026  ·  World Cup Statistics  =================== -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -157,59 +157,42 @@
 
     <div class="panel col6">
       <h3>What the draws were</h3>
-      <p class="cap">Scorelines of every game level at 90′.</p>
+      <p class="cap">Scorelines of every game level at 90′, as a share of that series' own draws. <b>2026</b> vs the <b>history</b> benchmark set by the World Cup filter.</p>
       <div class="chartwrap"><canvas id="scoreChart"></canvas></div>
     </div>
     <div class="panel col6">
       <h3>Draws by round</h3>
-      <p class="cap">How many games were level at 90′ in each round of the tournament. Group rounds are each team's 1st / 2nd / 3rd group game, so December and summer World Cups line up.</p>
+      <p class="cap">Draw rate in each round — games level at 90′ as a share of games played in that round. Group rounds are each team's 1st / 2nd / 3rd group game; all knockout rounds are pooled into one. <b>2026</b> vs the <b>history</b> benchmark.</p>
       <div class="chartwrap"><canvas id="roundChart"></canvas></div>
     </div>
 
-    <div class="panel col6">
+    <div class="panel col12">
       <h3>When goals are scored</h3>
-      <p class="cap">All goals by period. Stoppage time (45+ and 90+) and extra time are kept separate, not folded into the minute before.</p>
+      <p class="cap">All goals by period, as a share of that series' own goals. Stoppage time (45+ and 90+) and extra time are kept separate, not folded into the minute before. <b>2026</b> vs the <b>history</b> benchmark.</p>
       <div class="chartwrap"><canvas id="minChart"></canvas></div>
     </div>
-    <div class="panel col6">
-      <h3>When the draw breaks</h3>
-      <p class="cap">In games won by a single goal at 90′, the minute the draw was finally broken — the go-ahead goal that won it (the goal right after the last level score). Split by whether the game was still 0–0 or already level at 1–1 or higher. Use it to judge when a draw bet is most likely to hold.</p>
+
+    <div class="panel col12">
+      <h3>When the draw breaks <span class="tag">all years · locked</span></h3>
+      <p class="cap">In games won by a single goal at 90′, the minute the draw was finally broken — the go-ahead goal that won it (the goal right after the last level score). Split by whether the game was still 0–0 or already level at 1–1 or higher. <b>Locked to all years</b> — this panel ignores the filters (the stack is the point here, not a 2026 comparison).</p>
       <div class="chartwrap"><canvas id="breakChart"></canvas></div>
     </div>
 
     <div class="panel col12">
       <h3>Games by score</h3>
-      <p class="cap">Every game's full-time scoreline (90′). There's no real home side at a World Cup, so 2–1 and 1–2 are counted together. Amber bars are level scores (draws).</p>
-      <div class="chartwrap"><canvas id="scoreAllChart"></canvas></div>
-    </div>
-
-    <div class="panel col12">
-      <h3>Games by total goals</h3>
-      <p class="cap">Total goals in each game at full time (90′) — a 2–1 and a 3–0 both count as 3.</p>
-      <div class="chartwrap"><canvas id="totalGoalsChart"></canvas></div>
-    </div>
-
-    <div class="panel col12">
-      <h3>Games by score · share</h3>
-      <p class="cap">The scoreline distribution above, as a percentage of the games in view.</p>
+      <p class="cap">Full-time scoreline (90′), as a share of each series' own games. 2–1 and 1–2 are counted together (no real home side at a World Cup). Scorelines history has seen fewer than 3 times are pooled into <b>Other</b>. <b>2026</b> vs the <b>history</b> benchmark.</p>
       <div class="chartwrap"><canvas id="scoreAllPctChart"></canvas></div>
     </div>
 
     <div class="panel col12">
-      <h3>Games by total goals · share</h3>
-      <p class="cap">The total-goals distribution, as a percentage of the games in view.</p>
+      <h3>Games by total goals</h3>
+      <p class="cap">Total goals in each game at full time (90′) — a 2–1 and a 3–0 both count as 3 — as a share of each series' own games. <b>2026</b> vs the <b>history</b> benchmark.</p>
       <div class="chartwrap"><canvas id="totalGoalsPctChart"></canvas></div>
     </div>
 
     <div class="panel col12">
-      <h3>Stage comparison <span class="tag">group vs knockout · this World Cup</span></h3>
-      <p class="cap">Draw rate by stage, always shown for both regardless of the stage filter above.</p>
-      <div class="chartwrap"><canvas id="stageChart"></canvas></div>
-    </div>
-
-    <div class="panel col12">
       <h3>Did the favourite hold? <span class="tag">by rank gap · settled at 90′</span></h3>
-      <p class="cap">Every game split by the gap in FIFA world ranking between the two sides (the favourite is the higher-ranked team). Each cell is the share of that band's games — favourite won, drawn, or upset — at full time (90′), with the game count beside it. Amber column = draws. Click any cell to filter the match ledger to those games. Needs rankings present, so 2026 is empty until games are played.</p>
+      <p class="cap">Every game split by the gap in FIFA world ranking between the two sides (the favourite is the higher-ranked team). Each cell is the share of that band's games — favourite won, drawn, or upset — at full time (90′), with the game count beside it. Amber column = draws. Click any cell to filter the match ledger to those games. Follows the filters; 2026 is included in "All" and selectable on its own.</p>
       <div id="favHoldWrap"></div>
     </div>
 
@@ -381,6 +364,65 @@ const baseBar = (labels,data,colors,onClick,pct)=>({
                ticks: pct?{callback:v=>v+'%'}:{precision:0}}}}
 });
 
+// ====== 2026-vs-history comparison model ======
+// Bars compare two series: the always-on 2026 series, and a "history benchmark"
+// chosen by the World Cup filter. 2026 is never part of history. When the filter
+// is "all" or "2026", the benchmark is all history pooled; a specific past year
+// narrows it to that year. The Stage filter applies to both series.
+const stageOK = g => sel.stage==='all' || g.stage===sel.stage;
+function histGames(){
+  return DB.games.filter(g=>{
+    if(g.world_cup===2026) return false;                 // 2026 is its own series
+    if(!stageOK(g)) return false;
+    if(sel.wc==='all' || sel.wc==='2026') return true;   // pooled history
+    return String(g.world_cup)===sel.wc;                 // a single historical year
+  });
+}
+function cup2026(){ return DB.games.filter(g => g.world_cup===2026 && stageOK(g)); }
+function histLabel(){ return (sel.wc==='all'||sel.wc==='2026') ? 'History' : sel.wc; }
+
+// grouped two-series bar (History vs 2026)
+function compareBar(labels, histData, cupData, {pct=false, onClick=null}={}){
+  return {
+    type:'bar',
+    data:{labels, datasets:[
+      {label:histLabel(), data:histData, backgroundColor:C.home, borderRadius:4, maxBarThickness:34},
+      {label:'2026',       data:cupData,  backgroundColor:C.draw, borderRadius:4, maxBarThickness:34}
+    ]},
+    options:{
+      plugins:{legend:{display:true,position:'top',labels:{boxWidth:10,boxHeight:10,padding:12}},
+        tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${c.parsed.y}${pct?'%':''}`}}},
+      maintainAspectRatio:false, onClick,
+      scales:{x:{grid:{display:false},border:{color:C.line}},
+              y:{beginAtZero:true,grid:{color:C.line},border:{display:false},
+                 ticks: pct?{callback:v=>v+'%'}:{precision:0}}}}
+  };
+}
+
+// 4-round buckets for "draws by round": group rounds + one pooled Knockout
+const R4 = ['Grp 1','Grp 2','Grp 3','Knockout'];
+const r4 = g => (g._r8 && g._r8.startsWith('Grp')) ? g._r8 : 'Knockout';
+
+// "Games by score" buckets: orientation-collapsed scorelines history has seen >=3
+// times get their own bar; the rest fold into "Other". Computed ONCE from all
+// history (all stages), fixed for the session; recomputes only when data grows.
+let SCORE_BUCKETS = [];
+function computeScoreBuckets(){
+  const cnt={};
+  DB.games.filter(g=>g.world_cup!==2026).forEach(g=>{
+    const hi=Math.max(g.ft[0],g.ft[1]), lo=Math.min(g.ft[0],g.ft[1]);
+    const k=hi+'–'+lo; cnt[k]=(cnt[k]||0)+1;
+  });
+  SCORE_BUCKETS = Object.keys(cnt).filter(k=>cnt[k]>=3).sort((x,y)=>{
+    const [xh,xl]=x.split('–').map(Number),[yh,yl]=y.split('–').map(Number);
+    return (xh+xl)-(yh+yl) || xh-yh;
+  });
+}
+const scoreKey = g => {
+  const hi=Math.max(g.ft[0],g.ft[1]), lo=Math.min(g.ft[0],g.ft[1]); const k=hi+'–'+lo;
+  return SCORE_BUCKETS.includes(k) ? k : 'Other';
+};
+
 function render(){
   const G = filtered();
 
@@ -408,31 +450,46 @@ function render(){
       scales:{x:{grid:{display:false},border:{color:C.line},title:{display:true,text:'game number (within tournament)',color:C.muted}},
               y:{grid:{color:C.line},border:{display:false},ticks:{callback:v=>v+'%'}}}}});
 
-  // ---- what the draws were (scorelines) ----
-  const sc={}; G.filter(g=>g.draw_after_90).forEach(g=>{const k=g.ft[0]+'–'+g.ft[1]; sc[k]=(sc[k]||0)+1;});
-  const scKeys=Object.keys(sc).sort();
-  draw('scoreChart', baseBar(scKeys, scKeys.map(k=>sc[k]), scKeys.map(()=>C.draw),
-    (e,els)=>{ if(!els.length)return; const k=scKeys[els[0].index];
-      setDrill(`Draws · ${k}`, g=>g.draw_after_90 && (g.ft[0]+'–'+g.ft[1])===k); }));
+  // ---- what the draws were: scoreline share of own draws, History vs 2026 ----
+  const HDr=histGames().filter(g=>g.draw_after_90), CDr=cup2026().filter(g=>g.draw_after_90);
+  const scH={}, scC={};
+  HDr.forEach(g=>{const k=g.ft[0]+'–'+g.ft[1]; scH[k]=(scH[k]||0)+1;});
+  CDr.forEach(g=>{const k=g.ft[0]+'–'+g.ft[1]; scC[k]=(scC[k]||0)+1;});
+  const scKeys=[...new Set([...Object.keys(scH),...Object.keys(scC)])].sort((x,y)=>{
+    const [xh,xl]=x.split('–').map(Number),[yh,yl]=y.split('–').map(Number);
+    return (xh+xl)-(yh+yl) || xh-yh;
+  });
+  const nHDr=HDr.length||1, nCDr=CDr.length||1;
+  draw('scoreChart', compareBar(scKeys,
+    scKeys.map(k=>+(100*(scH[k]||0)/nHDr).toFixed(1)),
+    scKeys.map(k=>+(100*(scC[k]||0)/nCDr).toFixed(1)),
+    {pct:true, onClick:(e,els)=>{ if(!els.length)return; const k=scKeys[els[0].index];
+      setDrill(`Draws · ${k}`, g=>g.draw_after_90 && (g.ft[0]+'–'+g.ft[1])===k); }}));
 
-  // ---- draws by round (8 buckets) ----
-  const rd={}; ROUNDS.forEach(r=>rd[r]=0);
-  G.filter(g=>g.draw_after_90).forEach(g=>{ if(g._r8 in rd) rd[g._r8]++; });
-  draw('roundChart', baseBar(ROUNDS, ROUNDS.map(r=>rd[r]), ROUNDS.map(()=>C.draw),
-    (e,els)=>{ if(!els.length)return; const r=ROUNDS[els[0].index];
-      setDrill(`Draws · ${r}`, g=>g.draw_after_90 && g._r8===r); }));
+  // ---- draws by round: draw RATE per round (draws / games in round), 4 buckets ----
+  const roundRates = games => {
+    const tot={}, dr={}; R4.forEach(r=>{tot[r]=0;dr[r]=0;});
+    games.forEach(g=>{ const r=r4(g); tot[r]++; if(g.draw_after_90)dr[r]++; });
+    return R4.map(r=> tot[r] ? +(100*dr[r]/tot[r]).toFixed(1) : 0);
+  };
+  draw('roundChart', compareBar(R4, roundRates(histGames()), roundRates(cup2026()),
+    {pct:true, onClick:(e,els)=>{ if(!els.length)return; const r=R4[els[0].index];
+      setDrill(`Draws · ${r}`, g=>g.draw_after_90 && r4(g)===r); }}));
 
-  // ---- goals by band ----
-  const mb={}; BANDS.forEach(b=>mb[b]=0);
-  G.forEach(g=>g.goals.forEach(go=>{const b=band(go); if(b)mb[b]++;}));
-  draw('minChart', baseBar(BANDS, BANDS.map(b=>mb[b]),
-    BANDS.map(b=> b==='ET'?C.away : (b==='45+'||b==='90+')?C.draw : C.home),
-    (e,els)=>{ if(!els.length)return; const b=BANDS[els[0].index];
-      setDrill(`Games with a goal in ${b}`, g=>g.goals.some(go=>band(go)===b)); }));
+  // ---- when goals are scored: share of own goals by period, History vs 2026 ----
+  const goalPct = games => {
+    const mb={}; BANDS.forEach(b=>mb[b]=0); let tot=0;
+    games.forEach(g=>g.goals.forEach(go=>{const b=band(go); if(b){mb[b]++;tot++;}}));
+    const d=tot||1; return BANDS.map(b=>+(100*mb[b]/d).toFixed(1));
+  };
+  draw('minChart', compareBar(BANDS, goalPct(histGames()), goalPct(cup2026()),
+    {pct:true, onClick:(e,els)=>{ if(!els.length)return; const b=BANDS[els[0].index];
+      setDrill(`Games with a goal in ${b}`, g=>g.goals.some(go=>band(go)===b)); }}));
 
   // ---- when the draw breaks: 1-goal-margin finishes, stacked 0-0 vs level ----
+  // LOCKED: all years, ignores the filters (the 0-0/level stack is the value here).
   const b00={}, bLv={}; NB.forEach(b=>{b00[b]=0; bLv[b]=0;});
-  G.filter(g=>!g.draw_after_90 && Math.abs(g.ft[0]-g.ft[1])===1).forEach(g=>{
+  DB.games.filter(g=>!g.draw_after_90 && Math.abs(g.ft[0]-g.ft[1])===1).forEach(g=>{
     const r=drawBreaker(g); if(!r) return;
     (r.origin==='0-0'?b00:bLv)[r.band]++;
   });
@@ -464,49 +521,29 @@ function render(){
       scales:{x:{stacked:true,grid:{display:false},border:{color:C.line}},
               y:{stacked:true,beginAtZero:true,grid:{color:C.line},border:{display:false},ticks:{precision:0}}}}});
 
-  // ---- games by score (home/away collapsed; 2–1 = 1–2) ----
-  const sa={};
-  G.forEach(g=>{ const hi=Math.max(g.ft[0],g.ft[1]), lo=Math.min(g.ft[0],g.ft[1]); const k=hi+'–'+lo; sa[k]=(sa[k]||0)+1; });
-  const saKeys=Object.keys(sa).sort((x,y)=>{
-    const [xh,xl]=x.split('–').map(Number), [yh,yl]=y.split('–').map(Number);
-    return (xh+xl)-(yh+yl) || xh-yh;
-  });
-  const saColors=saKeys.map(k=>{ const [h,l]=k.split('–').map(Number); return h===l?C.draw:C.home; });
-  draw('scoreAllChart', baseBar(saKeys, saKeys.map(k=>sa[k]), saColors,
-    (e,els)=>{ if(!els.length)return; const k=saKeys[els[0].index];
-      setDrill(`Score · ${k}`, g=>{ const hi=Math.max(g.ft[0],g.ft[1]),lo=Math.min(g.ft[0],g.ft[1]); return (hi+'–'+lo)===k; }); }));
+  // ---- games by score: share of own games, History vs 2026; "Other" bucket ----
+  const scoreLabels=[...SCORE_BUCKETS,'Other'];
+  const scoreSharePct = games => {
+    const c={}; scoreLabels.forEach(l=>c[l]=0);
+    games.forEach(g=>{ c[scoreKey(g)]++; });
+    const n=games.length||1; return scoreLabels.map(l=>+(100*c[l]/n).toFixed(1));
+  };
+  draw('scoreAllPctChart', compareBar(scoreLabels,
+    scoreSharePct(histGames()), scoreSharePct(cup2026()),
+    {pct:true, onClick:(e,els)=>{ if(!els.length)return; const k=scoreLabels[els[0].index];
+      setDrill(`Score · ${k}`, g=>scoreKey(g)===k); }}));
 
-  // ---- games by total goals (a 2–1 and a 3–0 both = 3) ----
-  const tg={};
-  G.forEach(g=>{ const t=g.ft[0]+g.ft[1]; tg[t]=(tg[t]||0)+1; });
-  const tgKeys=Object.keys(tg).map(Number).sort((a,b)=>a-b);
+  // ---- games by total goals: share of own games, History vs 2026 (full set) ----
+  const totalCounts = games => { const tg={}; games.forEach(g=>{const t=g.ft[0]+g.ft[1]; tg[t]=(tg[t]||0)+1;}); return tg; };
+  const tgH=totalCounts(histGames()), tgC=totalCounts(cup2026());
+  const tgKeys=[...new Set([...Object.keys(tgH),...Object.keys(tgC)])].map(Number).sort((a,b)=>a-b);
   const tgLabels=tgKeys.map(t=>t+' goal'+(t===1?'':'s'));
-  const tgDrill=t=>g=>(g.ft[0]+g.ft[1])===t;
-  draw('totalGoalsChart', baseBar(tgLabels, tgKeys.map(t=>tg[t]), tgKeys.map(()=>C.home),
-    (e,els)=>{ if(!els.length)return; const t=tgKeys[els[0].index];
-      setDrill(`${t} goal${t===1?'':'s'} in the game`, tgDrill(t)); }));
-
-  // ---- share % versions of both distributions ----
-  const nAll=G.length||1;
-  const scoreDrill=k=>g=>{ const hi=Math.max(g.ft[0],g.ft[1]),lo=Math.min(g.ft[0],g.ft[1]); return (hi+'–'+lo)===k; };
-  draw('scoreAllPctChart', baseBar(saKeys, saKeys.map(k=>+(100*sa[k]/nAll).toFixed(1)), saColors,
-    (e,els)=>{ if(!els.length)return; const k=saKeys[els[0].index]; setDrill(`Score · ${k}`, scoreDrill(k)); }, true));
-  draw('totalGoalsPctChart', baseBar(tgLabels, tgKeys.map(t=>+(100*tg[t]/nAll).toFixed(1)), tgKeys.map(()=>C.home),
-    (e,els)=>{ if(!els.length)return; const t=tgKeys[els[0].index];
-      setDrill(`${t} goal${t===1?'':'s'} in the game`, tgDrill(t)); }, true));
-
-  // ---- stage comparison (wc filter only) ----
-  const base=byWc();
-  const grp=base.filter(g=>g.stage==='group'), ko=base.filter(g=>g.stage==='knockout');
-  const pr=arr=>arr.length? +(100*arr.filter(g=>g.draw_after_90).length/arr.length).toFixed(1):0;
-  draw('stageChart',{type:'bar',
-    data:{labels:['Group','Knockout'],datasets:[{
-      data:[pr(grp),pr(ko)],backgroundColor:[C.home,C.away],borderRadius:4,maxBarThickness:90}]},
-    options:{indexAxis:'y',plugins:{legend:{display:false},
-      tooltip:{callbacks:{label:c=>c.parsed.x+'% draws'}}},maintainAspectRatio:false,
-      scales:{x:{beginAtZero:true,grid:{color:C.line},border:{display:false},ticks:{callback:v=>v+'%'}},
-              y:{grid:{display:false},border:{color:C.line}}}}});
-
+  const nTH=histGames().length||1, nTC=cup2026().length||1;
+  draw('totalGoalsPctChart', compareBar(tgLabels,
+    tgKeys.map(t=>+(100*(tgH[t]||0)/nTH).toFixed(1)),
+    tgKeys.map(t=>+(100*(tgC[t]||0)/nTC).toFixed(1)),
+    {pct:true, onClick:(e,els)=>{ if(!els.length)return; const t=tgKeys[els[0].index];
+      setDrill(`${t} goal${t===1?'':'s'} in the game`, g=>(g.ft[0]+g.ft[1])===t); }}));
   // ---- half-time -> full-time matrix (derived from goal minutes; follows filters) ----
   const mt={'1':{'1':0,'X':0,'2':0},'X':{'1':0,'X':0,'2':0},'2':{'1':0,'X':0,'2':0}};
   G.forEach(g=>{ mt[htRes(g)][ftRes(g)]++; });
@@ -535,7 +572,7 @@ function render(){
   applyLedger();
 
   document.getElementById('foot').textContent =
-    `Page v10  ·  Source: openfootball (public domain). ${DB.notes.verification} Data v${DB.data_version} · schema v${DB.schema_version}.`;
+    `Page v11  ·  Source: openfootball (public domain). ${DB.notes.verification} Data v${DB.data_version} · schema v${DB.schema_version}.`;
 }
 
 function applyLedger(){
@@ -731,6 +768,7 @@ async function boot(){
     if(m.game_no_in_wc!=null) ODDS[m.game_no_in_wc]={o1:m.odds_1, oX:m.odds_X, o2:m.odds_2};
   });
   computeRounds();
+  computeScoreBuckets();
   buildFavTable();
   const wcBtns = [['all','All']].concat(YEARS.map(y=>[String(y),String(y)]));
   document.getElementById('wcSeg').innerHTML =
