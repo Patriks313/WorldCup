@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ===================  index.html  ·  PAGE VERSION v11  ·  12 Jun 2026  ·  World Cup Statistics  =================== -->
+<!-- ===================  index.html  ·  PAGE VERSION v12  ·  13 Jun 2026  ·  World Cup Statistics  =================== -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -54,6 +54,10 @@
   .tablewrap{max-height:420px;overflow:auto;border:1px solid var(--line);border-radius:10px}
   table{width:100%;border-collapse:collapse;font-size:13px}
   thead th{position:sticky;top:0;background:var(--surface2);text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);padding:10px 12px;border-bottom:1px solid var(--line);z-index:1}
+  #ledger thead th{cursor:pointer;user-select:none;white-space:nowrap}
+  #ledger thead th:hover{color:var(--text)}
+  #ledger thead th.active{color:var(--draw)}
+  .sarr{margin-left:5px;font-size:9px;opacity:.9}
   tbody td{padding:9px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
   tbody tr:hover{background:var(--surface2)}
   td.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
@@ -216,7 +220,7 @@
       <div class="tablewrap">
         <table id="ledger">
           <thead><tr>
-            <th>#</th><th>Date</th><th>Stage</th><th>Match</th><th>90′</th><th>Draw?</th><th>Result</th><th>After 90′</th>
+            <th data-sort="no"># <span class="sarr"></span></th><th data-sort="date">Date <span class="sarr"></span></th><th data-sort="stage">Stage <span class="sarr"></span></th><th data-sort="match">Match <span class="sarr"></span></th><th data-sort="goals">90′ <span class="sarr"></span></th><th data-sort="draw">Draw? <span class="sarr"></span></th><th data-sort="result">Result <span class="sarr"></span></th><th data-sort="after">After 90′ <span class="sarr"></span></th>
           </tr></thead>
           <tbody></tbody>
         </table>
@@ -316,6 +320,37 @@ function setDrill(label, test){
   drill = {label, test};
   applyLedger();
   const t=document.getElementById('ledger'); if(t) t.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+// ---- ledger sorting (header click) ----
+let ledgerSort = {key:'no', dir:1};   // default: full DB match # ascending (2026 at the bottom)
+let firstLedgerPaint = true;          // first open lands the ledger scrolled to the bottom
+const SORTKEY = {
+  no:    g => g.game_no_continuous,
+  date:  g => g.date,
+  stage: g => g.stage,                       // "group" < "knockout"
+  match: g => (g.home+' '+g.away).toLowerCase(),
+  goals: g => g.ft[0]+g.ft[1],               // total goals at 90′
+  draw:  g => g.draw_after_90 ? 0 : 1,       // draws group first (ascending)
+  result:g => g.result,                      // 1 / 2 / X
+  after: g => (g.pens||g.et) ? 0 : 1         // ET/penalty games group first (ascending)
+};
+function sortGames(arr){
+  const f = SORTKEY[ledgerSort.key] || SORTKEY.no, d = ledgerSort.dir;
+  return arr.slice().sort((a,b)=>{
+    const ka=f(a), kb=f(b);
+    let c = ka<kb ? -1 : ka>kb ? 1 : 0;
+    if(c===0) return a.game_no_continuous - b.game_no_continuous;   // stable secondary
+    return c*d;
+  });
+}
+function markSortHeaders(){
+  document.querySelectorAll('#ledger thead th').forEach(th=>{
+    const on = th.dataset.sort===ledgerSort.key;
+    th.classList.toggle('active', on);
+    const arr = th.querySelector('.sarr');
+    if(arr) arr.textContent = on ? (ledgerSort.dir>0?'\u25B2':'\u25BC') : '';
+  });
 }
 
 // 8-round buckets, derived once after load
@@ -572,7 +607,7 @@ function render(){
   applyLedger();
 
   document.getElementById('foot').textContent =
-    `Page v11  ·  Source: openfootball (public domain). ${DB.notes.verification} Data v${DB.data_version} · schema v${DB.schema_version}.`;
+    `Page v12  ·  Source: openfootball (public domain). ${DB.notes.verification} Data v${DB.data_version} · schema v${DB.schema_version}.`;
 }
 
 function applyLedger(){
@@ -590,12 +625,14 @@ function applyLedger(){
     bar.className=''; bar.innerHTML='';
   }
   const tb=document.querySelector('#ledger tbody');
+  G = sortGames(G);
+  markSortHeaders();
   tb.innerHTML = G.map(g=>{
     const star = (g.draw_after_90 && g.result!=='X') ? ' <span class="star" title="level at 90, settled after">★</span>':'';
     const after = g.pens? `pens ${g.pens[0]}–${g.pens[1]}` : g.et? `a.e.t. ${g.et[0]}–${g.et[1]}` : '—';
     return `<tr>
-      <td class="num">${g.game_no_in_wc}</td>
-      <td class="num">${g.date.slice(5)}</td>
+      <td class="num">${g.game_no_continuous}</td>
+      <td class="num">${g.date}</td>
       <td><span class="tag">${g.stage}</span></td>
       <td>${g.home} v ${g.away}</td>
       <td class="num">${g.ft[0]}–${g.ft[1]}</td>
@@ -604,6 +641,12 @@ function applyLedger(){
       <td class="num" style="color:var(--faint)">${after}</td>
     </tr>`;
   }).join('');
+  // On first open, land the ledger scrolled to the bottom (where 2026 sits in the default order).
+  if(firstLedgerPaint && !drill){
+    firstLedgerPaint = false;
+    const w=document.querySelector('#ledger').closest('.tablewrap');
+    if(w) requestAnimationFrame(()=>requestAnimationFrame(()=>{ w.scrollTop = w.scrollHeight; }));
+  }
 }
 // ---- letter-group side game ("Alla mina favoritlag") ----
 const FIFA = {
@@ -788,6 +831,15 @@ async function boot(){
       g=>{ const b=gapBand(g); if(!b) return false;
            if(gb && b!==gb) return false;
            if(oc && favOutcome(g)!==oc) return false; return true; });
+  });
+  document.querySelector('#ledger thead').addEventListener('click', e=>{
+    const th=e.target.closest('th[data-sort]'); if(!th) return;
+    const k=th.dataset.sort;
+    if(ledgerSort.key===k){ ledgerSort.dir*=-1; }
+    else { ledgerSort.key=k; ledgerSort.dir=1; }
+    applyLedger();
+    const w=document.querySelector('#ledger').closest('.tablewrap');   // re-sort jumps back to the top
+    if(w) w.scrollTop=0;
   });
   render();
 }
