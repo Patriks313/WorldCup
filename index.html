@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ===================  index.html  ·  PAGE VERSION v12  ·  13 Jun 2026  ·  World Cup Statistics  =================== -->
+<!-- ===================  index.html  ·  PAGE VERSION v13  ·  14 Jun 2026  ·  World Cup Statistics  =================== -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -105,6 +105,9 @@
   .mtx td.tot[data-gapband]{cursor:pointer}
   .mtx th.rowhdr.inert{cursor:default}
   .mtx th.rowhdr.inert:hover{background:transparent}
+  /* score-first matrix: static (no click) — no pointer/hover */
+  #scoreFirstWrap .mtx td,#scoreFirstWrap .mtx th.rowhdr{cursor:default}
+  #scoreFirstWrap .mtx td:hover,#scoreFirstWrap .mtx th.rowhdr:hover{background:transparent}
 
   /* drill-down banner */
   .drillbar{display:flex;align-items:center;gap:10px;margin:0 0 12px;padding:9px 12px;background:var(--surface2);border:1px solid var(--draw);border-radius:8px;font-family:var(--mono);font-size:12px;color:var(--text)}
@@ -211,6 +214,12 @@
       <h3>Half-time result → full-time result</h3>
       <p class="cap">Each row is the result at half-time (derived from goal minutes); the split shows how those games ended at full time — 90′, before extra time. Percentages are of that row. Follows the filters above. <span class="star">▦</span> = held the same result.</p>
       <div id="htftWrap"></div>
+    </div>
+
+    <div class="panel col12">
+      <h3>Score first → win <span class="tag">favourite vs underdog · by minute · 90′</span></h3>
+      <p class="cap">Win rate at 90′ for the side that scored the <b>opening goal</b> (first goal in normal time; an own goal counts for the side it put ahead). Rows split that side into the ranking <b>favourite</b> (higher-ranked) or the <b>underdog</b>; columns by when the first goal came. <b>n</b> = games in the cell — treat small counts as a hint, not a firm rate. Follows the filters above (the Group / Knockout buttons give the stage cut). Games that finished 0–0 have no first goal and are left out.</p>
+      <div id="scoreFirstWrap"></div>
     </div>
 
     <div class="panel col12">
@@ -597,6 +606,9 @@ function render(){
     `<th data-ft="1">Ended 1</th><th data-ft="X">Ended X</th><th data-ft="2">Ended 2</th><th>games</th></tr></thead>`+
     `<tbody>${mrows}</tbody></table>`;
 
+  // ---- score first -> win (rows fav/und, cols minute band; follows filters) ----
+  buildScoreFirst(G);
+
   // ---- did the favourite hold? (rank-gap table; follows filters) ----
   buildFavHold();
 
@@ -607,7 +619,7 @@ function render(){
   applyLedger();
 
   document.getElementById('foot').textContent =
-    `Page v12  ·  Source: openfootball (public domain). ${DB.notes.verification} Data v${DB.data_version} · schema v${DB.schema_version}.`;
+    `Page v13  ·  Source: openfootball (public domain). ${DB.notes.verification} Data v${DB.data_version} · schema v${DB.schema_version}.`;
 }
 
 function applyLedger(){
@@ -700,6 +712,38 @@ function buildFavTable(){
     `<table class="ov favtbl"><thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table>`+
     (unmapped.size? `<p class="cap" style="margin-top:10px;color:var(--draw)">No FIFA code mapped for: ${[...unmapped].join(', ')} — add these to the code map.</p>`:'');
 }
+function buildScoreFirst(G){     // win rate for the side that scored first; rows fav/und, cols minute band
+  const BANDS=[['by20',"By 20'"],['21-45',"21\u201345'"],['46-70',"46\u201370'"],['71+',"71'+"]];
+  const fgBand=m=> m<=20?'by20':(m<=45?'21-45':(m<=70?'46-70':'71+'));
+  const t={fav:{},und:{}};
+  BANDS.forEach(b=>{t.fav[b[0]]={w:0,n:0};t.und[b[0]]={w:0,n:0};});
+  G.forEach(g=>{
+    const gs=g.goals.filter(x=>x.phase!=='extra_time').slice()
+                    .sort((a,b)=>(a.minute-b.minute)||((a.offset||0)-(b.offset||0)));
+    if(!gs.length) return;
+    const fg=gs[0];
+    const rh=teamRank(g,'home'), ra=teamRank(g,'away');
+    if(rh==null||ra==null||rh===ra) return;
+    const favSide = rh<ra ? 'home':'away';
+    const role = fg.team===favSide ? 'fav':'und';
+    const b=fgBand(fg.minute);
+    const won = fg.team==='home' ? g.ft[0]>g.ft[1] : g.ft[1]>g.ft[0];
+    t[role][b].n++; if(won) t[role][b].w++;
+  });
+  let rows='';
+  [['fav','Favourite'],['und','Underdog']].forEach(([rk,rlab])=>{
+    let tds='', rowN=0;
+    BANDS.forEach(([bk])=>{
+      const c=t[rk][bk], p=c.n?Math.round(100*c.w/c.n):null; rowN+=c.n;
+      tds+=`<td><span class="big">${c.n?p+'%':'\u2014'}</span><span class="sub">${c.n?'n='+c.n:''}</span></td>`;
+    });
+    rows+=`<tr><th class="rowhdr inert">${rlab}</th>${tds}<td class="tot">${rowN}</td></tr>`;
+  });
+  document.getElementById('scoreFirstWrap').innerHTML =
+    `<table class="mtx"><thead><tr><th class="corner"></th>`+
+    BANDS.map(b=>`<th>${b[1]}</th>`).join('')+`<th>games</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+
 function buildFavHold(){
   // Follows World Cup + Stage filters (via filtered()). Cells are clickable -> ledger drill-down.
   const G = filtered();
