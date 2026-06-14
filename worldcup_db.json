@@ -1,6 +1,6 @@
 {
   "schema_version": 4,
-  "data_version": 5,
+  "data_version": 6,
   "notes": {
     "betting_rule": "Results settled at 90 min + injury time. All draw stats use draw_after_90 only, never the 1/X/2 result.",
     "game_no_continuous": "Re-based chronologically across 2014 -> 2018 -> 2022 (1-64 = 2014, 65-128 = 2018, 129-192 = 2022, 193-194 = first 2026 games). Will extend as more World Cups are added.",
@@ -10000,12 +10000,162 @@
           "owngoal": false
         }
       ]
+    },
+    {
+      "world_cup": 2026,
+      "game_no_in_wc": 5,
+      "game_no_continuous": 197,
+      "stage": "group",
+      "round": "Matchday 1",
+      "date": "2026-06-13",
+      "home": "Qatar",
+      "away": "Switzerland",
+      "ft": [
+        1,
+        1
+      ],
+      "draw_after_90": true,
+      "result": "X",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "away",
+          "scorer": "Breel Embolo",
+          "minute": 17,
+          "offset": 0,
+          "display": "17",
+          "phase": "normal",
+          "penalty": true,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Miro Muheim",
+          "minute": 90,
+          "offset": 4,
+          "display": "90+4",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": true
+        }
+      ]
+    },
+    {
+      "world_cup": 2026,
+      "game_no_in_wc": 6,
+      "game_no_continuous": 198,
+      "stage": "group",
+      "round": "Matchday 1",
+      "date": "2026-06-13",
+      "home": "Brazil",
+      "away": "Morocco",
+      "ft": [
+        1,
+        1
+      ],
+      "draw_after_90": true,
+      "result": "X",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "away",
+          "scorer": "Ismael Saibari",
+          "minute": 21,
+          "offset": 0,
+          "display": "21",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Vinicius Junior",
+          "minute": 32,
+          "offset": 0,
+          "display": "32",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2026,
+      "game_no_in_wc": 7,
+      "game_no_continuous": 199,
+      "stage": "group",
+      "round": "Matchday 1",
+      "date": "2026-06-13",
+      "home": "Haiti",
+      "away": "Scotland",
+      "ft": [
+        0,
+        1
+      ],
+      "draw_after_90": false,
+      "result": "2",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "away",
+          "scorer": "John McGinn",
+          "minute": 28,
+          "offset": 0,
+          "display": "28",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
+    },
+    {
+      "world_cup": 2026,
+      "game_no_in_wc": 8,
+      "game_no_continuous": 200,
+      "stage": "group",
+      "round": "Matchday 1",
+      "date": "2026-06-13",
+      "home": "Australia",
+      "away": "Turkey",
+      "ft": [
+        2,
+        0
+      ],
+      "draw_after_90": false,
+      "result": "1",
+      "et": null,
+      "pens": null,
+      "goals": [
+        {
+          "team": "home",
+          "scorer": "Nestory Irankunda",
+          "minute": 27,
+          "offset": 0,
+          "display": "27",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        },
+        {
+          "team": "home",
+          "scorer": "Connor Metcalfe",
+          "minute": 75,
+          "offset": 0,
+          "display": "75",
+          "phase": "normal",
+          "penalty": false,
+          "owngoal": false
+        }
+      ]
     }
   ],
   "odds": {
     "source": "Unibet.se",
     "market": "Fulltid 1X2 (90 min)",
-    "last_refresh": "2026-06-13T06:59:46.068Z",
+    "last_refresh": "2026-06-14T09:36:12.347Z",
     "match_count": 72,
     "matches": [
       {
@@ -10048,7 +10198,7 @@
         "group": "B",
         "home": "Qatar",
         "away": "Switzerland",
-        "game_no_in_wc": null,
+        "game_no_in_wc": 5,
         "odds_1": 17,
         "odds_X": 7,
         "odds_2": 1.21
@@ -10057,7 +10207,7 @@
         "group": "C",
         "home": "Brazil",
         "away": "Morocco",
-        "game_no_in_wc": null,
+        "game_no_in_wc": 6,
         "odds_1": 1.72,
         "odds_X": 3.85,
         "odds_2": 5.6
@@ -10066,7 +10216,7 @@
         "group": "C",
         "home": "Haiti",
         "away": "Scotland",
-        "game_no_in_wc": null,
+        "game_no_in_wc": 7,
         "odds_1": 6.75,
         "odds_X": 4.5,
         "odds_2": 1.52
@@ -10075,7 +10225,7 @@
         "group": "D",
         "home": "Australia",
         "away": "Turkey",
-        "game_no_in_wc": null,
+        "game_no_in_wc": 8,
         "odds_1": 5.6,
         "odds_X": 3.9,
         "odds_2": 1.68
@@ -10087,42 +10237,42 @@
         "game_no_in_wc": null,
         "odds_1": 1.05,
         "odds_X": 23,
-        "odds_2": 41
+        "odds_2": 46
       },
       {
         "group": "F",
         "home": "Netherlands",
         "away": "Japan",
         "game_no_in_wc": null,
-        "odds_1": 1.98,
-        "odds_X": 3.7,
-        "odds_2": 3.95
+        "odds_1": 2.08,
+        "odds_X": 3.6,
+        "odds_2": 3.85
       },
       {
         "group": "E",
         "home": "Cote d'Ivoire",
         "away": "Ecuador",
         "game_no_in_wc": null,
-        "odds_1": 3.75,
-        "odds_X": 2.9,
-        "odds_2": 2.45
+        "odds_1": 3.4,
+        "odds_X": 2.85,
+        "odds_2": 2.63
       },
       {
         "group": "F",
         "home": "Sweden",
         "away": "Tunisia",
         "game_no_in_wc": null,
-        "odds_1": 1.94,
+        "odds_1": 1.98,
         "odds_X": 3.55,
-        "odds_2": 4.6
+        "odds_2": 4.4
       },
       {
         "group": "H",
         "home": "Spain",
         "away": "Cape Verde",
         "game_no_in_wc": null,
-        "odds_1": 1.11,
-        "odds_X": 12.5,
+        "odds_1": 1.1,
+        "odds_X": 13,
         "odds_2": 26
       },
       {
@@ -10130,8 +10280,8 @@
         "home": "Belgium",
         "away": "Egypt",
         "game_no_in_wc": null,
-        "odds_1": 1.6,
-        "odds_X": 4.1,
+        "odds_1": 1.62,
+        "odds_X": 4,
         "odds_2": 6.25
       },
       {
@@ -10139,18 +10289,18 @@
         "home": "Saudi Arabia",
         "away": "Uruguay",
         "game_no_in_wc": null,
-        "odds_1": 9,
-        "odds_X": 4.75,
-        "odds_2": 1.43
+        "odds_1": 8.5,
+        "odds_X": 4.6,
+        "odds_2": 1.46
       },
       {
         "group": "G",
         "home": "Iran",
         "away": "New Zealand",
         "game_no_in_wc": null,
-        "odds_1": 1.84,
-        "odds_X": 3.6,
-        "odds_2": 5.1
+        "odds_1": 1.86,
+        "odds_X": 3.5,
+        "odds_2": 4.9
       },
       {
         "group": "I",
@@ -10158,7 +10308,7 @@
         "away": "Senegal",
         "game_no_in_wc": null,
         "odds_1": 1.48,
-        "odds_X": 4.5,
+        "odds_X": 4.6,
         "odds_2": 8
       },
       {
@@ -10166,9 +10316,9 @@
         "home": "Iraq",
         "away": "Norway",
         "game_no_in_wc": null,
-        "odds_1": 18,
+        "odds_1": 17,
         "odds_X": 7.5,
-        "odds_2": 1.19
+        "odds_2": 1.2
       },
       {
         "group": "J",
@@ -10176,7 +10326,7 @@
         "away": "Algeria",
         "game_no_in_wc": null,
         "odds_1": 1.38,
-        "odds_X": 5,
+        "odds_X": 4.9,
         "odds_2": 10
       },
       {
@@ -10184,9 +10334,9 @@
         "home": "Austria",
         "away": "Jordan",
         "game_no_in_wc": null,
-        "odds_1": 1.32,
-        "odds_X": 5.8,
-        "odds_2": 10.5
+        "odds_1": 1.3,
+        "odds_X": 6.1,
+        "odds_2": 10
       },
       {
         "group": "K",
@@ -10202,26 +10352,26 @@
         "home": "England",
         "away": "Croatia",
         "game_no_in_wc": null,
-        "odds_1": 1.75,
+        "odds_1": 1.7,
         "odds_X": 3.85,
-        "odds_2": 5.1
+        "odds_2": 5.5
       },
       {
         "group": "L",
         "home": "Ghana",
         "away": "Panama",
         "game_no_in_wc": null,
-        "odds_1": 2.18,
-        "odds_X": 3.45,
-        "odds_2": 3.6
+        "odds_1": 2.14,
+        "odds_X": 3.4,
+        "odds_2": 3.75
       },
       {
         "group": "K",
         "home": "Uzbekistan",
         "away": "Colombia",
         "game_no_in_wc": null,
-        "odds_1": 9.5,
-        "odds_X": 4.8,
+        "odds_1": 9,
+        "odds_X": 4.7,
         "odds_2": 1.42
       },
       {
@@ -10238,8 +10388,8 @@
         "home": "Switzerland",
         "away": "Bosnia-Herzegovina",
         "game_no_in_wc": null,
-        "odds_1": 1.61,
-        "odds_X": 4,
+        "odds_1": 1.6,
+        "odds_X": 4.1,
         "odds_2": 6.4
       },
       {
@@ -10247,9 +10397,9 @@
         "home": "Canada",
         "away": "Qatar",
         "game_no_in_wc": null,
-        "odds_1": 1.33,
-        "odds_X": 5.2,
-        "odds_2": 12
+        "odds_1": 1.27,
+        "odds_X": 6.25,
+        "odds_2": 14
       },
       {
         "group": "A",
@@ -10265,35 +10415,35 @@
         "home": "USA",
         "away": "Australia",
         "game_no_in_wc": null,
-        "odds_1": 1.55,
-        "odds_X": 4.3,
-        "odds_2": 6.5
+        "odds_1": 1.6,
+        "odds_X": 4.35,
+        "odds_2": 5.8
       },
       {
         "group": "C",
         "home": "Scotland",
         "away": "Morocco",
         "game_no_in_wc": null,
-        "odds_1": 4.5,
-        "odds_X": 3.45,
-        "odds_2": 1.94
+        "odds_1": 5.3,
+        "odds_X": 3.6,
+        "odds_2": 1.78
       },
       {
         "group": "C",
         "home": "Brazil",
         "away": "Haiti",
         "game_no_in_wc": null,
-        "odds_1": 1.08,
-        "odds_X": 15,
-        "odds_2": 35
+        "odds_1": 1.12,
+        "odds_X": 11,
+        "odds_2": 26
       },
       {
         "group": "D",
         "home": "Turkey",
         "away": "Paraguay",
         "game_no_in_wc": null,
-        "odds_1": 2.07,
-        "odds_X": 3.35,
+        "odds_1": 2.08,
+        "odds_X": 3.4,
         "odds_2": 4
       },
       {
@@ -10310,9 +10460,9 @@
         "home": "Germany",
         "away": "Cote d'Ivoire",
         "game_no_in_wc": null,
-        "odds_1": 1.55,
-        "odds_X": 4.35,
-        "odds_2": 6.5
+        "odds_1": 1.61,
+        "odds_X": 4.2,
+        "odds_2": 6
       },
       {
         "group": "E",
@@ -10337,9 +10487,9 @@
         "home": "Spain",
         "away": "Saudi Arabia",
         "game_no_in_wc": null,
-        "odds_1": 1.12,
-        "odds_X": 10,
-        "odds_2": 30
+        "odds_1": 1.13,
+        "odds_X": 9.5,
+        "odds_2": 29
       },
       {
         "group": "G",
@@ -10355,9 +10505,9 @@
         "home": "Uruguay",
         "away": "Cape Verde",
         "game_no_in_wc": null,
-        "odds_1": 1.47,
-        "odds_X": 4.5,
-        "odds_2": 8
+        "odds_1": 1.43,
+        "odds_X": 4.7,
+        "odds_2": 8.5
       },
       {
         "group": "G",
@@ -10382,9 +10532,9 @@
         "home": "France",
         "away": "Iraq",
         "game_no_in_wc": null,
-        "odds_1": 1.14,
-        "odds_X": 10,
-        "odds_2": 23
+        "odds_1": 1.13,
+        "odds_X": 10.5,
+        "odds_2": 26
       },
       {
         "group": "I",
@@ -10400,18 +10550,18 @@
         "home": "Jordan",
         "away": "Algeria",
         "game_no_in_wc": null,
-        "odds_1": 6.5,
-        "odds_X": 4.25,
-        "odds_2": 1.56
+        "odds_1": 7,
+        "odds_X": 4.5,
+        "odds_2": 1.52
       },
       {
         "group": "K",
         "home": "Portugal",
         "away": "Uzbekistan",
         "game_no_in_wc": null,
-        "odds_1": 1.27,
+        "odds_1": 1.28,
         "odds_X": 6.25,
-        "odds_2": 12
+        "odds_2": 13
       },
       {
         "group": "L",
@@ -10436,18 +10586,18 @@
         "home": "Colombia",
         "away": "DR Congo",
         "game_no_in_wc": null,
-        "odds_1": 1.53,
-        "odds_X": 4.2,
-        "odds_2": 7.5
+        "odds_1": 1.49,
+        "odds_X": 4.3,
+        "odds_2": 8
       },
       {
         "group": "B",
         "home": "Bosnia-Herzegovina",
         "away": "Qatar",
         "game_no_in_wc": null,
-        "odds_1": 1.63,
-        "odds_X": 4,
-        "odds_2": 6.5
+        "odds_1": 1.54,
+        "odds_X": 4.2,
+        "odds_2": 7
       },
       {
         "group": "B",
@@ -10465,25 +10615,25 @@
         "game_no_in_wc": null,
         "odds_1": 1.35,
         "odds_X": 5.3,
-        "odds_2": 10
+        "odds_2": 10.5
       },
       {
         "group": "C",
         "home": "Scotland",
         "away": "Brazil",
         "game_no_in_wc": null,
-        "odds_1": 8,
-        "odds_X": 4.5,
-        "odds_2": 1.49
+        "odds_1": 7,
+        "odds_X": 4.9,
+        "odds_2": 1.44
       },
       {
         "group": "A",
         "home": "South Africa",
         "away": "South Korea",
         "game_no_in_wc": null,
-        "odds_1": 6,
-        "odds_X": 4,
-        "odds_2": 1.64
+        "odds_1": 6.25,
+        "odds_X": 4.1,
+        "odds_2": 1.6
       },
       {
         "group": "A",
@@ -10544,9 +10694,9 @@
         "home": "Turkey",
         "away": "USA",
         "game_no_in_wc": null,
-        "odds_1": 2.75,
-        "odds_X": 3.5,
-        "odds_2": 2.63
+        "odds_1": 2.8,
+        "odds_X": 3.75,
+        "odds_2": 2.55
       },
       {
         "group": "I",
@@ -10571,18 +10721,18 @@
         "home": "Cape Verde",
         "away": "Saudi Arabia",
         "game_no_in_wc": null,
-        "odds_1": 2.43,
+        "odds_1": 2.55,
         "odds_X": 3.35,
-        "odds_2": 3
+        "odds_2": 2.85
       },
       {
         "group": "H",
         "home": "Uruguay",
         "away": "Spain",
         "game_no_in_wc": null,
-        "odds_1": 5.8,
-        "odds_X": 4,
-        "odds_2": 1.68
+        "odds_1": 5.4,
+        "odds_X": 3.95,
+        "odds_2": 1.65
       },
       {
         "group": "G",
@@ -10607,26 +10757,26 @@
         "home": "Croatia",
         "away": "Ghana",
         "game_no_in_wc": null,
-        "odds_1": 1.68,
-        "odds_X": 3.9,
-        "odds_2": 5.8
+        "odds_1": 1.67,
+        "odds_X": 3.8,
+        "odds_2": 5.6
       },
       {
         "group": "L",
         "home": "Panama",
         "away": "England",
         "game_no_in_wc": null,
-        "odds_1": 12,
-        "odds_X": 6,
-        "odds_2": 1.3
+        "odds_1": 10.5,
+        "odds_X": 5.4,
+        "odds_2": 1.32
       },
       {
         "group": "K",
         "home": "Colombia",
         "away": "Portugal",
         "game_no_in_wc": null,
-        "odds_1": 3.7,
-        "odds_X": 3.4,
+        "odds_1": 3.6,
+        "odds_X": 3.35,
         "odds_2": 2.16
       },
       {
@@ -10635,8 +10785,8 @@
         "away": "Uzbekistan",
         "game_no_in_wc": null,
         "odds_1": 2.35,
-        "odds_X": 3.3,
-        "odds_2": 3.3
+        "odds_X": 3.25,
+        "odds_2": 3.2
       },
       {
         "group": "J",
@@ -10652,9 +10802,9 @@
         "home": "Jordan",
         "away": "Argentina",
         "game_no_in_wc": null,
-        "odds_1": 16,
+        "odds_1": 15,
         "odds_X": 7,
-        "odds_2": 1.22
+        "odds_2": 1.21
       }
     ]
   }
