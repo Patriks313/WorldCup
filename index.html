@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ===================  index.html  ·  PAGE VERSION v13  ·  14 Jun 2026  ·  World Cup Statistics  =================== -->
+<!-- ===================  index.html  ·  PAGE VERSION v14  ·  14 Jun 2026  ·  World Cup Statistics  =================== -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -619,7 +619,7 @@ function render(){
   applyLedger();
 
   document.getElementById('foot').textContent =
-    `Page v13  ·  Source: openfootball (public domain). ${DB.notes.verification} Data v${DB.data_version} · schema v${DB.schema_version}.`;
+    `Page v14  ·  Source: openfootball (public domain). ${DB.notes.verification} Data v${DB.data_version} · schema v${DB.schema_version}.`;
 }
 
 function applyLedger(){
@@ -735,7 +735,7 @@ function buildScoreFirst(G){     // win rate for the side that scored first; row
     let tds='', rowN=0;
     BANDS.forEach(([bk])=>{
       const c=t[rk][bk], p=c.n?Math.round(100*c.w/c.n):null; rowN+=c.n;
-      tds+=`<td><span class="big">${c.n?p+'%':'\u2014'}</span><span class="sub">${c.n?'n='+c.n:''}</span></td>`;
+      tds+=`<td><span class="big">${c.n?p+'%':'\u2014'}</span><span class="sub">${c.n?c.w+' of '+c.n:''}</span></td>`;
     });
     rows+=`<tr><th class="rowhdr inert">${rlab}</th>${tds}<td class="tot">${rowN}</td></tr>`;
   });
