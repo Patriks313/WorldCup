@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ===================  index.html  ·  PAGE VERSION v14  ·  14 Jun 2026  ·  World Cup Statistics  =================== -->
+<!-- ===================  index.html  ·  PAGE VERSION v15  ·  14 Jun 2026  ·  World Cup Statistics  =================== -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -108,6 +108,7 @@
   /* score-first matrix: static (no click) — no pointer/hover */
   #scoreFirstWrap .mtx td,#scoreFirstWrap .mtx th.rowhdr{cursor:default}
   #scoreFirstWrap .mtx td:hover,#scoreFirstWrap .mtx th.rowhdr:hover{background:transparent}
+  #scoreFirstWrap .mtx td.tot .big{color:var(--text)}
 
   /* drill-down banner */
   .drillbar{display:flex;align-items:center;gap:10px;margin:0 0 12px;padding:9px 12px;background:var(--surface2);border:1px solid var(--draw);border-radius:8px;font-family:var(--mono);font-size:12px;color:var(--text)}
@@ -619,7 +620,7 @@ function render(){
   applyLedger();
 
   document.getElementById('foot').textContent =
-    `Page v14  ·  Source: openfootball (public domain). ${DB.notes.verification} Data v${DB.data_version} · schema v${DB.schema_version}.`;
+    `Page v15  ·  Source: openfootball (public domain). ${DB.notes.verification} Data v${DB.data_version} · schema v${DB.schema_version}.`;
 }
 
 function applyLedger(){
@@ -732,12 +733,14 @@ function buildScoreFirst(G){     // win rate for the side that scored first; row
   });
   let rows='';
   [['fav','Favourite'],['und','Underdog']].forEach(([rk,rlab])=>{
-    let tds='', rowN=0;
+    let tds='', rowN=0, rowW=0;
     BANDS.forEach(([bk])=>{
-      const c=t[rk][bk], p=c.n?Math.round(100*c.w/c.n):null; rowN+=c.n;
+      const c=t[rk][bk], p=c.n?Math.round(100*c.w/c.n):null; rowN+=c.n; rowW+=c.w;
       tds+=`<td><span class="big">${c.n?p+'%':'\u2014'}</span><span class="sub">${c.n?c.w+' of '+c.n:''}</span></td>`;
     });
-    rows+=`<tr><th class="rowhdr inert">${rlab}</th>${tds}<td class="tot">${rowN}</td></tr>`;
+    const tp = rowN?Math.round(100*rowW/rowN):null;
+    tds+=`<td class="tot"><span class="big">${rowN?tp+'%':'\u2014'}</span><span class="sub">${rowN?rowW+' of '+rowN:''}</span></td>`;
+    rows+=`<tr><th class="rowhdr inert">${rlab}</th>${tds}</tr>`;
   });
   document.getElementById('scoreFirstWrap').innerHTML =
     `<table class="mtx"><thead><tr><th class="corner"></th>`+
