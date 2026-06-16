@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ===================  index.html  ·  PAGE VERSION v16  ·  16 Jun 2026  ·  World Cup Statistics  =================== -->
+<!-- ===================  index.html  ·  PAGE VERSION v17  ·  16 Jun 2026  ·  World Cup Statistics  =================== -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -122,8 +122,39 @@
   .statusbox .note{font-size:13px;color:var(--muted);margin-top:8px;font-family:var(--mono);line-height:1.5}
 
   .foot{max-width:1180px;margin:30px auto 0;padding:0 24px;color:var(--faint);font-size:12px;font-family:var(--mono);line-height:1.6}
+  /* country type-ahead combo */
+  .combo{position:relative}
+  .combo input{appearance:none;background:var(--surface);border:1px solid var(--line);border-radius:8px;color:var(--text);font-family:var(--disp);font-size:14px;padding:8px 28px 8px 12px;width:190px;outline:none}
+  .combo input:focus{border-color:var(--draw)}
+  .combo input::placeholder{color:var(--faint)}
+  .comboclear{position:absolute;right:6px;top:50%;transform:translateY(-50%);appearance:none;border:0;background:transparent;color:var(--faint);cursor:pointer;font-size:13px;padding:4px;line-height:1}
+  .comboclear:hover{color:var(--text)}
+  .combolist{position:absolute;top:calc(100% + 4px);left:0;min-width:100%;max-height:260px;overflow:auto;background:var(--surface2);border:1px solid var(--line);border-radius:8px;z-index:60;display:none;box-shadow:0 8px 24px rgba(0,0,0,.45)}
+  .combolist.open{display:block}
+  .combolist .opt{padding:8px 12px;font-size:13px;cursor:pointer;white-space:nowrap;display:flex;justify-content:space-between;gap:16px;align-items:center}
+  .combolist .opt:hover,.combolist .opt.active{background:var(--draw);color:#1a1205}
+  .combolist .opt .cnt{font-family:var(--mono);font-size:11px;color:var(--faint)}
+  .combolist .opt:hover .cnt,.combolist .opt.active .cnt{color:#1a1205}
+  .combolist .none{padding:9px 12px;font-size:12px;color:var(--faint)}
+
+  /* two-pies + margin number row */
+  .trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;align-items:start}
+  .trio-cell{display:flex;flex-direction:column;align-items:center}
+  .chartwrap.pie{height:190px;width:100%}
+  .trio-lab{text-align:center;font-size:12px;color:var(--text);margin-top:10px;font-weight:500}
+  .pielegend{display:flex;flex-direction:column;gap:5px;margin-top:8px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .pielegend .pl{display:flex;align-items:center;gap:7px}
+  .pielegend .dot{width:10px;height:10px;border-radius:3px;display:inline-block;flex:none}
+  .pielegend b{color:var(--text);font-weight:700}
+  .pielegend .pn{color:var(--faint)}
+  .numcell{justify-content:center;text-align:center;min-height:190px}
+  .bignum{font-family:var(--mono);font-weight:700;font-size:clamp(40px,6vw,58px);line-height:1;color:var(--draw)}
+  .numlab{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:12px;line-height:1.55}
+
   @media(max-width:860px){
     .col6,.col4,.col8{grid-column:span 12}
+    .trio{grid-template-columns:1fr}
+    .numcell{min-height:0;margin-top:8px}
   }
 </style>
 </head>
@@ -148,6 +179,14 @@
         <button data-v="knockout">Knockout</button>
       </div>
     </div>
+    <div class="ctl">
+      <label>Country</label>
+      <div class="combo" id="countryCombo">
+        <input type="text" id="countryInput" placeholder="All teams" autocomplete="off" spellcheck="false">
+        <button class="comboclear" id="countryClear" title="show all teams" style="display:none">&#10005;</button>
+        <div class="combolist" id="countryList"></div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -157,6 +196,26 @@
 
 <main>
   <div class="grid">
+    <div class="panel col12">
+      <h3>Scoring split &amp; winning margin</h3>
+      <p class="cap">Full-time (90&prime;) picture for the games in view. <b>Left</b>: share of games with a goal in <b>both halves</b> (first-half goal at &le;45&prime; and a second-half goal after, extra time excluded) versus all other games. <b>Middle</b>: share where <b>both teams scored</b> versus all other games. <b>Right</b>: average winning margin in decisive games (a 2&ndash;1 is a margin of 1; 0&ndash;0 and other draws are left out). Follows every filter, including Country. Click a pie slice to filter the match ledger.</p>
+      <div class="trio">
+        <div class="trio-cell">
+          <div class="chartwrap pie"><canvas id="halvesPie"></canvas></div>
+          <div class="trio-lab">Goals in both halves</div>
+          <div class="pielegend" id="halvesLeg"></div>
+        </div>
+        <div class="trio-cell">
+          <div class="chartwrap pie"><canvas id="bttsPie"></canvas></div>
+          <div class="trio-lab">Both teams scored</div>
+          <div class="pielegend" id="bttsLeg"></div>
+        </div>
+        <div class="trio-cell numcell">
+          <div class="bignum" id="avgMargin">&mdash;</div>
+          <div class="numlab" id="avgMarginSub">avg winning margin</div>
+        </div>
+      </div>
+    </div>
     <div class="panel col12">
       <h3>Games by score</h3>
       <p class="cap">Full-time scoreline (90′), as a share of each series' own games. 2–1 and 1–2 are counted together (no real home side at a World Cup). Scorelines history has seen fewer than 3 times are pooled into <b>Other</b>. <b>2026</b> vs the <b>history</b> benchmark.</p>
@@ -228,7 +287,7 @@
 
     <div class="panel col12">
       <h3>When the draw breaks <span class="tag">all years · locked</span></h3>
-      <p class="cap">In games won by a single goal at 90′, the minute the draw was finally broken — the go-ahead goal that won it (the goal right after the last level score). Split by whether the game was still 0–0 or already level at 1–1 or higher. <b>Locked to all years</b> — this panel ignores the filters (the stack is the point here, not a 2026 comparison).</p>
+      <p class="cap">In games won by a single goal at 90′, the minute the draw was finally broken — the go-ahead goal that won it (the goal right after the last level score). Split by whether the game was still 0–0 or already level at 1–1 or higher. <b>Locked to all years and stages</b> — only the Country filter narrows it (the stack is the point here, not a 2026 comparison).</p>
       <div class="chartwrap"><canvas id="breakChart"></canvas></div>
     </div>
 
@@ -256,9 +315,12 @@ Chart.defaults.font.size = 11;
 const C = {draw:'#F4B942', home:'#54B981', away:'#5C9AD6', line:'#26332C', muted:'#8A998F'};
 const PALETTE = [C.draw, C.home, C.away, '#C77DFF', '#FF8FA3', '#7FD1C0', '#E9EFEA'];
 
-let sel = {wc:'all', stage:'all'};
+let sel = {wc:'all', stage:'all', country:'all'};
 let YEARS = [];
 const yearColor = y => PALETTE[Math.max(0, YEARS.indexOf(Number(y))) % PALETTE.length];
+
+// a game is "in view" for the country filter if the chosen team played in it (home or away)
+const countryOK = g => sel.country==='all' || g.home===sel.country || g.away===sel.country;
 
 // WC selector is built in boot(), after the data file loads.
 function wire(segId, key){
@@ -271,7 +333,7 @@ function wire(segId, key){
 wire('wcSeg','wc'); wire('stageSeg','stage');
 
 // ---- helpers ----
-const byWc = () => DB.games.filter(g => sel.wc==='all' || String(g.world_cup)===sel.wc);
+const byWc = () => DB.games.filter(g => (sel.wc==='all' || String(g.world_cup)===sel.wc) && countryOK(g));
 const filtered = () => byWc().filter(g => sel.stage==='all' || g.stage===sel.stage)
                             .sort((a,b)=> a.date.localeCompare(b.date) || a.game_no_in_wc-b.game_no_in_wc);
 
@@ -410,6 +472,65 @@ const baseBar = (labels,data,colors,onClick,pct)=>({
                ticks: pct?{callback:v=>v+'%'}:{precision:0}}}}
 });
 
+// ---- two-pies + winning-margin panel (follows every filter, incl. country) ----
+const C_REST = '#46554B';   // neutral slice for the "all other games" half of each pie
+function drawPie(id, labels, data, colors, onClick){
+  const tot = data.reduce((s,v)=>s+v,0);
+  draw(id, {
+    type:'pie',
+    data:{labels, datasets:[{data, backgroundColor:colors, borderColor:C.line, borderWidth:2}]},
+    options:{maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+        tooltip:{callbacks:{label:ctx=>{ const p=tot?(100*ctx.parsed/tot).toFixed(1):0;
+          return ` ${ctx.label}: ${ctx.parsed} (${p}%)`; }}}},
+      onClick}
+  });
+}
+function pieLegend(elId, items){   // items: [{color,label,n,pct}]
+  document.getElementById(elId).innerHTML = items.map(it=>
+    `<span class="pl"><span class="dot" style="background:${it.color}"></span>${it.label} <b>${it.pct}%</b> <span class="pn">(${it.n})</span></span>`
+  ).join('');
+}
+const bothHalves = g => g.goals.some(x=>x.phase!=='extra_time'&&x.minute<=45)
+                     && g.goals.some(x=>x.phase!=='extra_time'&&x.minute>45);
+const bttsGame   = g => g.ft[0]>0 && g.ft[1]>0;
+function buildHalvesBttsPanel(){
+  const G = filtered();
+  const N = G.length;
+  const both = G.filter(bothHalves).length;
+  const btts = G.filter(bttsGame).length;
+  const dec  = G.filter(g=>g.ft[0]!==g.ft[1]);
+  const pc = (v)=> N ? (100*v/N).toFixed(1) : '0.0';
+
+  drawPie('halvesPie',
+    ['Scored in both halves','All other games'], [both, N-both], [C.home, C_REST],
+    (e,els)=>{ if(!els.length)return; const yes=els[0].index===0;
+      setDrill(yes?'Goals in both halves':'Not both halves', g=>bothHalves(g)===yes); });
+  pieLegend('halvesLeg', [
+    {color:C.home, label:'Both halves', n:both,   pct:pc(both)},
+    {color:C_REST, label:'All other',   n:N-both, pct:pc(N-both)}
+  ]);
+
+  drawPie('bttsPie',
+    ['Both teams scored','All other games'], [btts, N-btts], [C.home, C_REST],
+    (e,els)=>{ if(!els.length)return; const yes=els[0].index===0;
+      setDrill(yes?'Both teams scored':'Not both teams scored', g=>bttsGame(g)===yes); });
+  pieLegend('bttsLeg', [
+    {color:C.home, label:'Both scored', n:btts,   pct:pc(btts)},
+    {color:C_REST, label:'All other',   n:N-btts, pct:pc(N-btts)}
+  ]);
+
+  const elNum=document.getElementById('avgMargin'), elSub=document.getElementById('avgMarginSub');
+  if(dec.length){
+    const avg = dec.reduce((s,g)=>s+Math.abs(g.ft[0]-g.ft[1]),0)/dec.length;
+    elNum.textContent = avg.toFixed(1);
+    elSub.innerHTML = `goals &middot; avg winning margin<br>${dec.length} decisive game${dec.length===1?'':'s'}`;
+  }else{
+    elNum.textContent = '\u2014';
+    elSub.innerHTML = 'avg winning margin<br>no decisive games in view';
+  }
+}
+
 // ====== 2026-vs-history comparison model ======
 // Bars compare two series: the always-on 2026 series, and a "history benchmark"
 // chosen by the World Cup filter. 2026 is never part of history. When the filter
@@ -420,11 +541,12 @@ function histGames(){
   return DB.games.filter(g=>{
     if(g.world_cup===2026) return false;                 // 2026 is its own series
     if(!stageOK(g)) return false;
+    if(!countryOK(g)) return false;
     if(sel.wc==='all' || sel.wc==='2026') return true;   // pooled history
     return String(g.world_cup)===sel.wc;                 // a single historical year
   });
 }
-function cup2026(){ return DB.games.filter(g => g.world_cup===2026 && stageOK(g)); }
+function cup2026(){ return DB.games.filter(g => g.world_cup===2026 && stageOK(g) && countryOK(g)); }
 function histLabel(){ return (sel.wc==='all'||sel.wc==='2026') ? 'History' : sel.wc; }
 
 // grouped two-series bar (History vs 2026)
@@ -483,10 +605,13 @@ function render(){
   // ---- overview table (top): follows STAGE filter only; WC filter muted ----
   buildOverview();
 
+  // ---- scoring split (two pies) + average winning margin ----
+  buildHalvesBttsPanel();
+
   // ---- draw rate over the tournament: one line per World Cup ----
   const yearsSel = (sel.wc==='all') ? YEARS : [Number(sel.wc)];
   const accDatasets = yearsSel.map(y=>{
-    const gw = DB.games.filter(g=>g.world_cup===y && (sel.stage==='all'||g.stage===sel.stage))
+    const gw = DB.games.filter(g=>g.world_cup===y && (sel.stage==='all'||g.stage===sel.stage) && countryOK(g))
                        .sort((a,b)=> a.date.localeCompare(b.date) || a.game_no_in_wc-b.game_no_in_wc);
     let cum=0;
     const d = gw.map((g,i)=>{ if(g.draw_after_90)cum++; return +(100*cum/(i+1)).toFixed(1); });
@@ -547,14 +672,15 @@ function render(){
       setDrill(`Games with a goal in ${b}`, g=>g.goals.some(go=>band(go)===b)); }}));
 
   // ---- when the draw breaks: 1-goal-margin finishes, stacked 0-0 vs level ----
-  // LOCKED: all years, ignores the filters (the 0-0/level stack is the value here).
+  // LOCKED to all years and stages; only the Country filter narrows it.
   const b00={}, bLv={}; NB.forEach(b=>{b00[b]=0; bLv[b]=0;});
-  DB.games.filter(g=>!g.draw_after_90 && Math.abs(g.ft[0]-g.ft[1])===1).forEach(g=>{
+  DB.games.filter(g=>!g.draw_after_90 && Math.abs(g.ft[0]-g.ft[1])===1 && countryOK(g)).forEach(g=>{
     const r=drawBreaker(g); if(!r) return;
     (r.origin==='0-0'?b00:bLv)[r.band]++;
   });
   const breakFilter=(bn,origin)=>g=>{
     if(g.draw_after_90 || Math.abs(g.ft[0]-g.ft[1])!==1) return false;
+    if(!countryOK(g)) return false;
     const r=drawBreaker(g); return !!r && r.band===bn && (origin===null || r.origin===origin);
   };
   draw('breakChart',{type:'bar',
@@ -637,7 +763,7 @@ function render(){
   applyLedger();
 
   document.getElementById('foot').textContent =
-    `Page v16  ·  Source: openfootball (public domain). ${DB.notes.verification} Data v${DB.data_version} · schema v${DB.schema_version}.`;
+    `Page v17  ·  Source: openfootball (public domain). ${DB.notes.verification} Data v${DB.data_version} · schema v${DB.schema_version}.`;
 }
 
 function applyLedger(){
@@ -835,7 +961,7 @@ function buildOverview(){
   let body='', tN=0, tG=0, tD=0;
   const cell=(big,sub)=>`<td class="num"><span class="big">${big}</span><span class="sub">${sub}</span></td>`;
   YEARS.forEach(y=>{
-    const gs = DB.games.filter(g=>g.world_cup===y && (sel.stage==='all'||g.stage===sel.stage));
+    const gs = DB.games.filter(g=>g.world_cup===y && (sel.stage==='all'||g.stage===sel.stage) && countryOK(g));
     const n = gs.length;
     const goals = gs.reduce((s,g)=>s+g.goals.length,0);
     const d = gs.filter(g=>g.draw_after_90).length;
@@ -853,6 +979,53 @@ function buildOverview(){
     `<thead><tr>`+
     `<th>World Cup</th><th>Games played</th><th>Goals scored</th><th>Draws</th>`+
     `</tr></thead><tbody>${body}</tbody></table>`;
+}
+
+// ---- country type-ahead filter ----
+let COUNTRIES = [];          // [{name, n}] — every team and how many DB games it appears in
+let comboActive = -1;
+function buildCountryList(){
+  const cnt={};
+  DB.games.forEach(g=>{ cnt[g.home]=(cnt[g.home]||0)+1; cnt[g.away]=(cnt[g.away]||0)+1; });
+  COUNTRIES = Object.keys(cnt).sort((a,b)=>a.localeCompare(b)).map(name=>({name, n:cnt[name]}));
+}
+function renderCombo(filter){
+  const q=(filter||'').trim().toLowerCase();
+  const list=document.getElementById('countryList');
+  const matches = COUNTRIES.filter(c=>c.name.toLowerCase().includes(q));
+  comboActive = -1;
+  if(!matches.length){ list.innerHTML='<div class="none">No team matches</div>'; list.classList.add('open'); return; }
+  list.innerHTML = matches.map(c=>`<div class="opt" data-name="${c.name.replace(/"/g,'&quot;')}"><span>${c.name}</span><span class="cnt">${c.n} g</span></div>`).join('');
+  list.classList.add('open');
+}
+function closeCombo(){ document.getElementById('countryList').classList.remove('open'); }
+function pickCountry(name){
+  sel.country = name;
+  const inp=document.getElementById('countryInput');
+  inp.value = name==='all' ? '' : name;
+  document.getElementById('countryClear').style.display = name==='all' ? 'none' : 'block';
+  closeCombo(); drill=null; render();
+}
+function wireCombo(){
+  const inp=document.getElementById('countryInput');
+  const list=document.getElementById('countryList');
+  inp.addEventListener('focus', ()=>renderCombo(inp.value));
+  inp.addEventListener('input', ()=>renderCombo(inp.value));
+  inp.addEventListener('keydown', e=>{
+    const opts=[...list.querySelectorAll('.opt')];
+    if(e.key==='ArrowDown'){ e.preventDefault(); comboActive=Math.min(opts.length-1, comboActive+1); }
+    else if(e.key==='ArrowUp'){ e.preventDefault(); comboActive=Math.max(0, comboActive-1); }
+    else if(e.key==='Enter'){ e.preventDefault(); if(opts.length){ pickCountry((opts[comboActive]||opts[0]).dataset.name); } return; }
+    else if(e.key==='Escape'){ closeCombo(); inp.blur(); return; }
+    else return;
+    opts.forEach((o,i)=>o.classList.toggle('active', i===comboActive));
+    if(opts[comboActive]) opts[comboActive].scrollIntoView({block:'nearest'});
+  });
+  list.addEventListener('click', e=>{ const o=e.target.closest('.opt'); if(o) pickCountry(o.dataset.name); });
+  document.getElementById('countryClear').addEventListener('click', ()=>pickCountry('all'));
+  document.addEventListener('click', e=>{
+    if(!e.target.closest('#countryCombo')){ closeCombo(); inp.value = sel.country==='all' ? '' : sel.country; }
+  });
 }
 
 async function boot(){
@@ -876,6 +1049,8 @@ async function boot(){
   });
   computeRounds();
   computeScoreBuckets();
+  buildCountryList();
+  wireCombo();
   buildFavTable();
   const wcBtns = [['all','All']].concat(YEARS.map(y=>[String(y),String(y)]));
   document.getElementById('wcSeg').innerHTML =
