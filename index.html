@@ -219,13 +219,13 @@
     </div>
     <div class="panel col12">
       <h3>Games by score</h3>
-      <p class="cap">Full-time scoreline (90′), as a share of <b>all games in view</b> — every year pooled into one series, 2026 included. 2–1 and 1–2 are counted together (no real home side at a World Cup). Scorelines history has seen fewer than 3 times are pooled into <b>Other</b>. Bars are <b>sorted by frequency</b>; Other is always last.</p>
+      <p class="cap">Full-time scoreline (90′), as a share of <b>all games in view</b> — every year pooled into one series, 2026 included. 2–1 and 1–2 are counted together (no real home side at a World Cup). Scorelines history has seen fewer than 3 times are pooled into <b>Other</b>. Bars are <b>sorted by frequency</b>; Other is always last. The <b>amber line</b> is the running cumulative share (right axis) — read where it crosses 50%.</p>
       <div class="chartwrap"><canvas id="scoreAllPctChart"></canvas></div>
     </div>
 
     <div class="panel col12">
       <h3>When the first goal is scored</h3>
-      <p class="cap">For each game in view, the period of its <b>opening goal</b> — the first goal in normal time — as a share of games that had one. Only 90′ goals count: games still 0–0 at 90′ (including the few that scored only in extra time) have no opening goal here and are left out. One pooled series across every year in view, 2026 included; kept in time order.</p>
+      <p class="cap">For each game in view, the period of its <b>opening goal</b> — the first goal in normal time — as a share of games that had one. Only 90′ goals count: games still 0–0 at 90′ (including the few that scored only in extra time) have no opening goal here and are left out. One pooled series across every year in view, 2026 included; kept in time order. The <b>amber line</b> is the running cumulative share (right axis) — read where it crosses 50%.</p>
       <div class="chartwrap"><canvas id="firstGoalMinChart"></canvas></div>
     </div>
 
@@ -721,21 +721,26 @@ function render(){
   const sbOwned = SCORE_BUCKETS.slice().sort((a,b)=> sbCnt[b]-sbCnt[a]);  // by frequency, desc
   const sbLabels=[...sbOwned,'Other'];
   const sbN=G.length||1;
+  let sbAccN=0; const sbCum=sbLabels.map(l=>{ sbAccN+=sbCnt[l]; return +(100*sbAccN/sbN).toFixed(1); });
   draw('scoreAllPctChart', {
     type:'bar',
     data:{labels:sbLabels, datasets:[{
       data:sbLabels.map(l=>+(100*sbCnt[l]/sbN).toFixed(1)),
       _counts:sbLabels.map(l=>sbCnt[l]),
       backgroundColor:sbLabels.map(l=> l==='Other'?C_REST:C.home),
-      borderRadius:4, maxBarThickness:46}]},
+      borderRadius:4, maxBarThickness:46, order:2},
+      {type:'line', data:sbCum, _cum:true, yAxisID:'y1', borderColor:C.draw, backgroundColor:C.draw,
+       borderWidth:2, pointRadius:2, pointHoverRadius:4, tension:0, order:1}]},
     options:{plugins:{legend:{display:false},
-        tooltip:{callbacks:{label:c=>{ const k=c.dataset._counts[c.dataIndex];
-          return `${c.parsed.y}% · ${k} game${k===1?'':'s'}`; }}}},
+        tooltip:{callbacks:{label:c=>{ if(c.dataset._cum) return `Cumulative: ${c.parsed.y}%`;
+          const k=c.dataset._counts[c.dataIndex]; return `${c.parsed.y}% · ${k} game${k===1?'':'s'}`; }}}},
       maintainAspectRatio:false,
-      onClick:(e,els)=>{ if(!els.length)return; const k=sbLabels[els[0].index];
+      onClick:(e,els)=>{ const bar=els.find(el=>el.datasetIndex===0); if(!bar)return; const k=sbLabels[bar.index];
         setDrill(`Score · ${k}`, g=>scoreKey(g)===k); },
       scales:{x:{grid:{display:false},border:{color:C.line}},
-              y:{beginAtZero:true,grid:{color:C.line},border:{display:false},ticks:{callback:v=>v+'%'}}}}
+              y:{beginAtZero:true,grid:{color:C.line},border:{display:false},ticks:{callback:v=>v+'%'}},
+              y1:{position:'right',beginAtZero:true,max:100,grid:{drawOnChartArea:false},border:{display:false},
+                  ticks:{callback:v=>v+'%'},title:{display:true,text:'cumulative',color:C.muted}}}}
   });
 
   // ---- when the first goal is scored: opening (first normal-time) goal by period, pooled ----
@@ -885,20 +890,25 @@ function buildFirstGoalMin(G){   // period of the opening (first normal-time) go
   const c={}; NB.forEach(b=>c[b]=0); let n=0;
   G.forEach(g=>{ const f=firstNT(g); if(!f) return; c[band(f)]++; n++; });
   const den=n||1;
+  let accF=0; const cum=NB.map(b=>{ accF+=c[b]; return +(100*accF/den).toFixed(1); });
   draw('firstGoalMinChart', {
     type:'bar',
     data:{labels:NB, datasets:[{
       data:NB.map(b=>+(100*c[b]/den).toFixed(1)),
       _counts:NB.map(b=>c[b]),
-      backgroundColor:C.home, borderRadius:4, maxBarThickness:46}]},
+      backgroundColor:C.home, borderRadius:4, maxBarThickness:46, order:2},
+      {type:'line', data:cum, _cum:true, yAxisID:'y1', borderColor:C.draw, backgroundColor:C.draw,
+       borderWidth:2, pointRadius:2, pointHoverRadius:4, tension:0, order:1}]},
     options:{plugins:{legend:{display:false},
-        tooltip:{callbacks:{label:ct=>{ const k=ct.dataset._counts[ct.dataIndex];
-          return `${ct.parsed.y}% · ${k} game${k===1?'':'s'}`; }}}},
+        tooltip:{callbacks:{label:ct=>{ if(ct.dataset._cum) return `Cumulative: ${ct.parsed.y}%`;
+          const k=ct.dataset._counts[ct.dataIndex]; return `${ct.parsed.y}% · ${k} game${k===1?'':'s'}`; }}}},
       maintainAspectRatio:false,
-      onClick:(e,els)=>{ if(!els.length)return; const b=NB[els[0].index];
+      onClick:(e,els)=>{ const bar=els.find(el=>el.datasetIndex===0); if(!bar)return; const b=NB[bar.index];
         setDrill(`Opening goal in ${b}`, g=>{ const f=firstNT(g); return !!f && band(f)===b; }); },
       scales:{x:{grid:{display:false},border:{color:C.line}},
-              y:{beginAtZero:true,grid:{color:C.line},border:{display:false},ticks:{callback:v=>v+'%'}}}}
+              y:{beginAtZero:true,grid:{color:C.line},border:{display:false},ticks:{callback:v=>v+'%'}},
+              y1:{position:'right',beginAtZero:true,max:100,grid:{drawOnChartArea:false},border:{display:false},
+                  ticks:{callback:v=>v+'%'},title:{display:true,text:'cumulative',color:C.muted}}}}
   });
 }
 function buildScoreFirst(G){     // win rate for the side that scored first; rows fav/und, cols minute band
