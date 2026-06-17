@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ===================  index.html  ·  PAGE VERSION v17  ·  16 Jun 2026  ·  World Cup Statistics  =================== -->
+<!-- ===================  index.html  ·  PAGE VERSION v18  ·  17 Jun 2026  ·  World Cup Statistics  =================== -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -109,6 +109,7 @@
   #scoreFirstWrap .mtx td,#scoreFirstWrap .mtx th.rowhdr{cursor:default}
   #scoreFirstWrap .mtx td:hover,#scoreFirstWrap .mtx th.rowhdr:hover{background:transparent}
   #scoreFirstWrap .mtx td.tot .big{color:var(--text)}
+  #scoreFirstWrap .mtx tr.totrow td,#scoreFirstWrap .mtx tr.totrow th{border-top:2px solid var(--faint)}
 
   /* drill-down banner */
   .drillbar{display:flex;align-items:center;gap:10px;margin:0 0 12px;padding:9px 12px;background:var(--surface2);border:1px solid var(--draw);border-radius:8px;font-family:var(--mono);font-size:12px;color:var(--text)}
@@ -218,23 +219,30 @@
     </div>
     <div class="panel col12">
       <h3>Games by score</h3>
-      <p class="cap">Full-time scoreline (90′), as a share of each series' own games. 2–1 and 1–2 are counted together (no real home side at a World Cup). Scorelines history has seen fewer than 3 times are pooled into <b>Other</b>. <b>2026</b> vs the <b>history</b> benchmark.</p>
+      <p class="cap">Full-time scoreline (90′), as a share of <b>all games in view</b> — every year pooled into one series, 2026 included. 2–1 and 1–2 are counted together (no real home side at a World Cup). Scorelines history has seen fewer than 3 times are pooled into <b>Other</b>. Bars are <b>sorted by frequency</b>; Other is always last.</p>
       <div class="chartwrap"><canvas id="scoreAllPctChart"></canvas></div>
     </div>
 
     <div class="panel col12">
+      <h3>When the first goal is scored</h3>
+      <p class="cap">For each game in view, the period of its <b>opening goal</b> — the first goal in normal time — as a share of games that had one. Only 90′ goals count: games still 0–0 at 90′ (including the few that scored only in extra time) have no opening goal here and are left out. One pooled series across every year in view, 2026 included; kept in time order.</p>
+      <div class="chartwrap"><canvas id="firstGoalMinChart"></canvas></div>
+    </div>
+
+    <div class="panel col12">
       <h3>Score first → win <span class="tag">favourite vs underdog · by minute · 90′</span></h3>
-      <p class="cap">Win rate at 90′ for the side that scored the <b>opening goal</b> (first goal in normal time; an own goal counts for the side it put ahead). Rows split that side into the ranking <b>favourite</b> (higher-ranked) or the <b>underdog</b>; columns by when the first goal came. <b>n</b> = games in the cell — treat small counts as a hint, not a firm rate. Follows the filters above (the Group / Knockout buttons give the stage cut). Games that finished 0–0 have no first goal and are left out.</p>
+      <p class="cap">Win rate at 90′ for the side that scored the <b>opening goal</b> (first goal in normal time; an own goal counts for the side it put ahead). Rows split that side into the ranking <b>favourite</b> (higher-ranked) or the <b>underdog</b>, with a combined <b>Total</b> row; columns by when the first goal came. The count beneath each rate is wins of games in that cell — treat small counts as a hint, not a firm rate. Follows the filters above (the Group / Knockout buttons give the stage cut). Games that finished 0–0 have no first goal and are left out.</p>
       <div id="scoreFirstWrap"></div>
     </div>
 
-    <div class="panel col12">
-      <h3>Did the favourite hold? <span class="tag">by rank gap · settled at 90′</span></h3>
-      <p class="cap">Every game split by the gap in FIFA world ranking between the two sides (the favourite is the higher-ranked team). Each cell is the share of that band's games — favourite won, drawn, or upset — at full time (90′), with the game count beside it. Amber column = draws. Click any cell to filter the match ledger to those games. Follows the filters; 2026 is included in "All" and selectable on its own.</p>
-      <div id="favHoldWrap"></div>
+    <div class="panel col6">
+      <h3>Did the favourite hold? <span class="tag">by FIFA rank · settled at 90′</span></h3>
+      <p class="cap">Across every game in view, the favourite is the higher-ranked side. The circle splits those games three ways at full time (90′): <span style="color:var(--home)">favourite won</span>, <span style="color:var(--draw)">draw</span>, or <span style="color:var(--away)">upset</span> (the lower-ranked side won). Click a slice to filter the match ledger. Follows the filters; 2026 is included in "All" and selectable on its own.</p>
+      <div class="chartwrap"><canvas id="favHoldPie"></canvas></div>
+      <p class="cap" id="favHoldNote" style="margin-top:10px"></p>
     </div>
 
-    <div class="panel col12">
+    <div class="panel col6">
       <h3>Did the favourite hold? <span class="tag">by market odds · 2026 · settled at 90′</span></h3>
       <p class="cap">For each played 2026 game with a market line, the favourite is the team with the shorter price (lower of the 1 or 2 odds). The circle splits those games three ways at full time (90′): <span style="color:var(--home)">favourite won</span> (market held), <span style="color:var(--draw)">draw</span>, or <span style="color:var(--away)">underdog won</span> (market beaten). Click a slice to filter the match ledger. Full-time 1X2 (90′) odds; only 2026 carries odds, so other tournaments show nothing here.</p>
       <div class="chartwrap"><canvas id="oddsCircle"></canvas></div>
@@ -707,18 +715,31 @@ function render(){
       scales:{x:{stacked:true,grid:{display:false},border:{color:C.line}},
               y:{stacked:true,beginAtZero:true,grid:{color:C.line},border:{display:false},ticks:{precision:0}}}}});
 
-  // ---- games by score: share of own games, History vs 2026; "Other" bucket ----
-  const scoreLabels=[...SCORE_BUCKETS,'Other'];
-  const scoreData = games => {
-    const c={}; scoreLabels.forEach(l=>c[l]=0);
-    games.forEach(g=>{ c[scoreKey(g)]++; });
-    const n=games.length||1; return {pct:scoreLabels.map(l=>+(100*c[l]/n).toFixed(1)), num:scoreLabels.map(l=>c[l])};
-  };
-  const sdH=scoreData(histGames()), sdC=scoreData(cup2026());
-  draw('scoreAllPctChart', compareBar(scoreLabels, sdH.pct, sdC.pct,
-    {pct:true, unit:'games', histCounts:sdH.num, cupCounts:sdC.num,
-     onClick:(e,els)=>{ if(!els.length)return; const k=scoreLabels[els[0].index];
-      setDrill(`Score · ${k}`, g=>scoreKey(g)===k); }}));
+  // ---- games by score: single pooled series (all years in view), sorted desc, Other last ----
+  const sbCnt={}; [...SCORE_BUCKETS,'Other'].forEach(l=>sbCnt[l]=0);
+  G.forEach(g=>{ sbCnt[scoreKey(g)]++; });
+  const sbOwned = SCORE_BUCKETS.slice().sort((a,b)=> sbCnt[b]-sbCnt[a]);  // by frequency, desc
+  const sbLabels=[...sbOwned,'Other'];
+  const sbN=G.length||1;
+  draw('scoreAllPctChart', {
+    type:'bar',
+    data:{labels:sbLabels, datasets:[{
+      data:sbLabels.map(l=>+(100*sbCnt[l]/sbN).toFixed(1)),
+      _counts:sbLabels.map(l=>sbCnt[l]),
+      backgroundColor:sbLabels.map(l=> l==='Other'?C_REST:C.home),
+      borderRadius:4, maxBarThickness:46}]},
+    options:{plugins:{legend:{display:false},
+        tooltip:{callbacks:{label:c=>{ const k=c.dataset._counts[c.dataIndex];
+          return `${c.parsed.y}% · ${k} game${k===1?'':'s'}`; }}}},
+      maintainAspectRatio:false,
+      onClick:(e,els)=>{ if(!els.length)return; const k=sbLabels[els[0].index];
+        setDrill(`Score · ${k}`, g=>scoreKey(g)===k); },
+      scales:{x:{grid:{display:false},border:{color:C.line}},
+              y:{beginAtZero:true,grid:{color:C.line},border:{display:false},ticks:{callback:v=>v+'%'}}}}
+  });
+
+  // ---- when the first goal is scored: opening (first normal-time) goal by period, pooled ----
+  buildFirstGoalMin(G);
 
   // ---- games by total goals: share of own games, History vs 2026 (full set) ----
   const totalCounts = games => { const tg={}; games.forEach(g=>{const t=g.ft[0]+g.ft[1]; tg[t]=(tg[t]||0)+1;}); return tg; };
@@ -763,7 +784,7 @@ function render(){
   applyLedger();
 
   document.getElementById('foot').textContent =
-    `Page v17  ·  Source: openfootball (public domain). ${DB.notes.verification} Data v${DB.data_version} · schema v${DB.schema_version}.`;
+    `Page v18  ·  Source: openfootball (public domain). ${DB.notes.verification} Data v${DB.data_version} · schema v${DB.schema_version}.`;
 }
 
 function applyLedger(){
@@ -856,6 +877,30 @@ function buildFavTable(){
     `<table class="ov favtbl"><thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table>`+
     (unmapped.size? `<p class="cap" style="margin-top:10px;color:var(--draw)">No FIFA code mapped for: ${[...unmapped].join(', ')} — add these to the code map.</p>`:'');
 }
+function buildFirstGoalMin(G){   // period of the opening (first normal-time) goal; pooled single series
+  // NB = the normal-time bands (BANDS minus ET). A first 90' goal can never be ET, so ET is excluded;
+  // 45+ is kept so a future first-half-stoppage opener isn't silently dropped (reads ~0 for now).
+  const firstNT = g => g.goals.filter(x=>x.phase==='normal')
+                               .sort((a,b)=>(a.minute-b.minute)||((a.offset||0)-(b.offset||0)))[0] || null;
+  const c={}; NB.forEach(b=>c[b]=0); let n=0;
+  G.forEach(g=>{ const f=firstNT(g); if(!f) return; c[band(f)]++; n++; });
+  const den=n||1;
+  draw('firstGoalMinChart', {
+    type:'bar',
+    data:{labels:NB, datasets:[{
+      data:NB.map(b=>+(100*c[b]/den).toFixed(1)),
+      _counts:NB.map(b=>c[b]),
+      backgroundColor:C.home, borderRadius:4, maxBarThickness:46}]},
+    options:{plugins:{legend:{display:false},
+        tooltip:{callbacks:{label:ct=>{ const k=ct.dataset._counts[ct.dataIndex];
+          return `${ct.parsed.y}% · ${k} game${k===1?'':'s'}`; }}}},
+      maintainAspectRatio:false,
+      onClick:(e,els)=>{ if(!els.length)return; const b=NB[els[0].index];
+        setDrill(`Opening goal in ${b}`, g=>{ const f=firstNT(g); return !!f && band(f)===b; }); },
+      scales:{x:{grid:{display:false},border:{color:C.line}},
+              y:{beginAtZero:true,grid:{color:C.line},border:{display:false},ticks:{callback:v=>v+'%'}}}}
+  });
+}
 function buildScoreFirst(G){     // win rate for the side that scored first; rows fav/und, cols minute band
   const BANDS=[['by20',"By 20'"],['21-45',"21\u201345'"],['46-70',"46\u201370'"],['71+',"71'+"]];
   const fgBand=m=> m<=20?'by20':(m<=45?'21-45':(m<=70?'46-70':'71+'));
@@ -875,50 +920,64 @@ function buildScoreFirst(G){     // win rate for the side that scored first; row
     t[role][b].n++; if(won) t[role][b].w++;
   });
   let rows='';
+  const colTot={}; BANDS.forEach(([bk])=>colTot[bk]={w:0,n:0}); let gW=0,gN=0;
   [['fav','Favourite'],['und','Underdog']].forEach(([rk,rlab])=>{
     let tds='', rowN=0, rowW=0;
     BANDS.forEach(([bk])=>{
       const c=t[rk][bk], p=c.n?Math.round(100*c.w/c.n):null; rowN+=c.n; rowW+=c.w;
+      colTot[bk].w+=c.w; colTot[bk].n+=c.n;
       tds+=`<td><span class="big">${c.n?p+'%':'\u2014'}</span><span class="sub">${c.n?c.w+' of '+c.n:''}</span></td>`;
     });
     const tp = rowN?Math.round(100*rowW/rowN):null;
     tds+=`<td class="tot"><span class="big">${rowN?tp+'%':'\u2014'}</span><span class="sub">${rowN?rowW+' of '+rowN:''}</span></td>`;
     rows+=`<tr><th class="rowhdr inert">${rlab}</th>${tds}</tr>`;
   });
+  // combined Total row (favourite + underdog pooled per band, plus grand total)
+  let ttds='';
+  BANDS.forEach(([bk])=>{
+    const c=colTot[bk], p=c.n?Math.round(100*c.w/c.n):null; gW+=c.w; gN+=c.n;
+    ttds+=`<td><span class="big">${c.n?p+'%':'\u2014'}</span><span class="sub">${c.n?c.w+' of '+c.n:''}</span></td>`;
+  });
+  const gp=gN?Math.round(100*gW/gN):null;
+  ttds+=`<td class="tot"><span class="big">${gN?gp+'%':'\u2014'}</span><span class="sub">${gN?gW+' of '+gN:''}</span></td>`;
+  rows+=`<tr class="totrow"><th class="rowhdr inert">Total</th>${ttds}</tr>`;
   document.getElementById('scoreFirstWrap').innerHTML =
     `<table class="mtx"><thead><tr><th class="corner"></th>`+
     BANDS.map(b=>`<th>${b[1]}</th>`).join('')+`<th>games</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
 function buildFavHold(){
-  // Follows World Cup + Stage filters (via filtered()). Cells are clickable -> ledger drill-down.
+  // Overall favourite won / draw / upset across every ranked game in view (no rank-gap split).
+  // Doughnut to mirror the market circle beside it. Follows World Cup + Stage + Country filters.
   const G = filtered();
-  const t={}; FAVBANDS.forEach(b=>t[b]={fav:0,draw:0,upset:0});
-  const all={fav:0,draw:0,upset:0};
-  G.forEach(g=>{ const b=gapBand(g); if(!b) return; const o=favOutcome(g); if(!o) return; t[b][o]++; all[o]++; });
-  const cell=(o,obj,gb)=>{
-    const n=obj.fav+obj.draw+obj.upset, v=obj[o];
-    const pct = n ? (100*v/n).toFixed(1)+'%' : '—';
-    const sub = n ? v+' game'+(v===1?'':'s') : '—';
-    return `<td data-outcome="${o}"${gb?` data-gapband="${gb}"`:''} class="${o==='draw'?'diag':''}">`+
-           `<span class="big">${pct}</span><span class="sub">${sub}</span></td>`;
-  };
-  let rows='';
-  FAVBANDS.forEach(b=>{
-    const obj=t[b], n=obj.fav+obj.draw+obj.upset;
-    rows+=`<tr><th class="rowhdr" data-gapband="${b}">${b}</th>`+
-          cell('fav',obj,b)+cell('draw',obj,b)+cell('upset',obj,b)+
-          `<td class="tot" data-gapband="${b}">${n}</td></tr>`;
+  const c={fav:0,draw:0,upset:0};
+  G.forEach(g=>{ const o=favOutcome(g); if(o) c[o]++; });
+  const order=['fav','draw','upset'];
+  const colors={fav:C.home, draw:C.draw, upset:C.away};
+  const N=c.fav+c.draw+c.upset;
+  const note=document.getElementById('favHoldNote');
+  if(!N){
+    if(charts['favHoldPie']){ charts['favHoldPie'].destroy(); delete charts['favHoldPie']; }
+    const cv=document.getElementById('favHoldPie'); if(cv){ const ctx=cv.getContext('2d'); ctx.clearRect(0,0,cv.width,cv.height); }
+    note.textContent='No games with both sides ranked in view.';
+    return;
+  }
+  note.innerHTML=`Based on <b>${N}</b> game${N===1?'':'s'} with both sides ranked. Click a slice to filter the ledger.`;
+  draw('favHoldPie', {
+    type:'doughnut',
+    data:{ labels: order.map(o=>OCNAME[o]),
+           datasets:[{ data: order.map(o=>c[o]),
+                       backgroundColor: order.map(o=>colors[o]),
+                       borderColor:C.line, borderWidth:2 }] },
+    options:{ maintainAspectRatio:false, cutout:'58%',
+      plugins:{ legend:{position:'right', labels:{boxWidth:12, padding:14, color:'#E9EFEA'}},
+        tooltip:{callbacks:{label:ctx=>{ const v=ctx.parsed, p=(100*v/N).toFixed(0);
+                 return ` ${ctx.label}: ${v} (${p}%)`; }}} },
+      onClick:(evt,els)=>{ if(!els.length) return;
+        const oc = order[els[0].index];
+        setDrill(`Rank · ${OCNAME[oc]}`, g=>favOutcome(g)===oc); }
+    }
   });
-  const N=all.fav+all.draw+all.upset;
-  rows+=`<tr><th class="rowhdr inert">All gaps</th>`+
-        cell('fav',all,null)+cell('draw',all,null)+cell('upset',all,null)+
-        `<td class="tot">${N}</td></tr>`;
-  document.getElementById('favHoldWrap').innerHTML =
-    `<table class="mtx"><thead><tr>`+
-    `<th class="corner" style="text-align:left">Rank gap (places)</th>`+
-    `<th>Favourite won</th><th>Draw</th><th>Upset</th><th>Games</th>`+
-    `</tr></thead><tbody>${rows}</tbody></table>`;
 }
 function buildOddsCircle(){
   // Follows World Cup + Stage filters (via filtered()). Doughnut slice click -> ledger drill-down.
@@ -1061,15 +1120,6 @@ async function boot(){
     if(ht && ft)      setDrill(`HT ${ht} → FT ${ft}`, g=>htRes(g)===ht && ftRes(g)===ft);
     else if(ht)       setDrill(`Half-time: ${HTNAME[ht]}`, g=>htRes(g)===ht);
     else if(ft)       setDrill(`Full-time: ended ${ft}`, g=>ftRes(g)===ft);
-  });
-  document.getElementById('favHoldWrap').addEventListener('click', e=>{
-    const cell=e.target.closest('[data-gapband],[data-outcome]'); if(!cell) return;
-    const gb=cell.dataset.gapband||null, oc=cell.dataset.outcome||null;
-    if(!gb && !oc) return;
-    setDrill(`Rank gap ${gb||'any'} · ${oc?OCNAME[oc]:'all results'}`,
-      g=>{ const b=gapBand(g); if(!b) return false;
-           if(gb && b!==gb) return false;
-           if(oc && favOutcome(g)!==oc) return false; return true; });
   });
   document.querySelector('#ledger thead').addEventListener('click', e=>{
     const th=e.target.closest('th[data-sort]'); if(!th) return;
