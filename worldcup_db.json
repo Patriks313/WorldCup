@@ -1,6 +1,6 @@
 {
  "schema_version": 4,
- "data_version": 15,
+ "data_version": 16,
  "notes": {
   "betting_rule": "Results settled at 90 min + injury time. All draw stats use draw_after_90 only, never the 1/X/2 result.",
   "game_no_continuous": "Re-based chronologically across 2014 -> 2018 -> 2022 (1-64 = 2014, 65-128 = 2018, 129-192 = 2022, 193-194 = first 2026 games). Will extend as more World Cups are added.",
@@ -12166,12 +12166,332 @@
      "owngoal": false
     }
    ]
+  },
+  {
+   "world_cup": 2026,
+   "game_no_in_wc": 49,
+   "game_no_continuous": 241,
+   "stage": "group",
+   "round": "Matchday 3",
+   "date": "2026-06-24",
+   "home": "Czechia",
+   "away": "Mexico",
+   "ft": [
+    0,
+    3
+   ],
+   "draw_after_90": false,
+   "result": "2",
+   "et": null,
+   "pens": null,
+   "goals": [
+    {
+     "team": "away",
+     "scorer": "Mateo Chavez",
+     "minute": 55,
+     "offset": 0,
+     "display": "55",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "away",
+     "scorer": "Julian Quinones",
+     "minute": 61,
+     "offset": 0,
+     "display": "61",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "away",
+     "scorer": "Alvaro Fidalgo",
+     "minute": 90,
+     "offset": 4,
+     "display": "90+4",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    }
+   ]
+  },
+  {
+   "world_cup": 2026,
+   "game_no_in_wc": 50,
+   "game_no_continuous": 242,
+   "stage": "group",
+   "round": "Matchday 3",
+   "date": "2026-06-24",
+   "home": "South Africa",
+   "away": "South Korea",
+   "ft": [
+    1,
+    0
+   ],
+   "draw_after_90": false,
+   "result": "1",
+   "et": null,
+   "pens": null,
+   "goals": [
+    {
+     "team": "home",
+     "scorer": "Thapelo Maseko",
+     "minute": 63,
+     "offset": 0,
+     "display": "63",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    }
+   ]
+  },
+  {
+   "world_cup": 2026,
+   "game_no_in_wc": 51,
+   "game_no_continuous": 243,
+   "stage": "group",
+   "round": "Matchday 3",
+   "date": "2026-06-24",
+   "home": "Scotland",
+   "away": "Brazil",
+   "ft": [
+    0,
+    3
+   ],
+   "draw_after_90": false,
+   "result": "2",
+   "et": null,
+   "pens": null,
+   "goals": [
+    {
+     "team": "away",
+     "scorer": "Vinicius Junior",
+     "minute": 7,
+     "offset": 0,
+     "display": "7",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "away",
+     "scorer": "Vinicius Junior",
+     "minute": 45,
+     "offset": 3,
+     "display": "45+3",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "away",
+     "scorer": "Matheus Cunha",
+     "minute": 60,
+     "offset": 0,
+     "display": "60",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    }
+   ]
+  },
+  {
+   "world_cup": 2026,
+   "game_no_in_wc": 52,
+   "game_no_continuous": 244,
+   "stage": "group",
+   "round": "Matchday 3",
+   "date": "2026-06-24",
+   "home": "Morocco",
+   "away": "Haiti",
+   "ft": [
+    4,
+    2
+   ],
+   "draw_after_90": false,
+   "result": "1",
+   "et": null,
+   "pens": null,
+   "goals": [
+    {
+     "team": "away",
+     "scorer": "Yassine Bounou",
+     "minute": 10,
+     "offset": 0,
+     "display": "10",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": true
+    },
+    {
+     "team": "home",
+     "scorer": "Achraf Hakimi",
+     "minute": 39,
+     "offset": 0,
+     "display": "39",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "away",
+     "scorer": "Wilson Isidor",
+     "minute": 43,
+     "offset": 0,
+     "display": "43",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "home",
+     "scorer": "Ismael Saibari",
+     "minute": 45,
+     "offset": 0,
+     "display": "45",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "home",
+     "scorer": "Soufiane Rahimi",
+     "minute": 78,
+     "offset": 0,
+     "display": "78",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "home",
+     "scorer": "Gessime Yassine",
+     "minute": 89,
+     "offset": 0,
+     "display": "89",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    }
+   ]
+  },
+  {
+   "world_cup": 2026,
+   "game_no_in_wc": 53,
+   "game_no_continuous": 245,
+   "stage": "group",
+   "round": "Matchday 3",
+   "date": "2026-06-24",
+   "home": "Switzerland",
+   "away": "Canada",
+   "ft": [
+    2,
+    1
+   ],
+   "draw_after_90": false,
+   "result": "1",
+   "et": null,
+   "pens": null,
+   "goals": [
+    {
+     "team": "home",
+     "scorer": "Ruben Vargas",
+     "minute": 46,
+     "offset": 0,
+     "display": "46",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "home",
+     "scorer": "Johan Manzambi",
+     "minute": 57,
+     "offset": 0,
+     "display": "57",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "away",
+     "scorer": "Promise David",
+     "minute": 76,
+     "offset": 0,
+     "display": "76",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    }
+   ]
+  },
+  {
+   "world_cup": 2026,
+   "game_no_in_wc": 54,
+   "game_no_continuous": 246,
+   "stage": "group",
+   "round": "Matchday 3",
+   "date": "2026-06-24",
+   "home": "Bosnia-Herzegovina",
+   "away": "Qatar",
+   "ft": [
+    3,
+    1
+   ],
+   "draw_after_90": false,
+   "result": "1",
+   "et": null,
+   "pens": null,
+   "goals": [
+    {
+     "team": "home",
+     "scorer": "Kerim Alajbegovic",
+     "minute": 29,
+     "offset": 0,
+     "display": "29",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "home",
+     "scorer": "Mahmoud Abunada",
+     "minute": 34,
+     "offset": 0,
+     "display": "34",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": true
+    },
+    {
+     "team": "away",
+     "scorer": "Hassan Al-Haydos",
+     "minute": 42,
+     "offset": 0,
+     "display": "42",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "home",
+     "scorer": "Ermin Mahmic",
+     "minute": 82,
+     "offset": 0,
+     "display": "82",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    }
+   ]
   }
  ],
  "odds": {
   "source": "Unibet.se",
   "market": "Fulltid 1X2 (90 min)",
-  "last_refresh": "2026-06-24T15:06:00.894Z",
+  "last_refresh": "2026-06-25T08:29:08.379Z",
   "match_count": 72,
   "matches": [
    {
@@ -12610,7 +12930,7 @@
     "group": "B",
     "home": "Bosnia-Herzegovina",
     "away": "Qatar",
-    "game_no_in_wc": null,
+    "game_no_in_wc": 54,
     "odds_1": 1.38,
     "odds_X": 5.6,
     "odds_2": 8.5
@@ -12619,7 +12939,7 @@
     "group": "B",
     "home": "Switzerland",
     "away": "Canada",
-    "game_no_in_wc": null,
+    "game_no_in_wc": 53,
     "odds_1": 2.48,
     "odds_X": 3.05,
     "odds_2": 3.35
@@ -12628,7 +12948,7 @@
     "group": "C",
     "home": "Morocco",
     "away": "Haiti",
-    "game_no_in_wc": null,
+    "game_no_in_wc": 52,
     "odds_1": 1.17,
     "odds_X": 8,
     "odds_2": 23
@@ -12637,7 +12957,7 @@
     "group": "C",
     "home": "Scotland",
     "away": "Brazil",
-    "game_no_in_wc": null,
+    "game_no_in_wc": 51,
     "odds_1": 10.5,
     "odds_X": 5.8,
     "odds_2": 1.32
@@ -12646,7 +12966,7 @@
     "group": "A",
     "home": "South Africa",
     "away": "South Korea",
-    "game_no_in_wc": null,
+    "game_no_in_wc": 50,
     "odds_1": 6.5,
     "odds_X": 3.95,
     "odds_2": 1.6
@@ -12655,7 +12975,7 @@
     "group": "A",
     "home": "Czechia",
     "away": "Mexico",
-    "game_no_in_wc": null,
+    "game_no_in_wc": 49,
     "odds_1": 3.8,
     "odds_X": 3.95,
     "odds_2": 1.95
@@ -12674,35 +12994,35 @@
     "home": "Ecuador",
     "away": "Germany",
     "game_no_in_wc": null,
-    "odds_1": 4,
-    "odds_X": 3.95,
-    "odds_2": 1.89
+    "odds_1": 5.6,
+    "odds_X": 5,
+    "odds_2": 1.52
    },
    {
     "group": "F",
     "home": "Japan",
     "away": "Sweden",
     "game_no_in_wc": null,
-    "odds_1": 1.94,
-    "odds_X": 3.5,
-    "odds_2": 4.5
+    "odds_1": 1.91,
+    "odds_X": 3.65,
+    "odds_2": 4.6
    },
    {
     "group": "F",
     "home": "Tunisia",
     "away": "Netherlands",
     "game_no_in_wc": null,
-    "odds_1": 23,
-    "odds_X": 9,
-    "odds_2": 1.14
+    "odds_1": 31,
+    "odds_X": 12,
+    "odds_2": 1.1
    },
    {
     "group": "D",
     "home": "Paraguay",
     "away": "Australia",
     "game_no_in_wc": null,
-    "odds_1": 2.95,
-    "odds_X": 2.25,
+    "odds_1": 2.9,
+    "odds_X": 2.28,
     "odds_2": 4
    },
    {
@@ -12710,25 +13030,25 @@
     "home": "Turkey",
     "away": "USA",
     "game_no_in_wc": null,
-    "odds_1": 3.7,
-    "odds_X": 4.1,
-    "odds_2": 1.94
+    "odds_1": 4.1,
+    "odds_X": 4.3,
+    "odds_2": 1.8
    },
    {
     "group": "I",
     "home": "Norway",
     "away": "France",
     "game_no_in_wc": null,
-    "odds_1": 4.75,
-    "odds_X": 4.6,
-    "odds_2": 1.68
+    "odds_1": 4.9,
+    "odds_X": 4.75,
+    "odds_2": 1.65
    },
    {
     "group": "I",
     "home": "Senegal",
     "away": "Iraq",
     "game_no_in_wc": null,
-    "odds_1": 1.23,
+    "odds_1": 1.24,
     "odds_X": 7,
     "odds_2": 14
    },
@@ -12737,9 +13057,9 @@
     "home": "Cape Verde",
     "away": "Saudi Arabia",
     "game_no_in_wc": null,
-    "odds_1": 2.43,
-    "odds_X": 3.5,
-    "odds_2": 3.1
+    "odds_1": 2.55,
+    "odds_X": 3.45,
+    "odds_2": 2.95
    },
    {
     "group": "H",
@@ -12747,35 +13067,35 @@
     "away": "Spain",
     "game_no_in_wc": null,
     "odds_1": 7.5,
-    "odds_X": 4.1,
-    "odds_2": 1.54
+    "odds_X": 4.4,
+    "odds_2": 1.48
    },
    {
     "group": "G",
     "home": "Egypt",
     "away": "Iran",
     "game_no_in_wc": null,
-    "odds_1": 2.55,
+    "odds_1": 2.5,
     "odds_X": 2.65,
-    "odds_2": 3.8
+    "odds_2": 3.9
    },
    {
     "group": "G",
     "home": "New Zealand",
     "away": "Belgium",
     "game_no_in_wc": null,
-    "odds_1": 17,
-    "odds_X": 7.5,
-    "odds_2": 1.19
+    "odds_1": 20,
+    "odds_X": 8.5,
+    "odds_2": 1.15
    },
    {
     "group": "L",
     "home": "Croatia",
     "away": "Ghana",
     "game_no_in_wc": null,
-    "odds_1": 1.78,
-    "odds_X": 3.35,
-    "odds_2": 5.8
+    "odds_1": 1.82,
+    "odds_X": 3.25,
+    "odds_2": 5.75
    },
    {
     "group": "L",
@@ -12783,7 +13103,7 @@
     "away": "England",
     "game_no_in_wc": null,
     "odds_1": 19,
-    "odds_X": 8.5,
+    "odds_X": 8,
     "odds_2": 1.17
    },
    {
@@ -12791,18 +13111,18 @@
     "home": "Colombia",
     "away": "Portugal",
     "game_no_in_wc": null,
-    "odds_1": 3.85,
-    "odds_X": 3.9,
-    "odds_2": 1.93
+    "odds_1": 4.25,
+    "odds_X": 3.75,
+    "odds_2": 1.89
    },
    {
     "group": "K",
     "home": "DR Congo",
     "away": "Uzbekistan",
     "game_no_in_wc": null,
-    "odds_1": 1.83,
+    "odds_1": 1.72,
     "odds_X": 4.2,
-    "odds_2": 4.25
+    "odds_2": 4.7
    },
    {
     "group": "J",
@@ -12810,8 +13130,8 @@
     "away": "Austria",
     "game_no_in_wc": null,
     "odds_1": 4,
-    "odds_X": 2.28,
-    "odds_2": 2.9
+    "odds_X": 2.3,
+    "odds_2": 2.88
    },
    {
     "group": "J",
@@ -12819,8 +13139,8 @@
     "away": "Argentina",
     "game_no_in_wc": null,
     "odds_1": 17,
-    "odds_X": 6.75,
-    "odds_2": 1.22
+    "odds_X": 7.5,
+    "odds_2": 1.19
    }
   ]
  }
