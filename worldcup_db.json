@@ -12492,7 +12492,7 @@
   "source": "Unibet.se",
   "market": "Fulltid 1X2 (90 min)",
   "last_refresh": "2026-06-25T08:29:08.379Z",
-  "match_count": 72,
+  "match_count": 73,
   "matches": [
    {
     "group": "A",
@@ -13141,6 +13141,16 @@
     "odds_1": 17,
     "odds_X": 7.5,
     "odds_2": 1.19
+   },
+   {
+    "group": null,
+    "stage": "knockout",
+    "home": "South Africa",
+    "away": "Canada",
+    "game_no_in_wc": null,
+    "odds_1": 5.75,
+    "odds_X": 3.85,
+    "odds_2": 1.67
    }
   ]
  }
