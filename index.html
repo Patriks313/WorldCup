@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ===================  index.html  ·  PAGE VERSION v18  ·  17 Jun 2026  ·  World Cup Statistics  =================== -->
+<!-- ===================  index.html  ·  PAGE VERSION v19  ·  27 Jun 2026  ·  World Cup Statistics  =================== -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -28,6 +28,15 @@
   .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--draw);margin:0}
   h1{font-size:clamp(26px,4vw,40px);font-weight:700;letter-spacing:-.02em;margin:6px 0 2px}
   .sub{color:var(--muted);font-size:14px;margin:0 0 18px;max-width:620px;line-height:1.5}
+  /* bracket call-to-action (v19) */
+  .topcta{display:inline-flex;align-items:center;gap:10px;margin:0 0 20px;padding:11px 18px;
+    background:var(--draw);color:#1a1206;text-decoration:none;border-radius:9px;
+    font-family:var(--disp);font-weight:700;font-size:15px;letter-spacing:-.01em;
+    box-shadow:0 1px 0 rgba(0,0,0,.25);transition:transform .12s ease,box-shadow .12s ease,filter .12s ease}
+  .topcta:hover{transform:translateY(-1px);filter:brightness(1.05);box-shadow:0 4px 14px rgba(244,185,66,.28)}
+  .topcta .arw{font-family:var(--mono);font-weight:700}
+  .topcta .lbl small{display:block;font-family:var(--mono);font-weight:500;font-size:10.5px;
+    letter-spacing:.1em;text-transform:uppercase;color:#5a4410;margin-top:1px}
 
   /* sticky filter bar */
   .filterbar{position:sticky;top:0;z-index:50;background:var(--bg);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
@@ -164,6 +173,7 @@
   <p class="eyebrow">World Cup Statistics · settled at 90′+ stoppage</p>
   <h1>World Cup Betting Stats</h1>
   <p class="sub">Every game and every goal across the World Cups in the database, checked line by line. Results are settled at full time — 90 minutes plus stoppage; extra time and penalties don't change a draw.</p>
+  <a class="topcta" href="bracket.html"><span class="lbl">🏆 Road to the Final<small>Interactive knockout bracket</small></span><span class="arw">→</span></a>
 </header>
 
 <div class="filterbar">
@@ -789,7 +799,7 @@ function render(){
   applyLedger();
 
   document.getElementById('foot').textContent =
-    `Page v18  ·  Source: openfootball (public domain). ${DB.notes.verification} Data v${DB.data_version} · schema v${DB.schema_version}.`;
+    `Page v19  ·  Source: openfootball (public domain). ${DB.notes.verification} Data v${DB.data_version} · schema v${DB.schema_version}.`;
 }
 
 function applyLedger(){
