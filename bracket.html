@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- bracket_v2  ·  World Cup 2026 — Road to the Final -->
+<!-- bracket_v3  ·  World Cup 2026 — Road to the Final -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -109,6 +109,8 @@ h1 .ghost{color:var(--dim);font-weight:600}
 .tag{font-size:8.5px;font-weight:700;letter-spacing:.08em}
 .tag.conf{color:var(--green)}
 .tag.proj{color:var(--blue)}
+.mno .rt{display:flex;gap:8px;align-items:center}
+.score{font-size:8.5px;font-weight:700;letter-spacing:.04em;color:var(--mut);white-space:nowrap}
 .slot{display:flex;align-items:center;gap:7px;padding:7px 8px;cursor:default;border-top:1px solid transparent}
 .slot+.slot{border-top:1px solid var(--line)}
 .clickable .slot{cursor:pointer}
@@ -206,7 +208,7 @@ footer b{color:var(--mut)}
 </div>
 
 <script>
-let DATA=null, P=null, M=null;   // populated by buildDATA() after the live DB loads
+let DATA=null, P=null, M=null, PLAYED=null, PSCORE=null;   // populated by buildDATA() after the live DB loads
 
 // fixed FIFA R32 tree: group-position anchors + 3rd-place allowed-group sets
 const R32SPEC={73:['A2','B2'],74:['E1','3:ABCDF'],75:['F1','C2'],76:['C1','F2'],77:['I1','3:CDFGH'],78:['E2','I2'],79:['A1','3:CEFHI'],80:['L1','3:EHIJK'],81:['D1','3:BEFIJ'],82:['G1','3:AEHIJ'],83:['K2','L2'],84:['H1','J2'],85:['B1','3:EFGIJ'],86:['J1','H2'],87:['K1','3:DEIJL'],88:['D2','G2']};
@@ -262,8 +264,18 @@ function buildDATA(db){
   }
   Object.entries(FEED).forEach(([id,f])=>{MM[id]={f,round:'R16'};});
   [97,98,99,100].forEach(i=>MM[i].round='QF');[101,102].forEach(i=>MM[i].round='SF');MM[104].round='F';MM[103].round='TP';MM[103].losers=true;
+  // Real, played knockout results — these OVERRIDE the model so eliminated teams never advance.
+  const played={}, pscore={};
+  db.games.filter(g=>g.world_cup===2026 && g.stage==='knockout').forEach(g=>{
+    const win = g.result==='1' ? g.home : g.away;
+    played[g.game_no_in_wc] = win;
+    let sc = g.ft[0]+'\u2013'+g.ft[1];
+    if(g.pens) sc += ' ('+g.pens[0]+'\u2013'+g.pens[1]+' pens)';
+    else if(g.et && (g.et[0]!==g.ft[0]||g.et[1]!==g.ft[1])) sc = g.et[0]+'\u2013'+g.et[1]+' a.e.t.';
+    pscore[g.game_no_in_wc] = sc;
+  });
   const completeList=letters.filter(L=>groupComplete[L]), incompleteList=letters.filter(L=>!groupComplete[L]);
-  return {points,matches:MM,data_version:db.data_version,completeList,incompleteList};
+  return {points,matches:MM,data_version:db.data_version,completeList,incompleteList,played,pscore};
 }
 
 const HOSTS = {USA:1, Mexico:1, Canada:1};
@@ -299,6 +311,7 @@ function teamsOf(id){
   return m.f.map(f=>winnerOf(f));
 }
 function winnerOf(id){
+  if(PLAYED && PLAYED[id]!=null) return PLAYED[id];   // real result wins — never the model
   const [a,b] = teamsOf(id);
   if(a==null||b==null) return null;
   if(mode==='play' && picks[id] && (picks[id]===a||picks[id]===b)) return picks[id];
@@ -317,19 +330,19 @@ function monteCarlo(N){
   for(let i=0;i<N;i++){
     const w={};
     for(const id of [73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88]){
-      const m=M[id]; w[id]= Math.random()<winProb(m.a,m.b)? m.a : m.b; r16[w[id]]++;
+      const m=M[id]; w[id]= PLAYED[id]!=null ? PLAYED[id] : (Math.random()<winProb(m.a,m.b)? m.a : m.b); r16[w[id]]++;
     }
     for(const id of [89,90,91,92,93,94,95,96]){
-      const [a,b]=M[id].f.map(f=>w[f]); w[id]= Math.random()<winProb(a,b)?a:b; qf[w[id]]++;
+      const [a,b]=M[id].f.map(f=>w[f]); w[id]= PLAYED[id]!=null ? PLAYED[id] : (Math.random()<winProb(a,b)?a:b); qf[w[id]]++;
     }
     for(const id of [97,98,99,100]){
-      const [a,b]=M[id].f.map(f=>w[f]); w[id]= Math.random()<winProb(a,b)?a:b; sf[w[id]]++;
+      const [a,b]=M[id].f.map(f=>w[f]); w[id]= PLAYED[id]!=null ? PLAYED[id] : (Math.random()<winProb(a,b)?a:b); sf[w[id]]++;
     }
     for(const id of [101,102]){
-      const [a,b]=M[id].f.map(f=>w[f]); w[id]= Math.random()<winProb(a,b)?a:b; fin[w[id]]++;
+      const [a,b]=M[id].f.map(f=>w[f]); w[id]= PLAYED[id]!=null ? PLAYED[id] : (Math.random()<winProb(a,b)?a:b); fin[w[id]]++;
     }
     const [a,b]=M[104].f.map(f=>w[f]);
-    const c= Math.random()<winProb(a,b)?a:b; cnt[c]++;
+    const c= PLAYED[104]!=null ? PLAYED[104] : (Math.random()<winProb(a,b)?a:b); cnt[c]++;
   }
   return {N,cnt,fin,sf,r16,qf};
 }
@@ -375,7 +388,7 @@ function render(){
   $('#modehint').textContent = mode==='play'
     ? 'Tap a team in any tie to send them through — the rest of the draw re-resolves from your picks.'
     : (mode==='odds' ? '10,000 simulations. Each tie is a weighted coin-flip on the rating gap.'
-    : 'Higher-rated team advances every tie. Switch to “Play it yourself” to override.');
+    : 'Played ties show the real result; the higher-rated team advances every tie not yet played. Switch to “Play it yourself” to override.');
 
   drawBracket(champ, od);
 }
@@ -433,12 +446,14 @@ function matchEl(id, route, od, isTP){
   el.className='match'+(m.round!=='R32'?' has-prev':'')+(['R32','R16','QF','SF'].includes(m.round)?' has-next':'');
   if(isTP) el.className='match';
   const card=document.createElement('div');
-  card.className='mcard'+(route.has(id)&&!isTP?' on-route':'')+(mode==='play'&&!isTP&&a&&b?' clickable':'');
+  const isPlayed = (PLAYED && PLAYED[id]!=null);
+  card.className='mcard'+(route.has(id)&&!isTP?' on-route':'')+(mode==='play'&&!isTP&&a&&b&&!isPlayed?' clickable':'');
   // header line
   let tag='';
   if(m.round==='R32') tag = m.confirmed? '<span class="tag conf">CONFIRMED</span>' : '<span class="tag proj">PROJECTED</span>';
   const mno = isTP? 'Third place' : (m.round==='F'?'Final · M104':('M'+id));
-  card.innerHTML = '<div class="mno"><span>'+mno+'</span>'+tag+'</div>';
+  const sc = (PLAYED && PLAYED[id]!=null) ? '<span class="score">'+PSCORE[id]+'</span>' : '';
+  card.innerHTML = '<div class="mno"><span>'+mno+'</span><span class="rt">'+tag+sc+'</span></div>';
   [a,b].forEach(t=>{
     const adv = t && t===w;
     const s=document.createElement('div');
@@ -446,10 +461,10 @@ function matchEl(id, route, od, isTP){
     let right='';
     if(t){
       if(mode==='odds'){ const v=100*od.cnt[t]/od.N; right = v>=0.05? '<span class="od tnum">'+v.toFixed(1)+'%</span>':''; }
-      else if(a&&b){ const pr=Math.round(100*winProb(t, t===a?b:a)); right='<span class="pr tnum">'+pr+'%</span>'; }
+      else if(a&&b && !(PLAYED && PLAYED[id]!=null)){ const pr=Math.round(100*winProb(t, t===a?b:a)); right='<span class="pr tnum">'+pr+'%</span>'; }
     }
     s.innerHTML='<span class="dot"></span><span class="nm'+(t?'':' tbd')+'">'+(t||tbdLabel(id,t===null))+'</span>'+right;
-    if(t && mode==='play' && a && b && !isTP){
+    if(t && mode==='play' && a && b && !isTP && !isPlayed){
       s.onclick=()=>{ picks[id]=t; clearDownstream(id); render(); };
     }
     card.appendChild(s);
@@ -495,7 +510,7 @@ $('#foot').innerHTML = '<b>How the estimate works.</b> Each tie is scored with t
   'Knockout ties have no draw — extra time and penalties send one side through — so the win probability is the advance probability. '+
   '\u201CHost edge\u201D adds +'+HOST_BONUS+' rating points to USA, Mexico and Canada (off by default, matching the project\u2019s pure-ratings default). '+
   'The bracket structure is FIFA\u2019s fixed schedule (matches 73\u2013104); third-place teams are slotted by the model where groups aren\u2019t final yet, '+
-  'Ties tagged CONFIRMED come from the live board\u2019s real knockout fixtures; PROJECTED ties are model fills for games not yet drawn (and may differ from FIFA\u2019s exact Annex C slotting until they lock). <b>This is a model, not a settled fact.</b> · bracket_v2';
+  'Ties tagged CONFIRMED come from the live board\u2019s real knockout fixtures; PROJECTED ties are model fills for games not yet drawn (and may differ from FIFA\u2019s exact Annex C slotting until they lock). <b>This is a model, not a settled fact.</b> · bracket_v3';
 
 async function init(){
   $('#champ').textContent='Loading…';
@@ -503,7 +518,7 @@ async function init(){
     const res = await fetch('worldcup_db.json', {cache:'no-store'});
     if(!res.ok) throw new Error('HTTP '+res.status);
     const db = await res.json();
-    DATA = buildDATA(db); P = DATA.points; M = DATA.matches;
+    DATA = buildDATA(db); P = DATA.points; M = DATA.matches; PLAYED = DATA.played; PSCORE = DATA.pscore;
     render();
   }catch(e){
     $('#datanote').innerHTML = '<b style="color:var(--red)">Could not load worldcup_db.json</b> — '+e.message+
