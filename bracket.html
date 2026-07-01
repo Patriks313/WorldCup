@@ -115,7 +115,7 @@ h1 .ghost{color:var(--dim);font-weight:600}
 .slot+.slot{border-top:1px solid var(--line)}
 .clickable .slot{cursor:pointer}
 .clickable .slot:hover{background:var(--panel2)}
-.slot .nm{flex:1;min-width:0;font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.slot .nm{flex:1;min-width:0;font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink)}
 .slot.adv .nm{color:var(--ink)}
 .slot.out .nm{color:var(--dim)}
 .slot.adv{background:linear-gradient(90deg,rgba(47,207,142,.10),transparent)}
@@ -156,9 +156,8 @@ footer b{color:var(--mut)}
 
   <div class="rail">
     <div class="seg" role="tablist" aria-label="View mode">
-      <button id="m-est" aria-pressed="true">Best estimate</button>
-      <button id="m-play" aria-pressed="false">Play it yourself</button>
-      <button id="m-odds" aria-pressed="false">Title odds</button>
+      <button id="m-current" aria-pressed="true">Current bracket</button>
+      <button id="m-est" aria-pressed="false">Best estimate</button>
     </div>
     <div class="toggle" id="hostbtn" role="switch" aria-pressed="false" tabindex="0" title="Add a home-soil bump for USA, Mexico and Canada">
       <span class="switch"></span><span>Host edge</span>
@@ -176,7 +175,7 @@ footer b{color:var(--mut)}
       <div class="pct" id="champpct"></div>
       <div class="finalrow" id="finalrow"></div>
     </div>
-    <div class="card">
+    <div class="card" id="oddscard">
       <table class="tbl tnum"><caption id="tblcap">Title odds — top 10</caption>
         <thead><tr><th class="rank"></th><th style="text-align:left">Team</th><th>Reach final</th><th>Win</th><th style="width:64px"></th></tr></thead>
         <tbody id="oddsbody"></tbody>
@@ -198,8 +197,7 @@ footer b{color:var(--mut)}
   </div>
 
   <div class="legend">
-    <i><span class="sw" style="background:var(--green)"></span>advances (model)</i>
-    <i><span class="sw" style="background:var(--route)"></span>champion's route</i>
+    <i><span class="sw" style="background:var(--green)"></span>advances</i>
     <i><span class="tag conf">CONFIRMED</span>&nbsp;result is in</i>
     <i><span class="tag proj">PROJECTED</span>&nbsp;model fill</i>
   </div>
@@ -281,10 +279,10 @@ function buildDATA(db){
 const HOSTS = {USA:1, Mexico:1, Canada:1};
 const HOST_BONUS = 60; // FIFA-points bump when "Host edge" is on
 
-let mode = 'est';        // est | play | odds
+let mode = 'current';    // current | est
 let host = false;
 let half = 'full';
-let picks = {};          // matchId -> team (play mode)
+let picks = {};          // matchId -> team (manual pick, either mode)
 let oddsCache = null;
 
 const ROUND_NAMES = {R32:'Round of 32', R16:'Round of 16', QF:'Quarter-finals', SF:'Semi-finals', F:'Final', TP:'Third place'};
@@ -311,11 +309,12 @@ function teamsOf(id){
   return m.f.map(f=>winnerOf(f));
 }
 function winnerOf(id){
-  if(PLAYED && PLAYED[id]!=null) return PLAYED[id];   // real result wins — never the model
+  if(PLAYED && PLAYED[id]!=null) return PLAYED[id];   // real result wins — never the model or a pick
   const [a,b] = teamsOf(id);
   if(a==null||b==null) return null;
-  if(mode==='play' && picks[id] && (picks[id]===a||picks[id]===b)) return picks[id];
-  return winProb(a,b)>=0.5 ? a : b;
+  if(picks[id] && (picks[id]===a||picks[id]===b)) return picks[id];   // manual pick (either mode)
+  if(mode==='est') return winProb(a,b)>=0.5 ? a : b;  // model fills only in Best estimate
+  return null;                                        // Current bracket: unresolved until played or picked
 }
 function loserOf(id){
   const [a,b] = teamsOf(id); const w = winnerOf(id);
@@ -323,26 +322,31 @@ function loserOf(id){
 }
 
 /* ---------- Monte Carlo ---------- */
+// resolve one tie in a sim: real result locks it, then a manual pick (if that team is in the tie), else weighted coin-flip
+function simWin(id,a,b){
+  if(PLAYED[id]!=null) return PLAYED[id];
+  if(picks[id]===a||picks[id]===b) return picks[id];
+  return Math.random()<winProb(a,b)? a : b;
+}
 function monteCarlo(N){
-  const order=['89','90','91','92','93','94','95','96','97','98','99','100','101','102','104'];
   const cnt={}, fin={}, sf={}, r16={}, qf={};
   for(const t in P){cnt[t]=0;fin[t]=0;sf[t]=0;r16[t]=0;qf[t]=0;}
   for(let i=0;i<N;i++){
     const w={};
     for(const id of [73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88]){
-      const m=M[id]; w[id]= PLAYED[id]!=null ? PLAYED[id] : (Math.random()<winProb(m.a,m.b)? m.a : m.b); r16[w[id]]++;
+      const m=M[id]; w[id]= simWin(id,m.a,m.b); r16[w[id]]++;
     }
     for(const id of [89,90,91,92,93,94,95,96]){
-      const [a,b]=M[id].f.map(f=>w[f]); w[id]= PLAYED[id]!=null ? PLAYED[id] : (Math.random()<winProb(a,b)?a:b); qf[w[id]]++;
+      const [a,b]=M[id].f.map(f=>w[f]); w[id]= simWin(id,a,b); qf[w[id]]++;
     }
     for(const id of [97,98,99,100]){
-      const [a,b]=M[id].f.map(f=>w[f]); w[id]= PLAYED[id]!=null ? PLAYED[id] : (Math.random()<winProb(a,b)?a:b); sf[w[id]]++;
+      const [a,b]=M[id].f.map(f=>w[f]); w[id]= simWin(id,a,b); sf[w[id]]++;
     }
     for(const id of [101,102]){
-      const [a,b]=M[id].f.map(f=>w[f]); w[id]= PLAYED[id]!=null ? PLAYED[id] : (Math.random()<winProb(a,b)?a:b); fin[w[id]]++;
+      const [a,b]=M[id].f.map(f=>w[f]); w[id]= simWin(id,a,b); fin[w[id]]++;
     }
     const [a,b]=M[104].f.map(f=>w[f]);
-    const c= PLAYED[104]!=null ? PLAYED[104] : (Math.random()<winProb(a,b)?a:b); cnt[c]++;
+    const c= simWin(104,a,b); cnt[c]++;
   }
   return {N,cnt,fin,sf,r16,qf};
 }
@@ -359,36 +363,40 @@ function render(){
 
   const champ = winnerOf(104);
   const f1 = winnerOf(101), f2 = winnerOf(102);
-  const od = getOdds();
+  const est = (mode==='est');
+  const od = est ? getOdds() : null;
 
   // hero
-  $('#herolbl').textContent = mode==='play' ? 'Your champion' : (mode==='odds'?'Most likely champion':'Projected champion');
+  $('#herolbl').textContent = est ? 'Projected champion' : (champ ? 'Your champion' : 'Current bracket');
   $('#champ').textContent = champ||'—';
   $('#champmeta').textContent = champ ? ('beats '+(winnerOf(104)===f1?f2:f1)+' in the final · '+fmtPts(champ)+' rating pts') : '';
-  const wpc = champ? Math.round(1000*od.cnt[champ]/od.N)/10 : 0;
-  $('#champpct').innerHTML = champ ? '<span class="big tnum">'+wpc.toFixed(1)+'%</span><span class="cap">title odds</span>' : '';
+  const wpc = (est && champ)? Math.round(1000*od.cnt[champ]/od.N)/10 : 0;
+  $('#champpct').innerHTML = (est && champ) ? '<span class="big tnum">'+wpc.toFixed(1)+'%</span><span class="cap">title odds</span>' : '';
   $('#finalrow').innerHTML =
     fcell('Finalist',f1)+'<span class="vs">vs</span>'+fcell('Finalist',f2,true);
 
-  // odds table
-  const cap = host? 'Title odds — top 10 · host edge on' : 'Title odds — top 10';
-  $('#tblcap').textContent = cap;
-  const ranked = Object.keys(P).sort((a,b)=>od.cnt[b]-od.cnt[a]).slice(0,10);
-  const max = od.cnt[ranked[0]]||1;
-  $('#oddsbody').innerHTML = ranked.map((t,i)=>{
-    const win=100*od.cnt[t]/od.N, fin=100*od.fin[t]/od.N;
-    return '<tr><td class="rank">'+(i+1)+'</td><td class="team">'+t+'</td>'+
-      '<td class="num">'+fin.toFixed(1)+'%</td><td class="num" style="color:var(--amber);font-weight:700">'+win.toFixed(1)+'%</td>'+
-      '<td><div class="bar" style="width:'+Math.max(3,100*od.cnt[t]/max)+'%"></div></td></tr>';
-  }).join('');
+  // odds table — only in Best estimate
+  $('#oddscard').style.display = est ? '' : 'none';
+  if(est){
+    const cap = host? 'Title odds — top 10 · host edge on' : 'Title odds — top 10';
+    $('#tblcap').textContent = cap;
+    const ranked = Object.keys(P).sort((a,b)=>od.cnt[b]-od.cnt[a]).slice(0,10);
+    const max = od.cnt[ranked[0]]||1;
+    $('#oddsbody').innerHTML = ranked.map((t,i)=>{
+      const win=100*od.cnt[t]/od.N, fin=100*od.fin[t]/od.N;
+      return '<tr><td class="rank">'+(i+1)+'</td><td class="team">'+t+'</td>'+
+        '<td class="num">'+fin.toFixed(1)+'%</td><td class="num" style="color:var(--amber);font-weight:700">'+win.toFixed(1)+'%</td>'+
+        '<td><div class="bar" style="width:'+Math.max(3,100*od.cnt[t]/max)+'%"></div></td></tr>';
+    }).join('');
+  }
 
   // controls visibility
-  $('#resetbtn').style.display = mode==='play'?'inline-block':'none';
-  $('#resimbtn').style.display = mode==='odds'?'inline-block':'none';
-  $('#modehint').textContent = mode==='play'
-    ? 'Tap a team in any tie to send them through — the rest of the draw re-resolves from your picks.'
-    : (mode==='odds' ? '10,000 simulations. Each tie is a weighted coin-flip on the rating gap.'
-    : 'Played ties show the real result; the higher-rated team advances every tie not yet played. Switch to “Play it yourself” to override.');
+  $('#hostbtn').style.display = est ? '' : 'none';          // host edge only affects the model
+  $('#resetbtn').style.display = Object.keys(picks).length ? 'inline-block':'none';
+  $('#resimbtn').style.display = est ? 'inline-block':'none';
+  $('#modehint').textContent = est
+    ? 'The model fills every tie not yet played (favourite advances); played ties are locked to the real result. Tap any team to change who goes through — the rest re-resolves, title odds included.'
+    : 'The real bracket as it stands — played games and their winners only. Tap a team in any decided pairing to send them through and fill the bracket yourself. “Best estimate” predicts the rest.';
 
   drawBracket(champ, od);
 }
@@ -419,7 +427,7 @@ function routeSet(champ){
 }
 
 function drawBracket(champ, od){
-  const route = routeSet(champ);
+  const route = new Set();   // champion-route highlight removed
   const wrap = $('#bracket'); wrap.innerHTML='';
   const cols = ['R32','R16','QF','SF','F'];
   cols.forEach(rk=>{
@@ -447,7 +455,8 @@ function matchEl(id, route, od, isTP){
   if(isTP) el.className='match';
   const card=document.createElement('div');
   const isPlayed = (PLAYED && PLAYED[id]!=null);
-  card.className='mcard'+(route.has(id)&&!isTP?' on-route':'')+(mode==='play'&&!isTP&&a&&b&&!isPlayed?' clickable':'');
+  const canPick = !isTP && a && b && !isPlayed;       // pick winners in either mode
+  card.className='mcard'+(canPick?' clickable':'');
   // header line
   let tag='';
   if(m.round==='R32') tag = m.confirmed? '<span class="tag conf">CONFIRMED</span>' : '<span class="tag proj">PROJECTED</span>';
@@ -455,17 +464,15 @@ function matchEl(id, route, od, isTP){
   const sc = (PLAYED && PLAYED[id]!=null) ? '<span class="score">'+PSCORE[id]+'</span>' : '';
   card.innerHTML = '<div class="mno"><span>'+mno+'</span><span class="rt">'+tag+sc+'</span></div>';
   [a,b].forEach(t=>{
-    const adv = t && t===w;
+    let cls = 'out';                       // TBD / loser = dimmed
+    if(t) cls = (w==null) ? '' : (t===w ? 'adv' : 'out');   // undecided pairing = neutral
     const s=document.createElement('div');
-    s.className='slot '+(t? (adv?'adv':'out'):'out');
+    s.className=('slot '+cls).trim();
     let right='';
-    if(t){
-      if(mode==='odds'){ const v=100*od.cnt[t]/od.N; right = v>=0.05? '<span class="od tnum">'+v.toFixed(1)+'%</span>':''; }
-      else if(a&&b && !(PLAYED && PLAYED[id]!=null)){ const pr=Math.round(100*winProb(t, t===a?b:a)); right='<span class="pr tnum">'+pr+'%</span>'; }
-    }
+    if(t && mode==='est' && a&&b && !isPlayed){ const pr=Math.round(100*winProb(t, t===a?b:a)); right='<span class="pr tnum">'+pr+'%</span>'; }
     s.innerHTML='<span class="dot"></span><span class="nm'+(t?'':' tbd')+'">'+(t||tbdLabel(id,t===null))+'</span>'+right;
-    if(t && mode==='play' && a && b && !isTP && !isPlayed){
-      s.onclick=()=>{ picks[id]=t; clearDownstream(id); render(); };
+    if(t && canPick){
+      s.onclick=()=>{ picks[id]=t; clearDownstream(id); oddsCache=null; render(); };
     }
     card.appendChild(s);
   });
@@ -481,19 +488,17 @@ function clearDownstream(id){
 }
 
 /* ---------- wiring ---------- */
-function setMode(x){ mode=x;
+function setMode(x){ mode=x; picks={}; oddsCache=null;   // switching modes clears manual picks
+  $('#m-current').setAttribute('aria-pressed',x==='current');
   $('#m-est').setAttribute('aria-pressed',x==='est');
-  $('#m-play').setAttribute('aria-pressed',x==='play');
-  $('#m-odds').setAttribute('aria-pressed',x==='odds');
   render();
 }
+$('#m-current').onclick=()=>setMode('current');
 $('#m-est').onclick=()=>setMode('est');
-$('#m-play').onclick=()=>setMode('play');
-$('#m-odds').onclick=()=>setMode('odds');
 function toggleHost(){ host=!host; oddsCache=null; $('#hostbtn').setAttribute('aria-pressed',host); render(); }
 $('#hostbtn').onclick=toggleHost;
 $('#hostbtn').onkeydown=e=>{ if(e.key===' '||e.key==='Enter'){e.preventDefault();toggleHost();} };
-$('#resetbtn').onclick=()=>{ picks={}; render(); };
+$('#resetbtn').onclick=()=>{ picks={}; oddsCache=null; render(); };
 $('#resimbtn').onclick=()=>{ oddsCache=null; render(); };
 function setHalf(x){ half=x;
   $('#h-full').setAttribute('aria-pressed',x==='full');
