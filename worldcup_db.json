@@ -1,6 +1,6 @@
 {
  "schema_version": 4,
- "data_version": 24,
+ "data_version": 25,
  "notes": {
   "betting_rule": "Results settled at 90 min + injury time. All draw stats use draw_after_90 only, never the 1/X/2 result.",
   "game_no_continuous": "Re-based chronologically across 2014 -> 2018 -> 2022 (1-64 = 2014, 65-128 = 2018, 129-192 = 2022, 193-194 = first 2026 games). Will extend as more World Cups are added.",
@@ -13998,13 +13998,162 @@
      "owngoal": false
     }
    ]
+  },
+  {
+   "world_cup": 2026,
+   "game_no_in_wc": 86,
+   "game_no_continuous": 278,
+   "stage": "knockout",
+   "round": "Round of 32",
+   "date": "2026-07-03",
+   "home": "Argentina",
+   "away": "Cape Verde",
+   "ft": [
+    1,
+    1
+   ],
+   "draw_after_90": true,
+   "result": "1",
+   "et": [
+    3,
+    2
+   ],
+   "pens": null,
+   "goals": [
+    {
+     "team": "home",
+     "scorer": "Lionel Messi",
+     "minute": 29,
+     "offset": 0,
+     "display": "29",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "away",
+     "scorer": "Deroy Duarte",
+     "minute": 59,
+     "offset": 0,
+     "display": "59",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "home",
+     "scorer": "Lisandro Martinez",
+     "minute": 92,
+     "offset": 0,
+     "display": "92",
+     "phase": "extra_time",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "away",
+     "scorer": "Sidny Lopes Cabral",
+     "minute": 103,
+     "offset": 0,
+     "display": "103",
+     "phase": "extra_time",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "home",
+     "scorer": "Diney Borges",
+     "minute": 111,
+     "offset": 0,
+     "display": "111",
+     "phase": "extra_time",
+     "penalty": false,
+     "owngoal": true
+    }
+   ]
+  },
+  {
+   "world_cup": 2026,
+   "game_no_in_wc": 87,
+   "game_no_continuous": 279,
+   "stage": "knockout",
+   "round": "Round of 32",
+   "date": "2026-07-03",
+   "home": "Colombia",
+   "away": "Ghana",
+   "ft": [
+    1,
+    0
+   ],
+   "draw_after_90": false,
+   "result": "1",
+   "et": null,
+   "pens": null,
+   "goals": [
+    {
+     "team": "home",
+     "scorer": "Jhon Arias",
+     "minute": 14,
+     "offset": 0,
+     "display": "14",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    }
+   ]
+  },
+  {
+   "world_cup": 2026,
+   "game_no_in_wc": 88,
+   "game_no_continuous": 280,
+   "stage": "knockout",
+   "round": "Round of 32",
+   "date": "2026-07-03",
+   "home": "Australia",
+   "away": "Egypt",
+   "ft": [
+    1,
+    1
+   ],
+   "draw_after_90": true,
+   "result": "2",
+   "et": [
+    1,
+    1
+   ],
+   "pens": [
+    2,
+    4
+   ],
+   "goals": [
+    {
+     "team": "away",
+     "scorer": "Emam Ashour",
+     "minute": 13,
+     "offset": 0,
+     "display": "13",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "home",
+     "scorer": "Mohamed Hany",
+     "minute": 55,
+     "offset": 0,
+     "display": "55",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": true
+    }
+   ]
   }
  ],
  "odds": {
   "source": "Unibet.se",
   "market": "Fulltid 1X2 (90 min)",
-  "last_refresh": "2026-07-03T08:59:46.794Z",
-  "match_count": 94,
+  "last_refresh": "2026-07-04T08:05:22Z",
+  "match_count": 96,
   "matches": [
    {
     "group": "A",
@@ -14789,7 +14938,7 @@
     "stage": "knockout",
     "home": "Australia",
     "away": "Egypt",
-    "game_no_in_wc": null,
+    "game_no_in_wc": 88,
     "odds_1": 3.75,
     "odds_X": 2.88,
     "odds_2": 2.43
@@ -14799,7 +14948,7 @@
     "stage": "knockout",
     "home": "Argentina",
     "away": "Cape Verde",
-    "game_no_in_wc": null,
+    "game_no_in_wc": 86,
     "odds_1": 1.14,
     "odds_X": 9.5,
     "odds_2": 23
@@ -14809,7 +14958,7 @@
     "stage": "knockout",
     "home": "Colombia",
     "away": "Ghana",
-    "game_no_in_wc": null,
+    "game_no_in_wc": 87,
     "odds_1": 1.43,
     "odds_X": 4.5,
     "odds_2": 9.5
@@ -14820,9 +14969,9 @@
     "home": "Canada",
     "away": "Morocco",
     "game_no_in_wc": null,
-    "odds_1": 5.75,
+    "odds_1": 5.5,
     "odds_X": 3.5,
-    "odds_2": 1.74
+    "odds_2": 1.79
    },
    {
     "group": null,
@@ -14830,9 +14979,9 @@
     "home": "Paraguay",
     "away": "France",
     "game_no_in_wc": null,
-    "odds_1": 21,
-    "odds_X": 7,
-    "odds_2": 1.2
+    "odds_1": 19.0,
+    "odds_X": 8.0,
+    "odds_2": 1.18
    },
    {
     "group": null,
@@ -14840,9 +14989,9 @@
     "home": "Brazil",
     "away": "Norway",
     "game_no_in_wc": null,
-    "odds_1": 1.92,
-    "odds_X": 3.6,
-    "odds_2": 4.25
+    "odds_1": 1.85,
+    "odds_X": 3.8,
+    "odds_2": 4.5
    },
    {
     "group": null,
@@ -14850,19 +14999,9 @@
     "home": "Mexico",
     "away": "England",
     "game_no_in_wc": null,
-    "odds_1": 3.1,
+    "odds_1": 3.2,
     "odds_X": 3.2,
-    "odds_2": 2.5
-   },
-   {
-    "group": null,
-    "stage": "knockout",
-    "home": "USA",
-    "away": "Belgium",
-    "game_no_in_wc": null,
-    "odds_1": 2.6,
-    "odds_X": 3.45,
-    "odds_2": 2.8
+    "odds_2": 2.48
    },
    {
     "group": null,
@@ -14870,9 +15009,39 @@
     "home": "Portugal",
     "away": "Spain",
     "game_no_in_wc": null,
-    "odds_1": 4.2,
-    "odds_X": 3.6,
-    "odds_2": 1.93
+    "odds_1": 4.25,
+    "odds_X": 3.55,
+    "odds_2": 1.96
+   },
+   {
+    "group": null,
+    "stage": "knockout",
+    "home": "USA",
+    "away": "Belgium",
+    "game_no_in_wc": null,
+    "odds_1": 2.88,
+    "odds_X": 3.3,
+    "odds_2": 2.65
+   },
+   {
+    "group": null,
+    "stage": "knockout",
+    "home": "Argentina",
+    "away": "Egypt",
+    "game_no_in_wc": null,
+    "odds_1": 1.37,
+    "odds_X": 4.9,
+    "odds_2": 10.0
+   },
+   {
+    "group": null,
+    "stage": "knockout",
+    "home": "Switzerland",
+    "away": "Colombia",
+    "game_no_in_wc": null,
+    "odds_1": 3.7,
+    "odds_X": 3.05,
+    "odds_2": 2.28
    }
   ]
  }
