@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- bracket_v3  ·  World Cup 2026 — Road to the Final -->
+<!-- bracket_v4  ·  World Cup 2026 — Road to the Final  ·  mirrored layout + to-proceed market odds -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -102,6 +102,12 @@ h1 .ghost{color:var(--dim);font-weight:600}
 /* connector stubs */
 .match.has-next::after{content:"";position:absolute;right:-11px;top:50%;width:11px;height:2px;background:var(--line2)}
 .match.has-prev::before{content:"";position:absolute;left:-11px;top:50%;width:11px;height:2px;background:var(--line2)}
+/* mirrored (bottom-half) columns flow inward → stubs flip to the opposite side */
+.round.mirror .match.has-next::after{right:auto;left:-11px}
+.round.mirror .match.has-prev::before{left:auto;right:-11px}
+/* centre column (Final + third place): no stubs, it's the meeting point */
+.round.centre .match::before,.round.centre .match::after{display:none}
+.round.centre{align-items:center}
 .mcard{background:var(--panel);border:1px solid var(--line);border-radius:9px;overflow:hidden;transition:.15s}
 .mcard.on-route{border-color:var(--route);box-shadow:0 0 0 1px var(--route),0 4px 18px rgba(245,178,26,.16)}
 .mno{font-family:"Archivo Narrow";font-size:9px;letter-spacing:.1em;color:var(--dim);text-transform:uppercase;
@@ -121,6 +127,7 @@ h1 .ghost{color:var(--dim);font-weight:600}
 .slot.adv{background:linear-gradient(90deg,rgba(47,207,142,.10),transparent)}
 .slot .pr{font-size:11px;color:var(--mut);flex:0 0 auto}
 .slot.adv .pr{color:var(--green)}
+.slot .pr.mkt,.slot.adv .pr.mkt{color:var(--amber)}   /* % came from the bookmaker's to-proceed price */
 .slot .od{font-size:11px;color:var(--amber);flex:0 0 auto;font-weight:700}
 .slot .tbd{color:var(--dim);font-style:italic;font-weight:500}
 .dot{width:7px;height:7px;border-radius:50%;flex:0 0 auto;background:var(--line2)}
@@ -206,7 +213,7 @@ footer b{color:var(--mut)}
 </div>
 
 <script>
-let DATA=null, P=null, M=null, PLAYED=null, PSCORE=null;   // populated by buildDATA() after the live DB loads
+let DATA=null, P=null, M=null, PLAYED=null, PSCORE=null, PROCEED=null;   // populated by buildDATA() after the live DB loads
 
 // fixed FIFA R32 tree: group-position anchors + 3rd-place allowed-group sets
 const R32SPEC={73:['A2','B2'],74:['E1','3:ABCDF'],75:['F1','C2'],76:['C1','F2'],77:['I1','3:CDFGH'],78:['E2','I2'],79:['A1','3:CEFHI'],80:['L1','3:EHIJK'],81:['D1','3:BEFIJ'],82:['G1','3:AEHIJ'],83:['K2','L2'],84:['H1','J2'],85:['B1','3:EFGIJ'],86:['J1','H2'],87:['K1','3:DEIJL'],88:['D2','G2']};
@@ -272,8 +279,15 @@ function buildDATA(db){
     else if(g.et && (g.et[0]!==g.ft[0]||g.et[1]!==g.ft[1])) sc = g.et[0]+'\u2013'+g.et[1]+' a.e.t.';
     pscore[g.game_no_in_wc] = sc;
   });
+  // to-proceed market odds: a straight "who advances" price per team (ET/pens already baked in).
+  // Keyed by the sorted team pair so a tie can be looked up regardless of home/away order.
+  const proceed={};
+  db.odds.matches.filter(m=>m.stage==='knockout'&&m.proceed_1!=null&&m.proceed_2!=null).forEach(m=>{
+    const k=[m.home,m.away].slice().sort().join('|');
+    proceed[k]={[m.home]:m.proceed_1,[m.away]:m.proceed_2};
+  });
   const completeList=letters.filter(L=>groupComplete[L]), incompleteList=letters.filter(L=>!groupComplete[L]);
-  return {points,matches:MM,data_version:db.data_version,completeList,incompleteList,played,pscore};
+  return {points,matches:MM,data_version:db.data_version,completeList,incompleteList,played,pscore,proceed};
 }
 
 const HOSTS = {USA:1, Mexico:1, Canada:1};
@@ -299,6 +313,16 @@ const TOPSET = new Set([74,77,73,75,83,84,81,82,89,90,93,94,97,98,101]);
 function pts(t){ return P[t] + ((host && HOSTS[t])?HOST_BONUS:0); }
 function winProb(a,b){ return 1/(1+Math.pow(10, -(pts(a)-pts(b))/600)); }
 
+// Does this exact tie have a bookmaker to-proceed price on the board?
+function hasMarket(a,b){ return !!(PROCEED && PROCEED[[a,b].slice().sort().join('|')]); }
+// P(a advances). Uses the market to-proceed price when the tie has one (margin removed),
+// otherwise the FIFA-points model. Host edge only touches the model path — the market already prices home soil.
+function advanceProb(a,b){
+  const line = PROCEED && PROCEED[[a,b].slice().sort().join('|')];
+  if(line && line[a] && line[b]){ const pa=1/line[a], pb=1/line[b]; return pa/(pa+pb); }
+  return winProb(a,b);
+}
+
 // participants of a match given current resolution
 function teamsOf(id){
   const m = M[id];
@@ -313,7 +337,7 @@ function winnerOf(id){
   const [a,b] = teamsOf(id);
   if(a==null||b==null) return null;
   if(picks[id] && (picks[id]===a||picks[id]===b)) return picks[id];   // manual pick (either mode)
-  if(mode==='est') return winProb(a,b)>=0.5 ? a : b;  // model fills only in Best estimate
+  if(mode==='est') return advanceProb(a,b)>=0.5 ? a : b;  // market where the tie has a price, else the model
   return null;                                        // Current bracket: unresolved until played or picked
 }
 function loserOf(id){
@@ -326,7 +350,7 @@ function loserOf(id){
 function simWin(id,a,b){
   if(PLAYED[id]!=null) return PLAYED[id];
   if(picks[id]===a||picks[id]===b) return picks[id];
-  return Math.random()<winProb(a,b)? a : b;
+  return Math.random()<advanceProb(a,b)? a : b;
 }
 function monteCarlo(N){
   const cnt={}, fin={}, sf={}, r16={}, qf={};
@@ -429,21 +453,44 @@ function routeSet(champ){
 function drawBracket(champ, od){
   const route = new Set();   // champion-route highlight removed
   const wrap = $('#bracket'); wrap.innerHTML='';
+
+  // FULL DRAW = mirrored bracket: top half runs left→centre, bottom half runs right→centre,
+  // the Final sits in the middle where the two halves meet (third place tucked beneath it).
+  if(half==='full'){
+    const specs = [
+      ['R32','top'],['R16','top'],['QF','top'],['SF','top'],
+      ['F','centre'],
+      ['SF','bot'],['QF','bot'],['R16','bot'],['R32','bot']
+    ];
+    specs.forEach(([rk,side])=>{
+      const col=document.createElement('div');
+      col.className='round r-'+rk + (side==='bot'?' mirror':'') + (side==='centre'?' centre':'');
+      const head=document.createElement('div'); head.className='rhead';
+      head.innerHTML = rk==='F' ? '<b>Final</b>' : ROUND_NAMES[rk];
+      col.appendChild(head);
+      let ids = COL[rk];
+      if(side==='top') ids=ids.filter(id=>TOPSET.has(id));
+      else if(side==='bot') ids=ids.filter(id=>!TOPSET.has(id));
+      ids.forEach(id=> col.appendChild(matchEl(id, route, od)) );
+      if(side==='centre'){ // third-place under the final
+        const tp=document.createElement('div'); tp.className='tp';
+        tp.appendChild(matchEl(103, route, od, true));
+        col.appendChild(tp);
+      }
+      wrap.appendChild(col);
+    });
+    return;
+  }
+
+  // TOP / BOTTOM = single-direction half view (compact, mobile-friendly)
   const cols = ['R32','R16','QF','SF','F'];
   cols.forEach(rk=>{
     const col=document.createElement('div'); col.className='round r-'+rk;
-    let ids=COL[rk];
-    if(half==='top') ids=ids.filter(id=>TOPSET.has(id));
-    if(half==='bot') ids=ids.filter(id=>!TOPSET.has(id));
+    let ids=COL[rk].filter(id=> half==='top' ? TOPSET.has(id) : !TOPSET.has(id));
     const head=document.createElement('div'); head.className='rhead';
     head.innerHTML = rk==='F' ? '<b>Final</b>' : ROUND_NAMES[rk];
     col.appendChild(head);
     ids.forEach(id=> col.appendChild(matchEl(id, route, od)) );
-    if(rk==='F' && half==='full'){ // third-place under the final
-      const tp=document.createElement('div'); tp.className='tp';
-      tp.appendChild(matchEl(103, route, od, true));
-      col.appendChild(tp);
-    }
     wrap.appendChild(col);
   });
 }
@@ -469,7 +516,7 @@ function matchEl(id, route, od, isTP){
     const s=document.createElement('div');
     s.className=('slot '+cls).trim();
     let right='';
-    if(t && mode==='est' && a&&b && !isPlayed){ const pr=Math.round(100*winProb(t, t===a?b:a)); right='<span class="pr tnum">'+pr+'%</span>'; }
+    if(t && mode==='est' && a&&b && !isPlayed){ const opp=t===a?b:a; const pr=Math.round(100*advanceProb(t, opp)); const mk=hasMarket(a,b)?' mkt':''; right='<span class="pr tnum'+mk+'">'+pr+'%</span>'; }
     s.innerHTML='<span class="dot"></span><span class="nm'+(t?'':' tbd')+'">'+(t||tbdLabel(id,t===null))+'</span>'+right;
     if(t && canPick){
       s.onclick=()=>{ picks[id]=t; clearDownstream(id); oddsCache=null; render(); };
@@ -510,12 +557,13 @@ $('#h-full').onclick=()=>setHalf('full');
 $('#h-top').onclick=()=>setHalf('top');
 $('#h-bot').onclick=()=>setHalf('bot');
 
-$('#foot').innerHTML = '<b>How the estimate works.</b> Each tie is scored with the project\u2019s FIFA-points model: '+
-  'win probability = 1 / (1 + 10^(\u2212\u0394points/600)), the same Elo formula used elsewhere in this project. '+
-  'Knockout ties have no draw — extra time and penalties send one side through — so the win probability is the advance probability. '+
-  '\u201CHost edge\u201D adds +'+HOST_BONUS+' rating points to USA, Mexico and Canada (off by default, matching the project\u2019s pure-ratings default). '+
-  'The bracket structure is FIFA\u2019s fixed schedule (matches 73\u2013104); third-place teams are slotted by the model where groups aren\u2019t final yet, '+
-  'Ties tagged CONFIRMED come from the live board\u2019s real knockout fixtures; PROJECTED ties are model fills for games not yet drawn (and may differ from FIFA\u2019s exact Annex C slotting until they lock). <b>This is a model, not a settled fact.</b> · bracket_v3';
+$('#foot').innerHTML = '<b>How the estimate works.</b> Each tie that has a bookmaker <b>to-proceed</b> price on the board is resolved with that price '+
+  '(shown in <span style="color:var(--amber)">amber</span>) — a straight \u201Cwho goes through\u201D number with extra time and penalties already included. '+
+  'Every other tie falls back to the project\u2019s FIFA-points model: advance probability = 1 / (1 + 10^(\u2212\u0394points/600)), the same Elo formula used elsewhere. '+
+  'Knockout ties have no draw, so that probability is the advance probability. '+
+  '\u201CHost edge\u201D adds +'+HOST_BONUS+' rating points to USA, Mexico and Canada (off by default); it only affects model ties, since a market price already prices home soil. '+
+  'The bracket structure is FIFA\u2019s fixed schedule (matches 73\u2013104); third-place teams are slotted by the model where groups aren\u2019t final yet. '+
+  'Ties tagged CONFIRMED come from the live board\u2019s real knockout fixtures; PROJECTED ties are model fills for games not yet drawn (and may differ from FIFA\u2019s exact Annex C slotting until they lock). <b>This is a model, not a settled fact.</b> · bracket_v4';
 
 async function init(){
   $('#champ').textContent='Loading…';
@@ -523,7 +571,7 @@ async function init(){
     const res = await fetch('worldcup_db.json', {cache:'no-store'});
     if(!res.ok) throw new Error('HTTP '+res.status);
     const db = await res.json();
-    DATA = buildDATA(db); P = DATA.points; M = DATA.matches; PLAYED = DATA.played; PSCORE = DATA.pscore;
+    DATA = buildDATA(db); P = DATA.points; M = DATA.matches; PLAYED = DATA.played; PSCORE = DATA.pscore; PROCEED = DATA.proceed;
     render();
   }catch(e){
     $('#datanote').innerHTML = '<b style="color:var(--red)">Could not load worldcup_db.json</b> — '+e.message+
