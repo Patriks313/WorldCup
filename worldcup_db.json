@@ -1,6 +1,6 @@
 {
  "schema_version": 4,
- "data_version": 26,
+ "data_version": 27,
  "notes": {
   "betting_rule": "Results settled at 90 min + injury time. All draw stats use draw_after_90 only, never the 1/X/2 result.",
   "game_no_continuous": "Re-based chronologically across 2014 -> 2018 -> 2022 (1-64 = 2014, 65-128 = 2018, 129-192 = 2022, 193-194 = first 2026 games). Will extend as more World Cups are added.",
@@ -14227,13 +14227,163 @@
      "owngoal": false
     }
    ]
+  },
+  {
+   "world_cup": 2026,
+   "game_no_in_wc": 91,
+   "game_no_continuous": 283,
+   "stage": "knockout",
+   "round": "Round of 16",
+   "date": "2026-07-05",
+   "home": "Brazil",
+   "away": "Norway",
+   "ft": [
+    1,
+    2
+   ],
+   "draw_after_90": false,
+   "result": "2",
+   "et": null,
+   "pens": null,
+   "goals": [
+    {
+     "team": "away",
+     "scorer": "Erling Haaland",
+     "minute": 79,
+     "offset": 0,
+     "display": "79",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "away",
+     "scorer": "Erling Haaland",
+     "minute": 90,
+     "offset": 0,
+     "display": "90",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "home",
+     "scorer": "Neymar",
+     "minute": 90,
+     "offset": 10,
+     "display": "90+10",
+     "phase": "normal",
+     "penalty": true,
+     "owngoal": false
+    }
+   ]
+  },
+  {
+   "world_cup": 2026,
+   "game_no_in_wc": 92,
+   "game_no_continuous": 284,
+   "stage": "knockout",
+   "round": "Round of 16",
+   "date": "2026-07-05",
+   "home": "Mexico",
+   "away": "England",
+   "ft": [
+    2,
+    3
+   ],
+   "draw_after_90": false,
+   "result": "2",
+   "et": null,
+   "pens": null,
+   "goals": [
+    {
+     "team": "away",
+     "scorer": "Jude Bellingham",
+     "minute": 36,
+     "offset": 0,
+     "display": "36",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "away",
+     "scorer": "Jude Bellingham",
+     "minute": 38,
+     "offset": 0,
+     "display": "38",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "home",
+     "scorer": "Julian Quinones",
+     "minute": 42,
+     "offset": 0,
+     "display": "42",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "away",
+     "scorer": "Harry Kane",
+     "minute": 60,
+     "offset": 0,
+     "display": "60",
+     "phase": "normal",
+     "penalty": true,
+     "owngoal": false
+    },
+    {
+     "team": "home",
+     "scorer": "Raul Jimenez",
+     "minute": 69,
+     "offset": 0,
+     "display": "69",
+     "phase": "normal",
+     "penalty": true,
+     "owngoal": false
+    }
+   ]
+  },
+  {
+   "world_cup": 2026,
+   "game_no_in_wc": 93,
+   "game_no_continuous": 285,
+   "stage": "knockout",
+   "round": "Round of 16",
+   "date": "2026-07-06",
+   "home": "Portugal",
+   "away": "Spain",
+   "ft": [
+    0,
+    1
+   ],
+   "draw_after_90": false,
+   "result": "2",
+   "et": null,
+   "pens": null,
+   "goals": [
+    {
+     "team": "away",
+     "scorer": "Mikel Merino",
+     "minute": 90,
+     "offset": 1,
+     "display": "90+1",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    }
+   ]
   }
  ],
  "odds": {
   "source": "Unibet.se",
   "market": "Fulltid 1X2 (90 min)",
-  "last_refresh": "2026-07-05T08:07:00Z",
-  "match_count": 97,
+  "last_refresh": "2026-07-06T22:30:00Z",
+  "match_count": 98,
   "matches": [
    {
     "group": "A",
@@ -15068,7 +15218,7 @@
     "stage": "knockout",
     "home": "Brazil",
     "away": "Norway",
-    "game_no_in_wc": null,
+    "game_no_in_wc": 91,
     "odds_1": 1.81,
     "odds_X": 3.75,
     "odds_2": 4.8
@@ -15078,7 +15228,7 @@
     "stage": "knockout",
     "home": "Mexico",
     "away": "England",
-    "game_no_in_wc": null,
+    "game_no_in_wc": 92,
     "odds_1": 3.25,
     "odds_X": 3.15,
     "odds_2": 2.48
@@ -15088,7 +15238,7 @@
     "stage": "knockout",
     "home": "Portugal",
     "away": "Spain",
-    "game_no_in_wc": null,
+    "game_no_in_wc": 93,
     "odds_1": 4.3,
     "odds_X": 3.7,
     "odds_2": 1.92
@@ -15099,9 +15249,9 @@
     "home": "USA",
     "away": "Belgium",
     "game_no_in_wc": null,
-    "odds_1": 2.75,
-    "odds_X": 3.45,
-    "odds_2": 2.7
+    "odds_1": 2.6,
+    "odds_X": 3.4,
+    "odds_2": 2.9
    },
    {
     "group": null,
@@ -15109,9 +15259,9 @@
     "home": "Argentina",
     "away": "Egypt",
     "game_no_in_wc": null,
-    "odds_1": 1.37,
+    "odds_1": 1.36,
     "odds_X": 5.0,
-    "odds_2": 10.5
+    "odds_2": 11.0
    },
    {
     "group": null,
@@ -15121,7 +15271,7 @@
     "game_no_in_wc": null,
     "odds_1": 3.75,
     "odds_X": 3.15,
-    "odds_2": 2.25
+    "odds_2": 2.28
    },
    {
     "group": null,
@@ -15129,9 +15279,19 @@
     "home": "France",
     "away": "Morocco",
     "game_no_in_wc": null,
-    "odds_1": 1.55,
-    "odds_X": 4.35,
-    "odds_2": 7.0
+    "odds_1": 1.6,
+    "odds_X": 3.9,
+    "odds_2": 6.5
+   },
+   {
+    "group": null,
+    "stage": "knockout",
+    "home": "Norway",
+    "away": "England",
+    "game_no_in_wc": null,
+    "odds_1": 4.1,
+    "odds_X": 3.75,
+    "odds_2": 1.96
    }
   ]
  }
