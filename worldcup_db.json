@@ -1,6 +1,6 @@
 {
  "schema_version": 4,
- "data_version": 27,
+ "data_version": 28,
  "notes": {
   "betting_rule": "Results settled at 90 min + injury time. All draw stats use draw_after_90 only, never the 1/X/2 result.",
   "game_no_continuous": "Re-based chronologically across 2014 -> 2018 -> 2022 (1-64 = 2014, 65-128 = 2018, 129-192 = 2022, 193-194 = first 2026 games). Will extend as more World Cups are added.",
@@ -14377,13 +14377,83 @@
      "owngoal": false
     }
    ]
+  },
+  {
+   "world_cup": 2026,
+   "game_no_in_wc": 94,
+   "game_no_continuous": 286,
+   "stage": "knockout",
+   "round": "Round of 16",
+   "date": "2026-07-06",
+   "home": "USA",
+   "away": "Belgium",
+   "ft": [
+    1,
+    4
+   ],
+   "draw_after_90": false,
+   "result": "2",
+   "et": null,
+   "pens": null,
+   "goals": [
+    {
+     "team": "away",
+     "scorer": "Charles De Ketelaere",
+     "minute": 9,
+     "offset": 0,
+     "display": "9",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "home",
+     "scorer": "Malik Tillman",
+     "minute": 31,
+     "offset": 0,
+     "display": "31",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "away",
+     "scorer": "Charles De Ketelaere",
+     "minute": 33,
+     "offset": 0,
+     "display": "33",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "away",
+     "scorer": "Hans Vanaken",
+     "minute": 57,
+     "offset": 0,
+     "display": "57",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "away",
+     "scorer": "Romelu Lukaku",
+     "minute": 90,
+     "offset": 3,
+     "display": "90+3",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    }
+   ]
   }
  ],
  "odds": {
   "source": "Unibet.se",
   "market": "Fulltid 1X2 (90 min)",
-  "last_refresh": "2026-07-07T09:00:00Z",
-  "match_count": 98,
+  "last_refresh": "2026-07-07T21:00:00Z",
+  "match_count": 99,
   "matches": [
    {
     "group": "A",
@@ -15248,7 +15318,7 @@
     "stage": "knockout",
     "home": "USA",
     "away": "Belgium",
-    "game_no_in_wc": null,
+    "game_no_in_wc": 94,
     "odds_1": 2.6,
     "odds_X": 3.4,
     "odds_2": 2.9,
@@ -15261,11 +15331,11 @@
     "home": "Argentina",
     "away": "Egypt",
     "game_no_in_wc": null,
-    "odds_1": 1.36,
-    "odds_X": 5.0,
-    "odds_2": 11.0,
-    "proceed_1": 1.14,
-    "proceed_2": 5.6
+    "odds_1": 1.35,
+    "odds_X": 5.1,
+    "odds_2": 11.5,
+    "proceed_1": 1.13,
+    "proceed_2": 5.75
    },
    {
     "group": null,
@@ -15273,11 +15343,11 @@
     "home": "Switzerland",
     "away": "Colombia",
     "game_no_in_wc": null,
-    "odds_1": 3.75,
+    "odds_1": 3.65,
     "odds_X": 3.15,
-    "odds_2": 2.28,
-    "proceed_1": 2.35,
-    "proceed_2": 1.58
+    "odds_2": 2.3,
+    "proceed_1": 2.28,
+    "proceed_2": 1.61
    },
    {
     "group": null,
@@ -15285,11 +15355,11 @@
     "home": "France",
     "away": "Morocco",
     "game_no_in_wc": null,
-    "odds_1": 1.6,
-    "odds_X": 3.9,
+    "odds_1": 1.63,
+    "odds_X": 3.75,
     "odds_2": 6.5,
-    "proceed_1": 1.27,
-    "proceed_2": 3.75
+    "proceed_1": 1.28,
+    "proceed_2": 3.65
    },
    {
     "group": null,
@@ -15297,11 +15367,23 @@
     "home": "Norway",
     "away": "England",
     "game_no_in_wc": null,
-    "odds_1": 4.1,
-    "odds_X": 3.75,
-    "odds_2": 1.96,
-    "proceed_1": 2.65,
-    "proceed_2": 1.48
+    "odds_1": 4.2,
+    "odds_X": 3.55,
+    "odds_2": 1.95,
+    "proceed_1": 2.7,
+    "proceed_2": 1.46
+   },
+   {
+    "group": null,
+    "stage": "knockout",
+    "home": "Spain",
+    "away": "Belgium",
+    "game_no_in_wc": null,
+    "odds_1": 1.6,
+    "odds_X": 4.1,
+    "odds_2": 6.5,
+    "proceed_1": 1.28,
+    "proceed_2": 3.7
    }
   ]
  }
