@@ -1,6 +1,6 @@
 {
  "schema_version": 4,
- "data_version": 28,
+ "data_version": 29,
  "notes": {
   "betting_rule": "Results settled at 90 min + injury time. All draw stats use draw_after_90 only, never the 1/X/2 result.",
   "game_no_continuous": "Re-based chronologically across 2014 -> 2018 -> 2022 (1-64 = 2014, 65-128 = 2018, 129-192 = 2022, 193-194 = first 2026 games). Will extend as more World Cups are added.",
@@ -14447,13 +14447,108 @@
      "owngoal": false
     }
    ]
+  },
+  {
+   "world_cup": 2026,
+   "game_no_in_wc": 95,
+   "game_no_continuous": 287,
+   "stage": "knockout",
+   "round": "Round of 16",
+   "date": "2026-07-07",
+   "home": "Argentina",
+   "away": "Egypt",
+   "ft": [
+    3,
+    2
+   ],
+   "draw_after_90": false,
+   "result": "1",
+   "et": null,
+   "pens": null,
+   "goals": [
+    {
+     "team": "away",
+     "scorer": "Yasser Ibrahim",
+     "minute": 15,
+     "offset": 0,
+     "display": "15",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "away",
+     "scorer": "Mostafa Ziko",
+     "minute": 67,
+     "offset": 0,
+     "display": "67",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "home",
+     "scorer": "Cristian Romero",
+     "minute": 79,
+     "offset": 0,
+     "display": "79",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "home",
+     "scorer": "Lionel Messi",
+     "minute": 84,
+     "offset": 0,
+     "display": "84",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "home",
+     "scorer": "Enzo Fernandez",
+     "minute": 90,
+     "offset": 2,
+     "display": "90+2",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    }
+   ]
+  },
+  {
+   "world_cup": 2026,
+   "game_no_in_wc": 96,
+   "game_no_continuous": 288,
+   "stage": "knockout",
+   "round": "Round of 16",
+   "date": "2026-07-07",
+   "home": "Switzerland",
+   "away": "Colombia",
+   "ft": [
+    0,
+    0
+   ],
+   "draw_after_90": true,
+   "result": "1",
+   "et": [
+    0,
+    0
+   ],
+   "pens": [
+    4,
+    3
+   ],
+   "goals": []
   }
  ],
  "odds": {
   "source": "Unibet.se",
   "market": "Fulltid 1X2 (90 min)",
-  "last_refresh": "2026-07-07T21:00:00Z",
-  "match_count": 99,
+  "last_refresh": "2026-07-08T09:00:00Z",
+  "match_count": 100,
   "matches": [
    {
     "group": "A",
@@ -15330,7 +15425,7 @@
     "stage": "knockout",
     "home": "Argentina",
     "away": "Egypt",
-    "game_no_in_wc": null,
+    "game_no_in_wc": 95,
     "odds_1": 1.35,
     "odds_X": 5.1,
     "odds_2": 11.5,
@@ -15342,7 +15437,7 @@
     "stage": "knockout",
     "home": "Switzerland",
     "away": "Colombia",
-    "game_no_in_wc": null,
+    "game_no_in_wc": 96,
     "odds_1": 3.65,
     "odds_X": 3.15,
     "odds_2": 2.3,
@@ -15355,11 +15450,11 @@
     "home": "France",
     "away": "Morocco",
     "game_no_in_wc": null,
-    "odds_1": 1.63,
-    "odds_X": 3.75,
-    "odds_2": 6.5,
-    "proceed_1": 1.28,
-    "proceed_2": 3.65
+    "odds_1": 1.58,
+    "odds_X": 4.0,
+    "odds_2": 7.0,
+    "proceed_1": 1.25,
+    "proceed_2": 3.95
    },
    {
     "group": null,
@@ -15367,11 +15462,11 @@
     "home": "Norway",
     "away": "England",
     "game_no_in_wc": null,
-    "odds_1": 4.2,
-    "odds_X": 3.55,
-    "odds_2": 1.95,
+    "odds_1": 4.25,
+    "odds_X": 3.8,
+    "odds_2": 1.91,
     "proceed_1": 2.7,
-    "proceed_2": 1.46
+    "proceed_2": 1.45
    },
    {
     "group": null,
@@ -15379,11 +15474,23 @@
     "home": "Spain",
     "away": "Belgium",
     "game_no_in_wc": null,
-    "odds_1": 1.6,
+    "odds_1": 1.62,
     "odds_X": 4.1,
-    "odds_2": 6.5,
+    "odds_2": 6.1,
     "proceed_1": 1.28,
-    "proceed_2": 3.7
+    "proceed_2": 3.6
+   },
+   {
+    "group": null,
+    "stage": "knockout",
+    "home": "Argentina",
+    "away": "Switzerland",
+    "game_no_in_wc": null,
+    "odds_1": 1.73,
+    "odds_X": 3.6,
+    "odds_2": 5.8,
+    "proceed_1": 1.32,
+    "proceed_2": 3.35
    }
   ]
  }
