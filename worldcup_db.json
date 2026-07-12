@@ -1,6 +1,6 @@
 {
  "schema_version": 4,
- "data_version": 29,
+ "data_version": 30,
  "notes": {
   "betting_rule": "Results settled at 90 min + injury time. All draw stats use draw_after_90 only, never the 1/X/2 result.",
   "game_no_continuous": "Re-based chronologically across 2014 -> 2018 -> 2022 (1-64 = 2014, 65-128 = 2018, 129-192 = 2022, 193-194 = first 2026 games). Will extend as more World Cups are added.",
@@ -14542,13 +14542,219 @@
     3
    ],
    "goals": []
+  },
+  {
+   "world_cup": 2026,
+   "game_no_in_wc": 97,
+   "game_no_continuous": 289,
+   "stage": "knockout",
+   "round": "Quarter-finals",
+   "date": "2026-07-09",
+   "home": "France",
+   "away": "Morocco",
+   "ft": [
+    2,
+    0
+   ],
+   "draw_after_90": false,
+   "result": "1",
+   "et": null,
+   "pens": null,
+   "goals": [
+    {
+     "team": "home",
+     "scorer": "Kylian Mbappe",
+     "minute": 60,
+     "offset": 0,
+     "display": "60",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "home",
+     "scorer": "Ousmane Dembele",
+     "minute": 66,
+     "offset": 0,
+     "display": "66",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    }
+   ]
+  },
+  {
+   "world_cup": 2026,
+   "game_no_in_wc": 98,
+   "game_no_continuous": 290,
+   "stage": "knockout",
+   "round": "Quarter-finals",
+   "date": "2026-07-10",
+   "home": "Spain",
+   "away": "Belgium",
+   "ft": [
+    2,
+    1
+   ],
+   "draw_after_90": false,
+   "result": "1",
+   "et": null,
+   "pens": null,
+   "goals": [
+    {
+     "team": "home",
+     "scorer": "Fabian Ruiz",
+     "minute": 30,
+     "offset": 0,
+     "display": "30",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "away",
+     "scorer": "Charles De Ketelaere",
+     "minute": 41,
+     "offset": 0,
+     "display": "41",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "home",
+     "scorer": "Mikel Merino",
+     "minute": 88,
+     "offset": 0,
+     "display": "88",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    }
+   ]
+  },
+  {
+   "world_cup": 2026,
+   "game_no_in_wc": 99,
+   "game_no_continuous": 291,
+   "stage": "knockout",
+   "round": "Quarter-finals",
+   "date": "2026-07-11",
+   "home": "Norway",
+   "away": "England",
+   "ft": [
+    1,
+    1
+   ],
+   "draw_after_90": true,
+   "result": "2",
+   "et": [
+    1,
+    2
+   ],
+   "pens": null,
+   "goals": [
+    {
+     "team": "home",
+     "scorer": "Andreas Schjelderup",
+     "minute": 36,
+     "offset": 0,
+     "display": "36",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "away",
+     "scorer": "Jude Bellingham",
+     "minute": 45,
+     "offset": 2,
+     "display": "45+2",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "away",
+     "scorer": "Jude Bellingham",
+     "minute": 93,
+     "offset": 0,
+     "display": "93",
+     "phase": "extra_time",
+     "penalty": false,
+     "owngoal": false
+    }
+   ]
+  },
+  {
+   "world_cup": 2026,
+   "game_no_in_wc": 100,
+   "game_no_continuous": 292,
+   "stage": "knockout",
+   "round": "Quarter-finals",
+   "date": "2026-07-11",
+   "home": "Argentina",
+   "away": "Switzerland",
+   "ft": [
+    1,
+    1
+   ],
+   "draw_after_90": true,
+   "result": "1",
+   "et": [
+    3,
+    1
+   ],
+   "pens": null,
+   "goals": [
+    {
+     "team": "home",
+     "scorer": "Alexis Mac Allister",
+     "minute": 10,
+     "offset": 0,
+     "display": "10",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "away",
+     "scorer": "Dan Ndoye",
+     "minute": 67,
+     "offset": 0,
+     "display": "67",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "home",
+     "scorer": "Julian Alvarez",
+     "minute": 112,
+     "offset": 0,
+     "display": "112",
+     "phase": "extra_time",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "home",
+     "scorer": "Lautaro Martinez",
+     "minute": 120,
+     "offset": 1,
+     "display": "120+1",
+     "phase": "extra_time",
+     "penalty": false,
+     "owngoal": false
+    }
+   ]
   }
  ],
  "odds": {
   "source": "Unibet.se",
   "market": "Fulltid 1X2 (90 min)",
-  "last_refresh": "2026-07-08T09:00:00Z",
-  "match_count": 100,
+  "last_refresh": "2026-07-12T11:00:00Z",
+  "match_count": 102,
   "matches": [
    {
     "group": "A",
@@ -15449,7 +15655,7 @@
     "stage": "knockout",
     "home": "France",
     "away": "Morocco",
-    "game_no_in_wc": null,
+    "game_no_in_wc": 97,
     "odds_1": 1.58,
     "odds_X": 4.0,
     "odds_2": 7.0,
@@ -15461,7 +15667,7 @@
     "stage": "knockout",
     "home": "Norway",
     "away": "England",
-    "game_no_in_wc": null,
+    "game_no_in_wc": 99,
     "odds_1": 4.25,
     "odds_X": 3.8,
     "odds_2": 1.91,
@@ -15473,7 +15679,7 @@
     "stage": "knockout",
     "home": "Spain",
     "away": "Belgium",
-    "game_no_in_wc": null,
+    "game_no_in_wc": 98,
     "odds_1": 1.62,
     "odds_X": 4.1,
     "odds_2": 6.1,
@@ -15485,12 +15691,36 @@
     "stage": "knockout",
     "home": "Argentina",
     "away": "Switzerland",
-    "game_no_in_wc": null,
+    "game_no_in_wc": 100,
     "odds_1": 1.73,
     "odds_X": 3.6,
     "odds_2": 5.8,
     "proceed_1": 1.32,
     "proceed_2": 3.35
+   },
+   {
+    "group": null,
+    "stage": "knockout",
+    "home": "France",
+    "away": "Spain",
+    "game_no_in_wc": null,
+    "odds_1": 2.38,
+    "odds_X": 3.3,
+    "odds_2": 3.35,
+    "proceed_1": 1.68,
+    "proceed_2": 2.17
+   },
+   {
+    "group": null,
+    "stage": "knockout",
+    "home": "England",
+    "away": "Argentina",
+    "game_no_in_wc": null,
+    "odds_1": 2.6,
+    "odds_X": 3.1,
+    "odds_2": 3.15,
+    "proceed_1": 1.76,
+    "proceed_2": 2.05
    }
   ]
  }
