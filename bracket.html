@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- bracket_v4  ·  World Cup 2026 — Road to the Final  ·  mirrored layout + to-proceed market odds -->
+<!-- bracket_v5  ·  World Cup 2026 — Road to the Final  ·  mirrored layout + to-proceed market odds -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -241,9 +241,23 @@ function buildDATA(db){
   const thirdSlots=Object.keys(R32SPEC).filter(s=>R32SPEC[s].some(x=>x[0]==='3')).map(Number);
   const allowed={}; thirdSlots.forEach(s=>allowed[s]=new Set(R32SPEC[s].find(x=>x[0]==='3').slice(2).split('')));
   const confirmedSlot={}, pinnedThirdGroup={};
+  // teams that have already won a knockout tie — used to reject later-round (QF+) board lines from R32 slots
+  const advanced=new Set(); db.games.filter(g=>g.world_cup===2026&&g.stage==='knockout').forEach(g=>{advanced.add(g.result==='1'?g.home:g.away);});
   db.odds.matches.filter(m=>m.stage==='knockout').forEach(line=>{
+    const gno=line.game_no_in_wc;
+    // 1) A frozen R32 line names its own slot via game_no_in_wc (73–88). Use it directly, no team-pattern guessing.
+    if(gno>=73 && gno<=88){ confirmedSlot[gno]={a:line.home,b:line.away};
+      const toks=R32SPEC[gno], th=toks.find(z=>z[0]==='3');
+      if(th){ const anc=gp(toks.find(z=>z[0]!=='3')); const third=[line.home,line.away].find(t=>t!==anc.team); if(third) pinnedThirdGroup[gno]=t2g[third]; }
+      return; }
+    // 2) Any other line that carries a game_no is a later round (R16/QF/…) — never an R32 slot.
+    if(gno!=null) return;
+    // 3) An upcoming, undrawn line whose teams have already advanced is a later-round fixture — skip it.
+    if(advanced.has(line.home)||advanced.has(line.away)) return;
+    // 4) Genuine upcoming R32 line (both teams still group qualifiers): match to a slot by pattern.
     const pair=[line.home,line.away];
     for(const s of Object.keys(R32SPEC).map(Number)){
+      if(confirmedSlot[s]) continue;
       const toks=R32SPEC[s], ga=toks.find(z=>z[0]!=='3');
       if(toks.every(z=>z[0]!=='3')){ const A=gp(toks[0]),B=gp(toks[1]);
         if(pair.includes(A.team)&&pair.includes(B.team)){confirmedSlot[s]={a:line.home,b:line.away};break;} }
@@ -563,7 +577,7 @@ $('#foot').innerHTML = '<b>How the estimate works.</b> Each tie that has a bookm
   'Knockout ties have no draw, so that probability is the advance probability. '+
   '\u201CHost edge\u201D adds +'+HOST_BONUS+' rating points to USA, Mexico and Canada (off by default); it only affects model ties, since a market price already prices home soil. '+
   'The bracket structure is FIFA\u2019s fixed schedule (matches 73\u2013104); third-place teams are slotted by the model where groups aren\u2019t final yet. '+
-  'Ties tagged CONFIRMED come from the live board\u2019s real knockout fixtures; PROJECTED ties are model fills for games not yet drawn (and may differ from FIFA\u2019s exact Annex C slotting until they lock). <b>This is a model, not a settled fact.</b> · bracket_v4';
+  'Ties tagged CONFIRMED come from the live board\u2019s real knockout fixtures; PROJECTED ties are model fills for games not yet drawn (and may differ from FIFA\u2019s exact Annex C slotting until they lock). <b>This is a model, not a settled fact.</b> · bracket_v5';
 
 async function init(){
   $('#champ').textContent='Loading…';
