@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- bracket_v5  ·  World Cup 2026 — Road to the Final  ·  mirrored layout + to-proceed market odds -->
+<!-- bracket_v6  ·  World Cup 2026 — Road to the Final  ·  mirrored layout + to-proceed market odds -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -355,7 +355,9 @@ function winnerOf(id){
   return null;                                        // Current bracket: unresolved until played or picked
 }
 function loserOf(id){
-  const [a,b] = teamsOf(id); const w = winnerOf(id);
+  const w = winnerOf(id);
+  if(w==null) return null;                 // no loser until the tie is actually decided
+  const [a,b] = teamsOf(id);
   return w===a ? b : a;
 }
 
@@ -524,14 +526,14 @@ function matchEl(id, route, od, isTP){
   const mno = isTP? 'Third place' : (m.round==='F'?'Final · M104':('M'+id));
   const sc = (PLAYED && PLAYED[id]!=null) ? '<span class="score">'+PSCORE[id]+'</span>' : '';
   card.innerHTML = '<div class="mno"><span>'+mno+'</span><span class="rt">'+tag+sc+'</span></div>';
-  [a,b].forEach(t=>{
+  [a,b].forEach((t,idx)=>{
     let cls = 'out';                       // TBD / loser = dimmed
     if(t) cls = (w==null) ? '' : (t===w ? 'adv' : 'out');   // undecided pairing = neutral
     const s=document.createElement('div');
     s.className=('slot '+cls).trim();
     let right='';
     if(t && mode==='est' && a&&b && !isPlayed){ const opp=t===a?b:a; const pr=Math.round(100*advanceProb(t, opp)); const mk=hasMarket(a,b)?' mkt':''; right='<span class="pr tnum'+mk+'">'+pr+'%</span>'; }
-    s.innerHTML='<span class="dot"></span><span class="nm'+(t?'':' tbd')+'">'+(t||tbdLabel(id,t===null))+'</span>'+right;
+    s.innerHTML='<span class="dot"></span><span class="nm'+(t?'':' tbd')+'">'+(t||tbdLabel(id,idx===0))+'</span>'+right;
     if(t && canPick){
       s.onclick=()=>{ picks[id]=t; clearDownstream(id); oddsCache=null; render(); };
     }
@@ -540,7 +542,7 @@ function matchEl(id, route, od, isTP){
   el.appendChild(card);
   return el;
 }
-function tbdLabel(id, isA){ return 'Winner ' + (M[id].f? 'M'+M[id].f[isA?0:1] : '—'); }
+function tbdLabel(id, isA){ const m=M[id]; const word=m.losers?'Loser':'Winner'; return word+' ' + (m.f? 'M'+m.f[isA?0:1] : '—'); }
 
 // when a pick changes, drop downstream picks that no longer make sense
 function clearDownstream(id){
@@ -577,7 +579,7 @@ $('#foot').innerHTML = '<b>How the estimate works.</b> Each tie that has a bookm
   'Knockout ties have no draw, so that probability is the advance probability. '+
   '\u201CHost edge\u201D adds +'+HOST_BONUS+' rating points to USA, Mexico and Canada (off by default); it only affects model ties, since a market price already prices home soil. '+
   'The bracket structure is FIFA\u2019s fixed schedule (matches 73\u2013104); third-place teams are slotted by the model where groups aren\u2019t final yet. '+
-  'Ties tagged CONFIRMED come from the live board\u2019s real knockout fixtures; PROJECTED ties are model fills for games not yet drawn (and may differ from FIFA\u2019s exact Annex C slotting until they lock). <b>This is a model, not a settled fact.</b> · bracket_v5';
+  'Ties tagged CONFIRMED come from the live board\u2019s real knockout fixtures; PROJECTED ties are model fills for games not yet drawn (and may differ from FIFA\u2019s exact Annex C slotting until they lock). <b>This is a model, not a settled fact.</b> · bracket_v6';
 
 async function init(){
   $('#champ').textContent='Loading…';
