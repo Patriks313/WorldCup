@@ -1,6 +1,6 @@
 {
  "schema_version": 4,
- "data_version": 30,
+ "data_version": 31,
  "notes": {
   "betting_rule": "Results settled at 90 min + injury time. All draw stats use draw_after_90 only, never the 1/X/2 result.",
   "game_no_continuous": "Re-based chronologically across 2014 -> 2018 -> 2022 (1-64 = 2014, 65-128 = 2018, 129-192 = 2022, 193-194 = first 2026 games). Will extend as more World Cups are added.",
@@ -14748,6 +14748,249 @@
      "owngoal": false
     }
    ]
+  },
+  {
+   "world_cup": 2026,
+   "game_no_in_wc": 101,
+   "game_no_continuous": 293,
+   "stage": "knockout",
+   "round": "Semi-finals",
+   "date": "2026-07-14",
+   "home": "France",
+   "away": "Spain",
+   "ft": [
+    0,
+    2
+   ],
+   "draw_after_90": false,
+   "result": "2",
+   "et": null,
+   "pens": null,
+   "goals": [
+    {
+     "team": "away",
+     "scorer": "Mikel Oyarzabal",
+     "minute": 22,
+     "offset": 0,
+     "display": "22",
+     "phase": "normal",
+     "penalty": true,
+     "owngoal": false
+    },
+    {
+     "team": "away",
+     "scorer": "Pedro Porro",
+     "minute": 58,
+     "offset": 0,
+     "display": "58",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    }
+   ]
+  },
+  {
+   "world_cup": 2026,
+   "game_no_in_wc": 102,
+   "game_no_continuous": 294,
+   "stage": "knockout",
+   "round": "Semi-finals",
+   "date": "2026-07-15",
+   "home": "England",
+   "away": "Argentina",
+   "ft": [
+    1,
+    2
+   ],
+   "draw_after_90": false,
+   "result": "2",
+   "et": null,
+   "pens": null,
+   "goals": [
+    {
+     "team": "home",
+     "scorer": "Anthony Gordon",
+     "minute": 55,
+     "offset": 0,
+     "display": "55",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "away",
+     "scorer": "Enzo Fernandez",
+     "minute": 85,
+     "offset": 0,
+     "display": "85",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "away",
+     "scorer": "Lautaro Martinez",
+     "minute": 90,
+     "offset": 2,
+     "display": "90+2",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    }
+   ]
+  },
+  {
+   "world_cup": 2026,
+   "game_no_in_wc": 103,
+   "game_no_continuous": 295,
+   "stage": "knockout",
+   "round": "Match for third place",
+   "date": "2026-07-18",
+   "home": "France",
+   "away": "England",
+   "ft": [
+    4,
+    6
+   ],
+   "draw_after_90": false,
+   "result": "2",
+   "et": null,
+   "pens": null,
+   "goals": [
+    {
+     "team": "away",
+     "scorer": "Declan Rice",
+     "minute": 3,
+     "offset": 0,
+     "display": "3",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "away",
+     "scorer": "Ezri Konsa",
+     "minute": 18,
+     "offset": 0,
+     "display": "18",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "away",
+     "scorer": "Bukayo Saka",
+     "minute": 37,
+     "offset": 0,
+     "display": "37",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "away",
+     "scorer": "Bukayo Saka",
+     "minute": 45,
+     "offset": 1,
+     "display": "45+1",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "home",
+     "scorer": "Kylian Mbappe",
+     "minute": 48,
+     "offset": 0,
+     "display": "48",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "home",
+     "scorer": "Bradley Barcola",
+     "minute": 54,
+     "offset": 0,
+     "display": "54",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "home",
+     "scorer": "Kylian Mbappe",
+     "minute": 66,
+     "offset": 0,
+     "display": "66",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "away",
+     "scorer": "Bukayo Saka",
+     "minute": 87,
+     "offset": 0,
+     "display": "87",
+     "phase": "normal",
+     "penalty": true,
+     "owngoal": false
+    },
+    {
+     "team": "home",
+     "scorer": "Ousmane Dembele",
+     "minute": 90,
+     "offset": 6,
+     "display": "90+6",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    },
+    {
+     "team": "away",
+     "scorer": "Jude Bellingham",
+     "minute": 90,
+     "offset": 8,
+     "display": "90+8",
+     "phase": "normal",
+     "penalty": false,
+     "owngoal": false
+    }
+   ]
+  },
+  {
+   "world_cup": 2026,
+   "game_no_in_wc": 104,
+   "game_no_continuous": 296,
+   "stage": "knockout",
+   "round": "Final",
+   "date": "2026-07-19",
+   "home": "Spain",
+   "away": "Argentina",
+   "ft": [
+    0,
+    0
+   ],
+   "draw_after_90": true,
+   "result": "1",
+   "et": [
+    1,
+    0
+   ],
+   "pens": null,
+   "goals": [
+    {
+     "team": "home",
+     "scorer": "Ferran Torres",
+     "minute": 106,
+     "offset": 0,
+     "display": "106",
+     "phase": "extra_time",
+     "penalty": false,
+     "owngoal": false
+    }
+   ]
   }
  ],
  "odds": {
@@ -15703,7 +15946,7 @@
     "stage": "knockout",
     "home": "France",
     "away": "Spain",
-    "game_no_in_wc": null,
+    "game_no_in_wc": 101,
     "odds_1": 2.38,
     "odds_X": 3.3,
     "odds_2": 3.35,
@@ -15715,7 +15958,7 @@
     "stage": "knockout",
     "home": "England",
     "away": "Argentina",
-    "game_no_in_wc": null,
+    "game_no_in_wc": 102,
     "odds_1": 2.6,
     "odds_X": 3.1,
     "odds_2": 3.15,
